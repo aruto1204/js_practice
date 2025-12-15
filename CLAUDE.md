@@ -40,3 +40,13 @@ js_practice/
 - Node.js v18 以上
 - TypeScript 5.x
 - 推奨エディタ: Visual Studio Code
+
+## 作業時の注意事項
+
+**作業を行うときは必ず docs/ 配下のドキュメントを確認してから作業を開始すること**
+
+- [docs/requirements.md](docs/requirements.md) - プロジェクト要件と学習コンテンツ構成
+- [docs/tech-stack.md](docs/tech-stack.md) - 技術スタックと設定詳細
+- [docs/learning-guide.md](docs/learning-guide.md) - 学習の進め方とベストプラクティス
+- [docs/javascript-best-practices.md](docs/javascript-best-practices.md) - JavaScript コーディング規約
+- [docs/typescript-best-practices.md](docs/typescript-best-practices.md) - TypeScript コーディング規約
