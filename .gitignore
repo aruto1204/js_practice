@@ -1,0 +1,24 @@
+# 依存関係
+node_modules/
+
+# ビルド出力
+dist/
+*.js.map
+
+# 環境ファイル
+.env
+.env.local
+
+# エディタ
+.vscode/
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ログ
+*.log
+npm-debug.log*
