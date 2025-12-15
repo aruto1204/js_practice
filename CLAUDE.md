@@ -43,6 +43,8 @@ js_practice/
 
 ## 作業時の注意事項
 
+### 作業開始前
+
 **作業を行うときは必ず docs/ 配下のドキュメントを確認してから作業を開始すること**
 
 - [docs/requirements.md](docs/requirements.md) - プロジェクト要件と学習コンテンツ構成
@@ -50,3 +52,11 @@ js_practice/
 - [docs/learning-guide.md](docs/learning-guide.md) - 学習の進め方とベストプラクティス
 - [docs/javascript-best-practices.md](docs/javascript-best-practices.md) - JavaScript コーディング規約
 - [docs/typescript-best-practices.md](docs/typescript-best-practices.md) - TypeScript コーディング規約
+
+### 作業終了後
+
+**作業終了時には必ず [docs/progress.md](docs/progress.md) に作業内容を反映すること**
+
+- 完了した項目のステータスを更新（⬜ 未着手 → ✅ 完了）
+- 完了日を記入
+- 必要に応じてメモ欄に学習内容や気づきを記録

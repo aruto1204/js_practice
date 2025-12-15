@@ -8,8 +8,6 @@ for (let i = 1; i <= 10; i++) {
   console.log(i);
 }
 
-
-
 /*
 問題2: 配列をfor文でループしてください
 */
@@ -20,8 +18,6 @@ for (let i = 0; i < fruits.length; i++) {
   console.log(fruits[i]);
 }
 
-
-
 /*
 問題3: for...of を使って配列をループしてください
 */
@@ -31,8 +27,6 @@ const colors = ['赤', '青', '緑', '黄', '紫'];
 for (const color of colors) {
   console.log(color);
 }
-
-
 
 /*
 問題4: for...in を使ってオブジェクトをループしてください
@@ -49,8 +43,6 @@ for (const key in person) {
   console.log(`${key}: ${person[key]}`);
 }
 
-
-
 /*
 問題5: while文を使ってください
 */
@@ -60,8 +52,6 @@ while (count <= 5) {
   console.log(count);
   count++;
 }
-
-
 
 /*
 問題6: break を使ってループを途中で抜けてください
@@ -75,8 +65,6 @@ for (let i = 1; i <= 10; i++) {
 }
 // 出力: 1, 2, 3, 4
 
-
-
 /*
 問題7: continue を使って特定の値をスキップしてください
 */
@@ -88,8 +76,6 @@ for (let i = 1; i <= 10; i++) {
   console.log(i);
 }
 // 出力: 1, 2, 4, 5, 7, 8, 10
-
-
 
 /*
 問題8: 実践問題 - 配列の合計を計算
@@ -103,8 +89,6 @@ for (const num of numbers) {
 }
 
 console.log('合計:', sum); // 150
-
-
 
 /*
 問題9: 実践問題 - 偶数のみを抽出
@@ -120,8 +104,6 @@ for (const num of allNumbers) {
 }
 
 console.log('偶数:', evenNumbers); // [2, 4, 6, 8, 10]
-
-
 
 /*
 問題10: 実践問題 - 九九の表を作成
@@ -143,8 +125,6 @@ for (let i = 1; i <= 9; i++) {
   console.log(row);
 }
 
-
-
 /*
 問題11: 実践問題 - 配列から特定の要素を探す
 */
@@ -165,8 +145,6 @@ console.log(`${targetStudent}は${foundIndex}番目にいます`); // 次郎は2
 // より良い方法: Array.indexOf() を使う
 const index = students.indexOf(targetStudent);
 console.log(`indexOf使用: ${index}`); // 2
-
-
 
 /*
 問題12: ネストしたループ
@@ -196,8 +174,6 @@ for (let i = 1; i <= 5; i++) {
 ****
 *****
 */
-
-
 
 /*
 追加例: 様々なパターン
