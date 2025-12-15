@@ -12,20 +12,23 @@
 
 // ここにコードを書いてください
 
+const myName = '太郎';
+let currentAge = 25;
+const birthYear = 1999;
+let counter = 0;
 
-
+console.log(myName, currentAge, birthYear, counter);
 /*
 問題2: 以下のコードのエラーを修正してください
 */
 
-const pi = 3.14;
+let pi = 3.14;
 pi = 3.14159; // このコードを修正
+console.log(pi);
 
 let message = 'Hello';
 const greeting = message;
-greeting = 'Hi'; // このコードを修正
-
-
+greeting != 'Hi'; // このコードを修正
 
 /*
 問題3: ブロックスコープを理解する
@@ -40,8 +43,6 @@ greeting = 'Hi'; // このコードを修正
 
 // console.log('ブロック外:', x, y); // コメントを外すとどうなる？
 
-
-
 /*
 問題4: const で宣言したオブジェクトのプロパティを変更できるか試してください
 */
@@ -52,8 +53,8 @@ const person = {
 };
 
 // person のプロパティを変更してみてください
-
-
-
+person.name = '花子';
+person.age = 30;
+console.log(person);
 
 // person = {}; // これは可能？不可能？
