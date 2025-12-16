@@ -90,7 +90,7 @@ npm install
 
 ```bash
 # JavaScript の実行
-node part1-javascript/chapter01-basics/examples/01-variables.js
+node part1-javascript/chapter01-basics/exercises/01-variables.js
 
 # TypeScript の実行
 npx ts-node part2-typescript-basics/chapter01-intro/examples/01-hello.ts
@@ -103,16 +103,18 @@ npx ts-node part2-typescript-basics/chapter01-intro/examples/01-hello.ts
 ### Part 1: JavaScript 復習編
 
 #### 重点ポイント
-| 章 | 重要度 | 学習のコツ |
-|----|--------|-----------|
-| 基本文法 | ★★★ | let/const の違いを理解 |
-| 関数 | ★★★★★ | アロー関数とクロージャが TypeScript の基礎 |
-| オブジェクトと配列 | ★★★★ | 配列メソッドは必須、分割代入も重要 |
-| クラス | ★★★★ | TypeScript のクラス構文の土台 |
-| 非同期処理 | ★★★★★ | async/await は現代 JS の必須スキル |
-| モジュール | ★★★★ | import/export は TypeScript でも同じ |
+
+| 章                 | 重要度 | 学習のコツ                                 |
+| ------------------ | ------ | ------------------------------------------ |
+| 基本文法           | ★★★    | let/const の違いを理解                     |
+| 関数               | ★★★★★  | アロー関数とクロージャが TypeScript の基礎 |
+| オブジェクトと配列 | ★★★★   | 配列メソッドは必須、分割代入も重要         |
+| クラス             | ★★★★   | TypeScript のクラス構文の土台              |
+| 非同期処理         | ★★★★★  | async/await は現代 JS の必須スキル         |
+| モジュール         | ★★★★   | import/export は TypeScript でも同じ       |
 
 #### つまずきやすいポイント
+
 - **this の挙動**: 通常関数とアロー関数で異なる
 - **非同期処理**: Promise と async/await の関係
 - **参照と値**: オブジェクト/配列のコピー方法
@@ -120,16 +122,18 @@ npx ts-node part2-typescript-basics/chapter01-intro/examples/01-hello.ts
 ### Part 2: TypeScript 基礎編
 
 #### 重点ポイント
-| 章 | 重要度 | 学習のコツ |
-|----|--------|-----------|
-| TypeScript 入門 | ★★★ | 環境構築と基本的なコンパイルを理解 |
-| 基本的な型 | ★★★★★ | 型推論を理解し、明示的な型注釈との使い分け |
-| オブジェクトの型 | ★★★★★ | interface と type の違いを確実に |
-| 関数の型 | ★★★★ | 引数と戻り値の型定義が基本 |
-| 高度な型 | ★★★★ | ユニオン型と型ガードは実務で必須 |
-| ジェネリクス | ★★★★★ | 難しいが、ライブラリを使う際に必要 |
+
+| 章               | 重要度 | 学習のコツ                                 |
+| ---------------- | ------ | ------------------------------------------ |
+| TypeScript 入門  | ★★★    | 環境構築と基本的なコンパイルを理解         |
+| 基本的な型       | ★★★★★  | 型推論を理解し、明示的な型注釈との使い分け |
+| オブジェクトの型 | ★★★★★  | interface と type の違いを確実に           |
+| 関数の型         | ★★★★   | 引数と戻り値の型定義が基本                 |
+| 高度な型         | ★★★★   | ユニオン型と型ガードは実務で必須           |
+| ジェネリクス     | ★★★★★  | 難しいが、ライブラリを使う際に必要         |
 
 #### つまずきやすいポイント
+
 - **any vs unknown**: any は使わない、unknown を使う
 - **interface vs type**: オブジェクトは interface、それ以外は type
 - **ジェネリクス**: 抽象的で理解に時間がかかる
@@ -137,12 +141,13 @@ npx ts-node part2-typescript-basics/chapter01-intro/examples/01-hello.ts
 ### Part 3: TypeScript 実践編
 
 #### 重点ポイント
-| 章 | 重要度 | 学習のコツ |
-|----|--------|-----------|
-| クラスの型定義 | ★★★★ | アクセス修飾子と抽象クラス |
-| 高度な型操作 | ★★★ | ユーティリティ型を使いこなす |
-| 型定義ファイル | ★★★ | 外部ライブラリの型を理解 |
-| 実践プロジェクト | ★★★★★ | 学んだことの総合的な実践 |
+
+| 章               | 重要度 | 学習のコツ                   |
+| ---------------- | ------ | ---------------------------- |
+| クラスの型定義   | ★★★★   | アクセス修飾子と抽象クラス   |
+| 高度な型操作     | ★★★    | ユーティリティ型を使いこなす |
+| 型定義ファイル   | ★★★    | 外部ライブラリの型を理解     |
+| 実践プロジェクト | ★★★★★  | 学んだことの総合的な実践     |
 
 ---
 
@@ -182,13 +187,13 @@ console.log(Array.isArray(value));
 
 ### 難易度の目安
 
-| レベル | 目安時間 | 説明 |
-|--------|---------|------|
-| ⭐ | 5分以内 | 基本構文の確認 |
-| ⭐⭐ | 10分程度 | 複数の概念を組み合わせ |
-| ⭐⭐⭐ | 20分程度 | 応用的な問題 |
-| ⭐⭐⭐⭐ | 30分以上 | 実践的な課題 |
-| ⭐⭐⭐⭐⭐ | 1時間以上 | チャレンジ問題 |
+| レベル     | 目安時間  | 説明                   |
+| ---------- | --------- | ---------------------- |
+| ⭐         | 5分以内   | 基本構文の確認         |
+| ⭐⭐       | 10分程度  | 複数の概念を組み合わせ |
+| ⭐⭐⭐     | 20分程度  | 応用的な問題           |
+| ⭐⭐⭐⭐   | 30分以上  | 実践的な課題           |
+| ⭐⭐⭐⭐⭐ | 1時間以上 | チャレンジ問題         |
 
 ### 問題が解けないとき
 
@@ -248,20 +253,20 @@ console.log(Array.isArray(value));
 
 ### 無料リソース
 
-| リソース | URL | 用途 |
-|---------|-----|------|
-| MDN Web Docs | https://developer.mozilla.org/ja/ | JavaScript リファレンス |
-| TypeScript 公式 | https://www.typescriptlang.org/docs/ | 公式ドキュメント |
-| JavaScript.info | https://ja.javascript.info/ | チュートリアル |
-| TypeScript Deep Dive | https://basarat.gitbook.io/typescript/ | 詳細な解説 |
+| リソース             | URL                                    | 用途                    |
+| -------------------- | -------------------------------------- | ----------------------- |
+| MDN Web Docs         | https://developer.mozilla.org/ja/      | JavaScript リファレンス |
+| TypeScript 公式      | https://www.typescriptlang.org/docs/   | 公式ドキュメント        |
+| JavaScript.info      | https://ja.javascript.info/            | チュートリアル          |
+| TypeScript Deep Dive | https://basarat.gitbook.io/typescript/ | 詳細な解説              |
 
 ### 練習サイト
 
-| サイト | URL | 特徴 |
-|-------|-----|------|
+| サイト          | URL                                                | 特徴                  |
+| --------------- | -------------------------------------------------- | --------------------- |
 | Type Challenges | https://github.com/type-challenges/type-challenges | TypeScript の型パズル |
-| Exercism | https://exercism.org/ | 実践的な問題 |
-| LeetCode | https://leetcode.com/ | アルゴリズム練習 |
+| Exercism        | https://exercism.org/                              | 実践的な問題          |
+| LeetCode        | https://leetcode.com/                              | アルゴリズム練習      |
 
 ### コミュニティ
 
@@ -280,6 +285,7 @@ console.log(Array.isArray(value));
 ### Q: どのくらいの期間で習得できる？
 
 **A:** 個人差がありますが、目安として：
+
 - Part 1（JavaScript 復習）: 2〜3週間
 - Part 2（TypeScript 基礎）: 3〜4週間
 - Part 3（TypeScript 実践）: 2〜3週間
