@@ -10,11 +10,13 @@
 // - author: '夏目漱石'
 // - year: 1905
 
-const book = /* ここにコードを書く */;
+const book = {
+  title: '吾輩は猫である',
+  author: '夏目漱石',
+  year: 1905,
+};
 
 console.log(book);
-
-
 
 /*
 問題2: プロパティへのアクセス
@@ -27,12 +29,10 @@ const user = {
 };
 
 // ドット記法で name を取得
-
+console.log(user.name);
 
 // ブラケット記法で email を取得
-
-
-
+console.log(user['email']);
 
 /*
 問題3: プロパティの追加・更新・削除
@@ -44,17 +44,15 @@ const product = {
 };
 
 // city プロパティを追加（値: '東京'）
-
+product.city = '東京';
 
 // price を 95000 に更新
-
+product.price = 95000;
 
 // name プロパティを削除
-
+delete product.name;
 
 console.log(product);
-
-
 
 /*
 問題4: オブジェクトのキーと値を取得
@@ -67,19 +65,17 @@ const car = {
 };
 
 // すべてのキーを配列で取得
-const keys = /* ここにコードを書く */;
+const keys = Object.keys(car);
 
 // すべての値を配列で取得
-const values = /* ここにコードを書く */;
+const values = Object.values(car);
 
 // キーと値のペアを配列で取得
-const entries = /* ここにコードを書く */;
+const entries = Object.entries(car);
 
 console.log(keys);
 console.log(values);
 console.log(entries);
-
-
 
 /*
 問題5: オブジェクトのループ
@@ -95,9 +91,9 @@ const scores = {
 // 例: "math: 90"
 
 // ここにコードを書いてください
-
-
-
+for (const key in scores) {
+  console.log(`${key}: ${scores[key]}`);
+}
 
 /*
 問題6: オブジェクトのコピー
@@ -109,15 +105,13 @@ const original = {
 };
 
 // スプレッド演算子を使ってコピー
-const copy = /* ここにコードを書く */;
+const copy = { ...original };
 
 // コピーの age を 26 に変更
 copy.age = 26;
 
 console.log('original:', original.age); // 25
 console.log('copy:', copy.age); // 26
-
-
 
 /*
 問題7: オブジェクトのマージ
@@ -135,12 +129,10 @@ const userSettings = {
 };
 
 // スプレッド演算子を使ってマージ（userSettings を優先）
-const settings = /* ここにコードを書く */;
+const settings = { ...defaultSettings, ...userSettings };
 
 console.log(settings);
 // { theme: 'light', fontSize: 16, language: 'en' }
-
-
 
 /*
 問題8: 実践問題 - ユーザー情報の管理
@@ -154,11 +146,9 @@ const users = [
 
 // Object.keys() を使って、最初のユーザーのプロパティ名を取得
 
-
 // Object.values() を使って、最初のユーザーのすべての値を取得
 
-
 // すべてのユーザーの名前だけを配列にする（ヒント: map を使う）
-const names = /* ここにコードを書く */;
+const names = users.map((user) => user.name);
 
 console.log(names); // ['太郎', '花子', '次郎']
