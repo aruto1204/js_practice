@@ -7,11 +7,11 @@
 
 // ここにコードを書いてください
 
-
+function add(a, b) {
+  return a + b;
+}
 
 console.log(add(5, 3)); // 8
-
-
 
 /*
 問題2: 関数式を使って、2つの数値を受け取り、その差を返す関数 subtract を作成してください
@@ -19,11 +19,10 @@ console.log(add(5, 3)); // 8
 
 // ここにコードを書いてください
 
-
-
+function subtract(a, b) {
+  return a - b;
+}
 console.log(subtract(10, 4)); // 6
-
-
 
 /*
 問題3: 関数宣言と関数式の巻き上げの違いを確認してください
@@ -33,17 +32,15 @@ console.log(subtract(10, 4)); // 6
 
 // console.log(multiply(2, 3)); // これは動く？
 
-function multiply(a, b) {
-  return a * b;
-}
+// function multiply(a, b) {
+//   return a * b;
+// }
 
 // console.log(divide(10, 2)); // これは動く？
 
-const divide = function (a, b) {
-  return a / b;
-};
-
-
+// const divide = function (a, b) {
+//   return a / b;
+// };
 
 /*
 問題4: 引数と戻り値を持つ関数を作成してください
@@ -54,11 +51,10 @@ const divide = function (a, b) {
 
 // ここにコードを書いてください
 
-
-
+const greet = (name) => {
+  return `こんにちは、${name}さん`;
+};
 console.log(greet('太郎'));
-
-
 
 /*
 問題5: 関数内で条件分岐を使う
@@ -68,7 +64,7 @@ console.log(greet('太郎'));
 
 // ここにコードを書いてください
 
-
+const checkAge = (age) => (age >= 20 ? '成人' : '未成年');
 
 console.log(checkAge(25)); // '成人'
 console.log(checkAge(18)); // '未成年'

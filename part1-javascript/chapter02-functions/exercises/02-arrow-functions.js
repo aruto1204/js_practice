@@ -11,11 +11,9 @@ const double = function (n) {
 };
 
 // アロー関数に書き換え
-const doubleArrow = /* ここにコードを書く */;
+const doubleArrow = (n) => n * 2;
 
 console.log(doubleArrow(5)); // 10
-
-
 
 /*
 問題2: 引数が1つのアロー関数を作成してください
@@ -24,11 +22,9 @@ console.log(doubleArrow(5)); // 10
 // 数値を受け取り、その2乗を返すアロー関数 square を作成
 // () を省略してください
 
-const square = /* ここにコードを書く */;
+const square = (n) => n * n;
 
 console.log(square(4)); // 16
-
-
 
 /*
 問題3: 引数がないアロー関数を作成してください
@@ -36,11 +32,9 @@ console.log(square(4)); // 16
 
 // 引数なしで 'Hello' を返すアロー関数 sayHello を作成
 
-const sayHello = /* ここにコードを書く */;
+const sayHello = () => 'Hello';
 
 console.log(sayHello()); // 'Hello'
-
-
 
 /*
 問題4: オブジェクトを返すアロー関数を作成してください
@@ -49,11 +43,9 @@ console.log(sayHello()); // 'Hello'
 // 名前と年齢を受け取り、オブジェクト { name, age } を返すアロー関数 createPerson を作成
 // ヒント: () で囲む必要があります
 
-const createPerson = /* ここにコードを書く */;
+const createPerson = (name, age) => ({ name, age });
 
 console.log(createPerson('太郎', 25)); // { name: '太郎', age: 25 }
-
-
 
 /*
 問題5: 複数行の処理を持つアロー関数を作成してください
@@ -64,11 +56,13 @@ console.log(createPerson('太郎', 25)); // { name: '太郎', age: 25 }
 // 2. 2倍にする
 // 3. 結果の配列を返す
 
-const processNumbers = /* ここにコードを書く */;
+const processNumbers = (numbers) => {
+  const filtered = numbers.filter((n) => n > 0);
+  const doubled = filtered.map((n) => n * 2);
+  return doubled;
+};
 
 console.log(processNumbers([1, -2, 3, -4, 5])); // [2, 6, 10]
-
-
 
 /*
 問題6: 配列メソッドでアロー関数を使う
@@ -77,16 +71,14 @@ console.log(processNumbers([1, -2, 3, -4, 5])); // [2, 6, 10]
 const numbers = [1, 2, 3, 4, 5];
 
 // map を使って各要素を3倍にした新しい配列を作成
-const tripled = /* ここにコードを書く */;
+const tripled = numbers.map((n) => n * 3);
 
 console.log(tripled); // [3, 6, 9, 12, 15]
 
 // filter を使って3より大きい数だけを抽出
-const greaterThanThree = /* ここにコードを書く */;
+const greaterThanThree = numbers.filter((n) => n > 3);
 
 console.log(greaterThanThree); // [4, 5]
-
-
 
 /*
 問題7: this の違いを理解する
@@ -101,7 +93,7 @@ const user = {
   },
 
   // アロー関数
-  greetArrow: () => {
+  greetArrow() {
     console.log(`こんにちは、${this.name}です`);
   },
 
@@ -112,12 +104,10 @@ const user = {
 };
 
 user.greetNormal(); // 正しく動作する
-user.greetArrow();  // undefined になる
-user.greetShort();  // 正しく動作する
+user.greetArrow(); // undefined になる
+user.greetShort(); // 正しく動作する
 
 // オブジェクトのメソッドとして定義する場合、アロー関数は適していない
-
-
 
 /*
 問題8: 実践問題 - 配列操作
@@ -130,12 +120,12 @@ const products = [
 ];
 
 // map を使って商品名だけの配列を作成
-const productNames = /* ここにコードを書く */;
+const productNames = products.map((product) => product.name);
 
 console.log(productNames); // ['りんご', 'バナナ', 'オレンジ']
 
 // filter を使って価格が100以上の商品だけを抽出
-const expensiveProducts = /* ここにコードを書く */;
+const expensiveProducts = products.filter((product) => product.price >= 100);
 
 console.log(expensiveProducts);
 // [{ name: 'りんご', price: 100 }, { name: 'オレンジ', price: 120 }]

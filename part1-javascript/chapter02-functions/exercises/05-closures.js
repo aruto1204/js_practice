@@ -10,6 +10,11 @@
 
 function createCounter() {
   // ここにコードを書く
+  let count = 0;
+  return () => {
+    count++;
+    return count;
+  };
 }
 
 const counter1 = createCounter();
@@ -19,8 +24,6 @@ console.log(counter1()); // 3
 
 const counter2 = createCounter();
 console.log(counter2()); // 1（独立したカウンター）
-
-
 
 /*
 問題2: 挨拶文を生成するクロージャ
@@ -32,6 +35,9 @@ console.log(counter2()); // 1（独立したカウンター）
 
 function createGreeter(greeting) {
   // ここにコードを書く
+  return (name) => {
+    return `${greeting}、${name}さん`;
+  };
 }
 
 const greetJapanese = createGreeter('こんにちは');
@@ -39,8 +45,6 @@ const greetEnglish = createGreeter('Hello');
 
 console.log(greetJapanese('太郎')); // 'こんにちは、太郎さん'
 console.log(greetEnglish('Taro')); // 'Hello、Taroさん'
-
-
 
 /*
 問題3: プライベート変数を持つオブジェクト
@@ -54,6 +58,24 @@ console.log(greetEnglish('Taro')); // 'Hello、Taroさん'
 
 function createBankAccount(initialBalance) {
   // ここにコードを書く
+  let balance = initialBalance;
+  return {
+    deposit(amount) {
+      balance += amount;
+      return balance;
+    },
+    withdraw(amount) {
+      if (balance >= amount) {
+        balance -= amount;
+        return balance;
+      } else {
+        return '残高不足';
+      }
+    },
+    getBalance() {
+      return balance;
+    },
+  };
 }
 
 const account = createBankAccount(1000);
@@ -61,8 +83,6 @@ console.log(account.deposit(500)); // 1500
 console.log(account.withdraw(300)); // 1200
 console.log(account.withdraw(2000)); // '残高不足'
 console.log(account.getBalance()); // 1200
-
-
 
 /*
 問題4: 乗算関数を生成するクロージャ
@@ -74,6 +94,9 @@ console.log(account.getBalance()); // 1200
 
 function createMultiplier(multiplier) {
   // ここにコードを書く
+  return (n) => {
+    return n * multiplier;
+  };
 }
 
 const double = createMultiplier(2);
@@ -81,8 +104,6 @@ const triple = createMultiplier(3);
 
 console.log(double(5)); // 10
 console.log(triple(5)); // 15
-
-
 
 /*
 問題5: カウントダウンタイマー
@@ -94,6 +115,15 @@ console.log(triple(5)); // 15
 
 function createCountdown(start) {
   // ここにコードを書く
+  let count = start;
+  return () => {
+    if (count > 0) {
+      count--;
+      return count;
+    } else {
+      return 'カウント終了';
+    }
+  };
 }
 
 const countdown = createCountdown(3);
@@ -101,8 +131,6 @@ console.log(countdown()); // 2
 console.log(countdown()); // 1
 console.log(countdown()); // 0
 console.log(countdown()); // 'カウント終了'
-
-
 
 /*
 問題6: プライベートなID生成器
@@ -113,14 +141,17 @@ console.log(countdown()); // 'カウント終了'
 
 function createIdGenerator() {
   // ここにコードを書く
+  let id = 0;
+  return () => {
+    id++;
+    return id;
+  };
 }
 
 const generateId = createIdGenerator();
 console.log(generateId()); // 1
 console.log(generateId()); // 2
 console.log(generateId()); // 3
-
-
 
 /*
 問題7: 実践問題 - TODOリスト
@@ -135,6 +166,21 @@ console.log(generateId()); // 3
 
 function createTodoList() {
   // ここにコードを書く
+  let todos = [];
+  return {
+    add(task) {
+      todos.push(task);
+    },
+    remove(index) {
+      todos.splice(index, 1);
+    },
+    getAll() {
+      return [...todos];
+    },
+    getCount() {
+      return todos.length;
+    },
+  };
 }
 
 const todoList = createTodoList();
@@ -145,8 +191,6 @@ console.log(todoList.getAll()); // ['買い物', '掃除', '勉強']
 console.log(todoList.getCount()); // 3
 todoList.remove(1); // '掃除' を削除
 console.log(todoList.getAll()); // ['買い物', '勉強']
-
-
 
 /*
 問題8: 実践問題 - 履歴機能付きカウンター
@@ -161,6 +205,26 @@ console.log(todoList.getAll()); // ['買い物', '勉強']
 
 function createHistoryCounter() {
   // ここにコードを書く
+  let value = 0;
+  let history = [0];
+  return {
+    increment() {
+      value++;
+      history.push(value);
+      return value;
+    },
+    decrement() {
+      value--;
+      history.push(value);
+      return value;
+    },
+    getValue() {
+      return value;
+    },
+    getHistory() {
+      return [...history];
+    },
+  };
 }
 
 const historyCounter = createHistoryCounter();

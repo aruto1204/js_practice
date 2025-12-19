@@ -8,14 +8,12 @@
 // 名前を受け取り、挨拶文を返す関数 greet を作成
 // 名前が指定されなかった場合は 'ゲスト' をデフォルト値とする
 
-function greet(/* ここにコードを書く */) {
+function greet(name = 'ゲスト') {
   return `こんにちは、${name}さん`;
 }
 
 console.log(greet('太郎')); // 'こんにちは、太郎さん'
 console.log(greet()); // 'こんにちは、ゲストさん'
-
-
 
 /*
 問題2: 複数のデフォルト引数を使う
@@ -24,7 +22,7 @@ console.log(greet()); // 'こんにちは、ゲストさん'
 // ユーザー情報を作成する関数 createUser を作成
 // デフォルト値: name = '名無し', age = 0, city = '未設定'
 
-const createUser = (/* ここにコードを書く */) => {
+const createUser = (name = '名無し', age = 0, city = '未設定') => {
   return { name, age, city };
 };
 
@@ -37,23 +35,20 @@ console.log(createUser('花子'));
 console.log(createUser());
 // { name: '名無し', age: 0, city: '未設定' }
 
-
-
 /*
 問題3: 残余引数を使って可変長引数を受け取る
 */
 
 // 任意の個数の数値を受け取り、その合計を返す関数 sum を作成
 
-function sum(/* ここにコードを書く */) {
+function sum(...numbers) {
+  return numbers.reduce((total, num) => total + num, 0);
   // ここにコードを書く
 }
 
 console.log(sum(1, 2, 3)); // 6
 console.log(sum(1, 2, 3, 4, 5)); // 15
 console.log(sum(10)); // 10
-
-
 
 /*
 問題4: 通常の引数と残余引数を組み合わせる
@@ -63,14 +58,13 @@ console.log(sum(10)); // 10
 // 例: greetAll('こんにちは', '太郎', '花子', '次郎')
 //     → 'こんにちは、太郎と花子と次郎さん'
 
-function greetAll(/* ここにコードを書く */) {
+function greetAll(greeting, ...names) {
+  return `${greeting}、${names.join('と')}さん`;
   // ここにコードを書く
 }
 
 console.log(greetAll('こんにちは', '太郎', '花子', '次郎'));
 // 'こんにちは、太郎と花子と次郎さん'
-
-
 
 /*
 問題5: 配列の最大値を求める
@@ -79,14 +73,13 @@ console.log(greetAll('こんにちは', '太郎', '花子', '次郎'));
 // 任意の個数の数値を受け取り、最大値を返す関数 findMax を作成
 // ヒント: Math.max() を使う
 
-function findMax(/* ここにコードを書く */) {
+function findMax(...numbers) {
+  return Math.max(...numbers);
   // ここにコードを書く
 }
 
 console.log(findMax(1, 5, 3, 9, 2)); // 9
 console.log(findMax(10, 20, 15)); // 20
-
-
 
 /*
 問題6: スプレッド演算子を使う
@@ -95,16 +88,14 @@ console.log(findMax(10, 20, 15)); // 20
 const numbers = [3, 7, 2, 9, 1];
 
 // Math.max にスプレッド演算子を使って配列を展開し、最大値を求める
-const max = /* ここにコードを書く */;
+const max = Math.max(...numbers);
 
 console.log(max); // 9
 
 // Math.min を使って最小値を求める
-const min = /* ここにコードを書く */;
+const min = Math.min(...numbers);
 
 console.log(min); // 1
-
-
 
 /*
 問題7: 実践問題 - 配列の平均値を計算
@@ -112,14 +103,12 @@ console.log(min); // 1
 
 // 任意の個数の数値を受け取り、平均値を返す関数 average を作成
 
-function average(/* ここにコードを書く */) {
-  // ここにコードを書く
+function average(...numbers) {
+  return numbers.reduce((total, num) => total + num, 0) / numbers.length;
 }
 
 console.log(average(10, 20, 30)); // 20
 console.log(average(5, 10, 15, 20)); // 12.5
-
-
 
 /*
 問題8: 実践問題 - 配列を結合する関数
@@ -128,9 +117,8 @@ console.log(average(5, 10, 15, 20)); // 12.5
 // 複数の配列を受け取り、1つの配列に結合して返す関数 mergeArrays を作成
 // ヒント: 残余引数とスプレッド演算子を組み合わせる
 
-function mergeArrays(/* ここにコードを書く */) {
-  // ここにコードを書く
+function mergeArrays(...arrays) {
+  return arrays.flat();
 }
 
-console.log(mergeArrays([1, 2], [3, 4], [5, 6]));
-// [1, 2, 3, 4, 5, 6]
+console.log(mergeArrays([1, 2], [3, 4], [5, 6])); // [1, 2, 3, 4, 5, 6]

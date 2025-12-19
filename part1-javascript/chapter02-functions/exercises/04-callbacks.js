@@ -9,15 +9,13 @@
 
 function execute(callback) {
   console.log('処理開始');
-  // ここでコールバックを実行
+  callback();
   console.log('処理終了');
 }
 
 execute(() => {
   console.log('コールバック実行中');
 });
-
-
 
 /*
 問題2: 配列のforEachを使う
@@ -29,9 +27,9 @@ const fruits = ['りんご', 'バナナ', 'オレンジ'];
 // 例: '好き: りんご'
 
 // ここにコードを書いてください
-
-
-
+fruits.forEach((fruit) => {
+  console.log(`好き: ${fruit}`);
+});
 
 /*
 問題3: mapを使って配列を変換
@@ -40,11 +38,9 @@ const fruits = ['りんご', 'バナナ', 'オレンジ'];
 const numbers = [1, 2, 3, 4, 5];
 
 // map を使って、各要素を2倍にした新しい配列を作成
-const doubled = /* ここにコードを書く */;
+const doubled = numbers.map((n) => n * 2);
 
 console.log(doubled); // [2, 4, 6, 8, 10]
-
-
 
 /*
 問題4: filterを使って配列をフィルタリング
@@ -53,11 +49,9 @@ console.log(doubled); // [2, 4, 6, 8, 10]
 const ages = [15, 22, 18, 30, 12, 25];
 
 // filter を使って、20歳以上の年齢だけを抽出
-const adults = /* ここにコードを書く */;
+const adults = ages.filter((age) => age >= 20);
 
 console.log(adults); // [22, 30, 25]
-
-
 
 /*
 問題5: findを使って要素を検索
@@ -70,11 +64,9 @@ const users = [
 ];
 
 // find を使って、年齢が30のユーザーを見つける
-const user30 = /* ここにコードを書く */;
+const user30 = users.find((user) => user.age === 30);
 
 console.log(user30); // { name: '花子', age: 30 }
-
-
 
 /*
 問題6: カスタムコールバック関数を持つ関数を作成
@@ -83,7 +75,7 @@ console.log(user30); // { name: '花子', age: 30 }
 // 配列と変換関数を受け取り、各要素を変換した新しい配列を返す関数 transform を作成
 
 function transform(arr, callback) {
-  // ここにコードを書く
+  return arr.map(callback);
 }
 
 const nums = [1, 2, 3, 4, 5];
@@ -94,8 +86,6 @@ console.log(squared); // [1, 4, 9, 16, 25]
 const strings = transform(nums, (n) => `数字: ${n}`);
 console.log(strings); // ['数字: 1', '数字: 2', ...]
 
-
-
 /*
 問題7: フィルタリング関数を作成
 */
@@ -103,7 +93,7 @@ console.log(strings); // ['数字: 1', '数字: 2', ...]
 // 配列と条件関数を受け取り、条件を満たす要素だけを返す関数 filterArray を作成
 
 function filterArray(arr, callback) {
-  // ここにコードを書く
+  return arr.filter(callback);
 }
 
 const numbers2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -114,8 +104,6 @@ console.log(evens); // [2, 4, 6, 8, 10]
 const greaterThanFive = filterArray(numbers2, (n) => n > 5);
 console.log(greaterThanFive); // [6, 7, 8, 9, 10]
 
-
-
 /*
 問題8: reduceを使って合計を計算
 */
@@ -123,11 +111,9 @@ console.log(greaterThanFive); // [6, 7, 8, 9, 10]
 const prices = [100, 200, 300, 400, 500];
 
 // reduce を使って合計金額を計算
-const total = /* ここにコードを書く */;
+const total = prices.reduce((sum, price) => sum + price, 0);
 
 console.log(total); // 1500
-
-
 
 /*
 問題9: 実践問題 - 配列操作の組み合わせ
@@ -143,11 +129,11 @@ const products = [
 // 在庫がある商品の価格の合計を計算
 // ヒント: filter と reduce を組み合わせる
 
-const totalInStock = /* ここにコードを書く */;
+const totalInStock = products
+  .filter((product) => product.inStock)
+  .reduce((sum, product) => sum + product.price, 0);
 
 console.log(totalInStock); // 420
-
-
 
 /*
 問題10: 実践問題 - ソート
@@ -163,7 +149,7 @@ const students = [
 // sort を使って、スコアの高い順に並び替え
 // ヒント: sort((a, b) => b.score - a.score)
 
-const sortedStudents = /* ここにコードを書く */;
+const sortedStudents = students.sort((a, b) => b.score - a.score);
 
 console.log(sortedStudents);
 // [{ name: '美咲', score: 95 }, { name: '花子', score: 92 }, ...]
