@@ -6,6 +6,9 @@
 */
 
 // ここにコードを書いてください
+for (let i = 1; i <= 10; i++) {
+  console.log(i);
+}
 
 /*
 問題2: 配列をfor文でループしてください
@@ -58,6 +61,10 @@ for (const key in person) {
 let count = 1;
 // ここにコードを書いてください
 
+while (count <= 5) {
+  console.log(count);
+  count++;
+}
 /*
 問題6: break を使ってループを途中で抜けてください
 */
@@ -65,6 +72,10 @@ let count = 1;
 // 1から10まで数えるが、5で止める
 for (let i = 1; i <= 10; i++) {
   // ここにコードを書いてください
+  if (i === 5) {
+    break;
+  }
+  console.log(i);
 }
 
 /*
@@ -74,6 +85,10 @@ for (let i = 1; i <= 10; i++) {
 // 1から10まで数えるが、3の倍数はスキップ
 for (let i = 1; i <= 10; i++) {
   // ここにコードを書いてください
+  if (i % 3 === 0) {
+    continue;
+  }
+  console.log(i);
 }
 
 /*
@@ -85,7 +100,9 @@ const numbers = [10, 20, 30, 40, 50];
 let sum = 0;
 // for...of を使って合計を計算
 // ここにコードを書いてください
-
+for (const num of numbers) {
+  sum += num;
+}
 console.log('合計:', sum); // 150
 
 /*
@@ -97,6 +114,11 @@ const evenNumbers = [];
 
 // for...of を使って偶数のみを evenNumbers に追加
 // ここにコードを書いてください
+for (const num of allNumbers) {
+  if (num % 2 === 0) {
+    evenNumbers.push(num);
+  }
+}
 
 console.log('偶数:', evenNumbers); // [2, 4, 6, 8, 10]
 
@@ -111,6 +133,12 @@ console.log('偶数:', evenNumbers); // [2, 4, 6, 8, 10]
 
 // ここにコードを書いてください
 
+for (let i = 1; i <= 9; i++) {
+  for (let j = 1; j <= 9; j++) {
+    console.log(`${i} x ${j} = ${i * j}`);
+  }
+}
+
 /*
 問題11: 実践問題 - 配列から特定の要素を探す
 */
@@ -122,7 +150,14 @@ const targetStudent = '次郎';
 // 見つかったら break でループを抜ける
 
 let foundIndex = -1;
-// ここにコードを書いてください
+// // ここにコードを書いてください
+
+for (let i = 0; i < students.length; i++) {
+  if (students[i] === targetStudent) {
+    foundIndex = i;
+    break;
+  }
+}
 
 console.log(`${targetStudent}は${foundIndex}番目にいます`);
 
@@ -138,3 +173,31 @@ console.log(`${targetStudent}は${foundIndex}番目にいます`);
 // *****
 
 // ここにコードを書いてください
+for (let i = 1; i <= 5; i++) {
+  let stars = '';
+  for (let j = 1; j <= i; j++) {
+    stars += '*';
+  }
+  console.log(stars);
+}
+
+const animals = ['pigs', 'goats', 'sheep'];
+
+// 方法1: push()実行後に配列を代入（最もシンプル）
+animals.push('cows');
+const count2 = animals;
+console.log(count2); // ['pigs', 'goats', 'sheep', 'cows']
+
+// 方法2: スプレッド演算子で新しい配列を作成（元の配列を変更せずに新しい配列を作成）
+// const count2 = [...animals, 'cows'];
+// console.log(count2); // ['pigs', 'goats', 'sheep', 'cows']
+
+// 方法3: concat()メソッドを使う（元の配列を変更せずに新しい配列を作成）
+// const count2 = animals.concat('cows');
+// console.log(count2); // ['pigs', 'goats', 'sheep', 'cows']
+
+console.log(animals);
+
+animals.push('chickens', 'cats', 'dogs');
+console.log(animals);
+// 予想される結果: Array ["pigs", "goats", "sheep", "cows", "chickens", "cats", "dogs"]
