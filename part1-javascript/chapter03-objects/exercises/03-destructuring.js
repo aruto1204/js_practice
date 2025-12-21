@@ -8,13 +8,11 @@
 const colors = ['赤', '青', '緑', '黄'];
 
 // 分割代入を使って、最初の3つの色を変数に代入
-const [/* ここにコードを書く */] = colors;
+const [first, second, third] = colors;
 
 console.log(first); // '赤'
 console.log(second); // '青'
 console.log(third); // '緑'
-
-
 
 /*
 問題2: 配列の一部をスキップ
@@ -23,12 +21,10 @@ console.log(third); // '緑'
 const numbers = [1, 2, 3, 4, 5];
 
 // 分割代入を使って、1番目と3番目だけを取得
-const [/* ここにコードを書く */] = numbers;
+const [num1, , num3] = numbers;
 
 console.log(num1); // 1
 console.log(num3); // 3
-
-
 
 /*
 問題3: オブジェクトの分割代入
@@ -41,12 +37,10 @@ const user = {
 };
 
 // 分割代入を使って name と age を変数に代入
-const { /* ここにコードを書く */ } = user;
+const { name, age } = user;
 
 console.log(name); // '太郎'
 console.log(age); // 25
-
-
 
 /*
 問題4: オブジェクトの分割代入（変数名を変更）
@@ -59,12 +53,10 @@ const product = {
 };
 
 // name を productName、price を productPrice という変数名で取得
-const { /* ここにコードを書く */ } = product;
+const { name: productName, price: productPrice } = product;
 
 console.log(productName); // 'ノートパソコン'
 console.log(productPrice); // 100000
-
-
 
 /*
 問題5: デフォルト値
@@ -76,13 +68,11 @@ const settings = {
 };
 
 // theme, fontSize, language（デフォルト値: 'ja'）を取得
-const { /* ここにコードを書く */ } = settings;
+const { theme, fontSize, language = 'ja' } = settings;
 
 console.log(theme); // 'dark'
 console.log(fontSize); // 14
 console.log(language); // 'ja'
-
-
 
 /*
 問題6: ネストしたオブジェクトの分割代入
@@ -98,27 +88,24 @@ const person = {
 
 // name と address.city を取得
 const {
-  /* ここにコードを書く */
+  name: name2,
+  address: { city },
 } = person;
 
-console.log(name); // '太郎'
+console.log(name2); // '太郎'
 console.log(city); // '東京'
-
-
 
 /*
 問題7: 関数の引数で分割代入
 */
 
 // オブジェクトを受け取り、nameとageを使って挨拶する関数
-function introduce(/* ここにコードを書く */) {
+function introduce({ name, age }) {
   console.log(`${name}さん、${age}歳です`);
 }
 
 introduce({ name: '花子', age: 30 });
 // '花子さん、30歳です'
-
-
 
 /*
 問題8: 配列を返す関数と分割代入
@@ -129,12 +116,10 @@ function getCoordinates() {
 }
 
 // 分割代入で緯度と経度を取得
-const [/* ここにコードを書く */] = getCoordinates();
+const [latitude, longitude] = getCoordinates();
 
 console.log(latitude); // 35.6762
 console.log(longitude); // 139.6503
-
-
 
 /*
 問題9: 実践問題 - ユーザー情報の抽出
@@ -147,11 +132,9 @@ const users = [
 ];
 
 // forEach と分割代入を使って、各ユーザーの name と email を表示
-users.forEach((/* ここにコードを書く */) => {
+users.forEach(({ name, email }) => {
   console.log(`${name}: ${email}`);
 });
-
-
 
 /*
 問題10: 実践問題 - オブジェクトのプロパティ交換
@@ -161,7 +144,7 @@ let a = 1;
 let b = 2;
 
 // 分割代入を使って、a と b の値を入れ替える
-[/* ここにコードを書く */] = [b, a];
+[a, b] = [b, a];
 
 console.log(a); // 2
 console.log(b); // 1

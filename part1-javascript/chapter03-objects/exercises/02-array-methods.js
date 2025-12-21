@@ -7,11 +7,9 @@
 
 const numbers = [1, 2, 3, 4, 5];
 
-const doubled = /* ここにコードを書く */;
+const doubled = numbers.map((number) => number * 2);
 
 console.log(doubled); // [2, 4, 6, 8, 10]
-
-
 
 /*
 問題2: filter - 偶数だけを抽出
@@ -19,11 +17,9 @@ console.log(doubled); // [2, 4, 6, 8, 10]
 
 const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-const evens = /* ここにコードを書く */;
+const evens = nums.filter((num) => num % 2 === 0);
 
 console.log(evens); // [2, 4, 6, 8, 10]
-
-
 
 /*
 問題3: find - 条件を満たす最初の要素を取得
@@ -36,11 +32,9 @@ const users = [
 ];
 
 // age が 30 のユーザーを見つける
-const user30 = /* ここにコードを書く */;
+const user30 = users.find((user) => user.age === 30);
 
 console.log(user30); // { id: 2, name: '花子', age: 30 }
-
-
 
 /*
 問題4: some - 1つでも条件を満たすか
@@ -49,11 +43,9 @@ console.log(user30); // { id: 2, name: '花子', age: 30 }
 const scores = [65, 72, 88, 54, 91];
 
 // 90点以上のスコアがあるか
-const hasHighScore = /* ここにコードを書く */;
+const hasHighScore = scores.some((score) => score >= 90);
 
 console.log(hasHighScore); // true
-
-
 
 /*
 問題5: every - すべてが条件を満たすか
@@ -62,11 +54,9 @@ console.log(hasHighScore); // true
 const ages = [20, 25, 30, 35, 40];
 
 // 全員が18歳以上か
-const allAdults = /* ここにコードを書く */;
+const allAdults = ages.every((age) => age >= 18);
 
 console.log(allAdults); // true
-
-
 
 /*
 問題6: reduce - 合計を計算
@@ -75,11 +65,9 @@ console.log(allAdults); // true
 const prices = [100, 200, 300, 400, 500];
 
 // 合計金額を計算
-const total = /* ここにコードを書く */;
+const total = prices.reduce((sum, price) => sum + price, 0);
 
 console.log(total); // 1500
-
-
 
 /*
 問題7: reduce - 最大値を取得
@@ -88,11 +76,9 @@ console.log(total); // 1500
 const values = [3, 7, 2, 9, 1, 5];
 
 // 最大値を取得
-const max = /* ここにコードを書く */;
+const max = values.reduce((max, value) => (value > max ? value : max));
 
 console.log(max); // 9
-
-
 
 /*
 問題8: メソッドチェーン
@@ -108,11 +94,11 @@ const products = [
 // category が '果物' の商品の価格の合計を計算
 // ヒント: filter と reduce を組み合わせる
 
-const fruitTotal = /* ここにコードを書く */;
+const fruitTotal = products
+  .filter((product) => product.category === '果物')
+  .reduce((sum, product) => sum + product.price, 0);
 
 console.log(fruitTotal); // 380
-
-
 
 /*
 問題9: sort - 年齢順にソート
@@ -126,11 +112,9 @@ const people = [
 ];
 
 // 年齢の若い順にソート
-const sortedByAge = /* ここにコードを書く */;
+const sortedByAge = people.sort((a, b) => a.age - b.age);
 
 console.log(sortedByAge);
-
-
 
 /*
 問題10: 実践問題 - データの集計
@@ -143,16 +127,14 @@ const sales = [
 ];
 
 // 各商品の売上（quantity * price）を計算して配列にする
-const revenues = /* ここにコードを書く */;
+const revenues = sales.map((sale) => sale.quantity * sale.price);
 
 console.log(revenues); // [500, 240, 480]
 
 // 総売上を計算
-const totalRevenue = /* ここにコードを書く */;
+const totalRevenue = revenues.reduce((sum, revenue) => sum + revenue, 0);
 
 console.log(totalRevenue); // 1220
-
-
 
 /*
 問題11: 実践問題 - データの変換
@@ -165,7 +147,14 @@ const students = [
 ];
 
 // 各生徒の平均点を計算して、{ name, average } の形式にする
-const averages = /* ここにコードを書く */;
+const averages = students.map((student) => {
+  const sum = student.scores.reduce((acc, score) => acc + score, 0);
+  const average = sum / student.scores.length;
+  return {
+    name: student.name,
+    average: average,
+  };
+});
 
 console.log(averages);
 // [
