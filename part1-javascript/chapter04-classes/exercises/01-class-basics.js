@@ -16,6 +16,15 @@
 
 class Book {
   // ここにコードを書いてください
+  constructor(title, author, year) {
+    this.title = title;
+    this.author = author;
+    this.year = year;
+  }
+
+  getInfo() {
+    return `${this.title} (${this.author}, ${this.year})`;
+  }
 }
 
 // テスト
@@ -41,6 +50,15 @@ console.log('');
 
 class Student {
   // ここにコードを書いてください
+  constructor(name, age, grade = 1) {
+    this.name = name;
+    this.age = age;
+    this.grade = grade;
+  }
+
+  introduce() {
+    console.log(`こんにちは、${this.name}です。${this.age}歳、${this.grade}年生です。`);
+  }
 }
 
 // テスト
@@ -72,6 +90,25 @@ console.log('');
 
 class Counter {
   // ここにコードを書いてください
+  constructor(initialValue = 0) {
+    this.count = initialValue;
+  }
+
+  increment() {
+    this.count++;
+  }
+
+  decrement() {
+    this.count--;
+  }
+
+  reset() {
+    this.count = 0;
+  }
+
+  getValue() {
+    return this.count;
+  }
 }
 
 // テスト
@@ -107,6 +144,18 @@ console.log('');
 
 class TodoItem {
   // ここにコードを書いてください
+  constructor(title, completed = false) {
+    this.title = title;
+    this.completed = completed;
+  }
+
+  getStatus() {
+    return this.completed ? `[完了] ${this.title}` : `[未完了] ${this.title}`;
+  }
+
+  toggle() {
+    this.completed = !this.completed;
+  }
 }
 
 // テスト
@@ -138,6 +187,18 @@ console.log('');
 
 class Point {
   // ここにコードを書いてください
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  distanceFromOrigin() {
+    return Math.sqrt(this.x ** 2 + this.y ** 2);
+  }
+
+  distanceTo(otherPoint) {
+    return Math.sqrt((this.x - otherPoint.x) ** 2 + (this.y - otherPoint.y) ** 2);
+  }
 }
 
 // テスト

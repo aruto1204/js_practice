@@ -82,6 +82,15 @@ class Timer {
 // テスト（手動で確認してください）
 console.log('=== 問題 2 のテスト ===');
 console.log('※ Timer は実際に時間が経過するため、コメントアウトしています');
+const timer = new Timer();
+console.log('開始:', timer.getElapsedTime()); // '00:00'
+timer.start();
+setTimeout(() => {
+  console.log('3秒後:', timer.getElapsedTime()); // '00:03'
+  timer.stop();
+  timer.reset();
+  console.log('リセット後:', timer.getElapsedTime()); // '00:00'
+}, 3000);
 console.log('');
 
 // 問題 3: Playlist クラスを作成
