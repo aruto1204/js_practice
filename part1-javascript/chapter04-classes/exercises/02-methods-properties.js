@@ -174,7 +174,16 @@ class Playlist {
   }
 
   shuffle() {
-    this.songs = this.songs.sort(() => Math.random() - 0.5);
+    // Fisher-Yates シャッフルアルゴリズム
+    for (let i = this.songs.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [this.songs[i], this.songs[j]] = [this.songs[j], this.songs[i]];
+    }
+    this.currentIndex = 0;
+  }
+
+  getList() {
+    return this.songs;
   }
 }
 
@@ -193,6 +202,8 @@ playlist.next();
 console.log('次の曲（最初に戻る）:', playlist.play());
 playlist.previous();
 console.log('前の曲:', playlist.play());
+playlist.shuffle();
+console.log('曲一覧:', playlist.getList());
 console.log('');
 
 // 問題 4: Calculator クラスを作成（メソッドチェーン対応）
@@ -210,17 +221,52 @@ console.log('');
 
 class Calculator {
   // ここにコードを書いてください
+  constructor() {
+    this.value = 0;
+  }
+
+  add(num) {
+    this.value += num;
+    return this;
+  }
+
+  subtract(num) {
+    this.value -= num;
+    return this;
+  }
+
+  multiply(num) {
+    this.value *= num;
+    return this;
+  }
+
+  divide(num) {
+    if (num === 0) {
+      throw new Error('0で除算することはできません');
+    }
+    this.value /= num;
+    return this;
+  }
+
+  getResult() {
+    return this.value;
+  }
+
+  clear() {
+    this.value = 0;
+    return this;
+  }
 }
 
 // テスト
-// console.log('=== 問題 4 のテスト ===');
-// const calc = new Calculator();
-// const result1 = calc.add(10).multiply(2).subtract(5).divide(3).getResult();
-// console.log('(10 + 10) * 2 - 5 / 3 =', result1);
-// calc.clear();
-// const result2 = calc.add(5).add(3).multiply(4).getResult();
-// console.log('(5 + 3) * 4 =', result2);
-// console.log('');
+console.log('=== 問題 4 のテスト ===');
+const calc = new Calculator();
+const result1 = calc.add(10).multiply(2).subtract(5).divide(3).getResult();
+console.log('(10 * 2 - 5) / 3 =', result1);
+calc.clear();
+const result2 = calc.add(5).add(3).multiply(4).getResult();
+console.log('(5 + 3) * 4 =', result2);
+console.log('');
 
 // 問題 5: BankAccount クラスを作成
 // 要件:
@@ -239,22 +285,66 @@ class Calculator {
 
 class BankAccount {
   // ここにコードを書いてください
+  constructor(owner, initialBalance = 0) {
+    this.owner = owner;
+    this.balance = initialBalance;
+    this.transactions = [];
+  }
+
+  deposit(amount) {
+    if (amount <= 0) {
+      throw new Error('入金額は正の数である必要があります');
+    }
+    this.balance += amount;
+    this.transactions.push({
+      type: '入金',
+      amount,
+      date: new Date(),
+      balance: this.balance,
+    });
+  }
+
+  withdraw(amount) {
+    if (amount <= 0) {
+      throw new Error('出金額は正の数である必要があります');
+    }
+    if (amount > this.balance) {
+      throw new Error('残高が不足しています');
+    }
+    this.balance -= amount;
+    this.transactions.push({
+      type: '出金',
+      amount,
+      date: new Date(),
+      balance: this.balance,
+    });
+  }
+
+  getBalance() {
+    return this.balance;
+  }
+
+  getTransactionHistory() {
+    return this.transactions;
+  }
 }
 
 // テスト
-// console.log('=== 問題 5 のテスト ===');
-// const account = new BankAccount('太郎', 10000);
-// console.log('初期残高:', account.getBalance());
-// account.deposit(5000);
-// console.log('入金後の残高:', account.getBalance());
-// account.withdraw(3000);
-// console.log('出金後の残高:', account.getBalance());
-// account.deposit(2000);
-// console.log('最終残高:', account.getBalance());
-// console.log('取引履歴:');
-// account.getTransactionHistory().forEach((tx, index) => {
-//   console.log(`  ${index + 1}. ${tx.type}: ¥${tx.amount} (残高: ¥${tx.balance})`);
-// });
+console.log('=== 問題 5 のテスト ===');
+const account = new BankAccount('太郎', 10000);
+console.log('初期残高:', account.getBalance());
+account.deposit(5000);
+console.log('入金後の残高:', account.getBalance());
+account.withdraw(3000);
+console.log('出金後の残高:', account.getBalance());
+account.deposit(2000);
+console.log('最終残高:', account.getBalance());
+console.log('取引履歴:');
+account.getTransactionHistory().forEach((tx, index) => {
+  console.log(
+    `  ${index + 1}. ${tx.type}: ¥${tx.amount} (残高: ¥${tx.balance}) ${tx.date.toLocaleString()}`
+  );
+});
 
 // エラーケースのテスト
 // console.log('\nエラーケースのテスト:');

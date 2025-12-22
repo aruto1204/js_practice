@@ -23,14 +23,49 @@
 
 class Animal {
   // ここにコードを書いてください
+  constructor(name) {
+    this.name = name;
+  }
+
+  speak() {
+    console.log(`${this.name} が鳴いています。`);
+  }
+
+  move() {
+    console.log(`${this.name} が移動しています。`);
+  }
 }
 
 class Dog extends Animal {
   // ここにコードを書いてください
+  constructor(name, breed) {
+    super(name);
+    this.breed = breed;
+  }
+
+  speak() {
+    console.log(`${this.name} がワンワン鳴いています！`);
+  }
+
+  fetch() {
+    console.log(`${this.name} がボールを取ってきます。`);
+  }
 }
 
 class Cat extends Animal {
   // ここにコードを書いてください
+  constructor(name, color) {
+    super(name);
+    this.color = color;
+  }
+
+  speak() {
+    console.log(`${this.name} がニャー鳴いています！`);
+  }
+
+  scratch() {
+    console.log(`${this.name} が爪を研いでいます。`);
+  }
 }
 
 // テスト
@@ -67,14 +102,46 @@ console.log('');
 
 class Shape {
   // ここにコードを書いてください
+  constructor(name) {
+    this.name = name;
+  }
+
+  getInfo() {
+    return `${this.name} は図形です。`;
+  }
 }
 
 class Rectangle extends Shape {
   // ここにコードを書いてください
+  constructor(width, height) {
+    super('長方形');
+    this.width = width;
+    this.height = height;
+  }
+
+  getArea() {
+    return this.width * this.height;
+  }
+
+  getPerimeter() {
+    return 2 * (this.width + this.height);
+  }
 }
 
 class Circle extends Shape {
   // ここにコードを書いてください
+  constructor(radius) {
+    super('円');
+    this.radius = radius;
+  }
+
+  getArea() {
+    return Math.PI * this.radius ** 2;
+  }
+
+  getCircumference() {
+    return 2 * Math.PI * this.radius;
+  }
 }
 
 // テスト
@@ -110,14 +177,49 @@ console.log('');
 
 class Person {
   // ここにコードを書いてください
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  introduce() {
+    console.log(`${this.name} と申します。${this.age}歳です。`);
+  }
 }
 
 class Employee extends Person {
   // ここにコードを書いてください
+  constructor(name, age, employeeId, department) {
+    super(name, age);
+    this.employeeId = employeeId;
+    this.department = department;
+  }
+
+  introduce() {
+    super.introduce();
+    console.log(`社員ID: ${this.employeeId}、所属: ${this.department}`);
+  }
+
+  getEmployeeInfo() {
+    return `${this.employeeId} - ${this.name} (${this.department})`;
+  }
 }
 
 class Manager extends Employee {
   // ここにコードを書いてください
+  constructor(name, age, employeeId, department, teamSize) {
+    super(name, age, employeeId, department);
+    this.teamSize = teamSize;
+  }
+
+  introduce() {
+    super.introduce();
+    console.log(`マネージャーとして${this.teamSize}人のチームを率いています。`);
+  }
+
+  getTeamInfo() {
+    return `チームサイズ: ${this.teamSize}人`;
+  }
 }
 
 // テスト
@@ -156,18 +258,55 @@ console.log('');
 
 class Vehicle {
   // ここにコードを書いてください
+  constructor(brand, model, year) {
+    this.brand = brand;
+    this.model = model;
+    this.year = year;
+  }
+
+  getInfo() {
+    return `${this.year}年式 ${this.brand} ${this.model}`;
+  }
 }
 
 class Car extends Vehicle {
   // ここにコードを書いてください
+  constructor(brand, model, year, numDoors) {
+    super(brand, model, year);
+    this.numDoors = numDoors;
+  }
+
+  start() {
+    console.log(`${this.brand} ${this.model} のエンジンを始動します。`);
+  }
 }
 
 class Motorcycle extends Vehicle {
   // ここにコードを書いてください
+  constructor(brand, model, year, type) {
+    super(brand, model, year);
+    this.type = type;
+  }
+
+  start() {
+    console.log(`${this.brand} ${this.model} のエンジンを始動します。バイクを楽しみましょう！`);
+  }
 }
 
 class ElectricCar extends Car {
   // ここにコードを書いてください
+  constructor(brand, model, year, numDoors, batteryCapacity) {
+    super(brand, model, year, numDoors);
+    this.batteryCapacity = batteryCapacity;
+  }
+
+  start() {
+    console.log(`${this.brand} ${this.model} の電源をオンにします。静かに発進します。`);
+  }
+
+  charge() {
+    console.log(`バッテリーを充電中... (容量: ${this.batteryCapacity}kWh)`);
+  }
 }
 
 // テスト
@@ -203,14 +342,51 @@ console.log('');
 
 class Account {
   // ここにコードを書いてください
+  constructor(accountNumber, balance = 0) {
+    this.accountNumber = accountNumber;
+    this.balance = balance;
+  }
+
+  deposit(amount) {
+    if (amount <= 0) {
+      throw new Error('入金額は正の数である必要があります');
+    }
+    this.balance += amount;
+  }
+
+  getBalance() {
+    return this.balance;
+  }
 }
 
 class SavingsAccount extends Account {
   // ここにコードを書いてください
+  constructor(accountNumber, balance, interestRate) {
+    super(accountNumber, balance);
+    this.interestRate = interestRate;
+  }
+
+  addInterest() {
+    this.balance += this.balance * this.interestRate;
+  }
 }
 
 class CheckingAccount extends Account {
   // ここにコードを書いてください
+  constructor(accountNumber, balance, overdraftLimit) {
+    super(accountNumber, balance);
+    this.overdraftLimit = overdraftLimit;
+  }
+
+  withdraw(amount) {
+    if (amount <= 0) {
+      throw new Error('出金額は正の数である必要があります');
+    }
+    if (this.balance - amount < -this.overdraftLimit) {
+      throw new Error(`引き出し限度額を超えています（限度額: ¥${this.overdraftLimit}）`);
+    }
+    this.balance -= amount;
+  }
 }
 
 // テスト
@@ -222,7 +398,7 @@ console.log('利息追加後の残高:', savings.getBalance());
 savings.deposit(5000);
 console.log('入金後の残高:', savings.getBalance());
 
-const checking = new CheckingAccount('C001', 5000, 3000);
+const checking = new CheckingAccount('C001', 5000, 4000);
 console.log('\n当座預金口座の初期残高:', checking.getBalance());
 checking.withdraw(6000);
 console.log('6000円引き出し後の残高:', checking.getBalance());
@@ -231,6 +407,7 @@ console.log('さらに3000円引き出し後の残高:', checking.getBalance());
 
 try {
   checking.withdraw(1000); // 限度額超過
+  console.log('1000円引き出し後の残高:', checking.getBalance());
 } catch (error) {
   console.log('エラー:', error.message);
 }
