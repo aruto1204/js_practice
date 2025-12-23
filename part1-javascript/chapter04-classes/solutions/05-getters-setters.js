@@ -273,7 +273,7 @@ console.log('面積:', circle.area);
 
 circle.circumference = 62.83;
 console.log('\n円周を62.83に設定後:');
-console.log('半径:', circle.radius.toFixed(2));
+console.log('半径:', circle.radius);
 console.log('直径:', circle.diameter);
 console.log('面積:', circle.area);
 

@@ -18,6 +18,23 @@
 
 class MathHelper {
   // ここにコードを書いてください
+  static PI = 3.14159;
+
+  static max(a, b) {
+    return a > b ? a : b;
+  }
+
+  static min(a, b) {
+    return a < b ? a : b;
+  }
+
+  static average(...numbers) {
+    return numbers.reduce((total, num) => total + num, 0) / numbers.length;
+  }
+
+  static sum(...numbers) {
+    return numbers.reduce((total, num) => total + num, 0);
+  }
 }
 
 // テスト
@@ -44,6 +61,29 @@ console.log('');
 
 class StringHelper {
   // ここにコードを書いてください
+  static capitalize(str) {
+    if (str.length === 0) return str;
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  static reverse(str) {
+    return str.split('').reverse().join('');
+  }
+
+  static isPalindrome(str) {
+    return str === str.split('').reverse().join('');
+  }
+
+  static truncate(str, length) {
+    return str.length > length ? str.slice(0, length) + '...' : str;
+  }
+
+  static wordCount(str) {
+    return str
+      .trim()
+      .split(/\s+/)
+      .filter((word) => word.length > 0).length;
+  }
 }
 
 // テスト
@@ -56,7 +96,10 @@ console.log(
   "truncate('This is a long sentence', 10):",
   StringHelper.truncate('This is a long sentence', 10)
 );
-console.log("wordCount('Hello world from JavaScript'):", StringHelper.wordCount('Hello world from JavaScript'));
+console.log(
+  "wordCount('Hello world from JavaScript'):",
+  StringHelper.wordCount('Hello world from JavaScript')
+);
 console.log('');
 
 // 問題 3: DateHelper クラスを作成
@@ -73,6 +116,36 @@ console.log('');
 
 class DateHelper {
   // ここにコードを書いてください
+  static isLeapYear(year) {
+    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+  }
+
+  static getDaysInMonth(year, month) {
+    const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    if (month === 2 && this.isLeapYear(year)) {
+      return 29;
+    }
+    return daysInMonth[month - 1];
+  }
+
+  static formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  static addDays(date, days) {
+    const newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + days);
+    return newDate;
+  }
+
+  static daysBetween(date1, date2) {
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  }
 }
 
 // テスト
@@ -104,6 +177,28 @@ console.log('');
 
 class User {
   // ここにコードを書いてください
+  static userCount = 0;
+  static allUsers = [];
+
+  constructor(name, email) {
+    this.name = name;
+    this.email = email;
+    this.id = ++User.userCount;
+    User.allUsers.push(this);
+  }
+
+  static getUserCount() {
+    return User.userCount;
+  }
+
+  static resetCount() {
+    User.userCount = 0;
+    User.allUsers = [];
+  }
+
+  static getAllUsers() {
+    return User.allUsers;
+  }
 }
 
 // テスト
@@ -144,6 +239,35 @@ console.log('');
 
 class Temperature {
   // ここにコードを書いてください
+  constructor(celsius) {
+    this.celsius = celsius;
+  }
+
+  static fromFahrenheit(fahrenheit) {
+    const celsius = ((fahrenheit - 32) * 5) / 9;
+    return new Temperature(celsius);
+  }
+
+  static fromKelvin(kelvin) {
+    const celsius = kelvin - 273.15;
+    return new Temperature(celsius);
+  }
+
+  toCelsius() {
+    return this.celsius;
+  }
+
+  toFahrenheit() {
+    return (this.celsius * 9) / 5 + 32;
+  }
+
+  toKelvin() {
+    return this.celsius + 273.15;
+  }
+
+  static compare(temp1, temp2) {
+    return temp1.celsius > temp2.celsius ? temp1 : temp2;
+  }
 }
 
 // テスト

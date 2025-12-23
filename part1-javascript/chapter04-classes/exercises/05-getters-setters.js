@@ -20,6 +20,28 @@
 
 class Person {
   // ここにコードを書いてください
+  constructor(firstName, lastName) {
+    this._firstName = firstName;
+    this._lastName = lastName;
+  }
+
+  get fullName() {
+    return `${this._firstName} ${this._lastName}`;
+  }
+
+  set fullName(name) {
+    const parts = name.split(' ');
+    this._firstName = parts[0];
+    this._lastName = parts[1];
+  }
+
+  get firstName() {
+    return this._firstName;
+  }
+
+  get lastName() {
+    return this._lastName;
+  }
 }
 
 // テスト
@@ -51,6 +73,44 @@ console.log('');
 
 class Rectangle {
   // ここにコードを書いてください
+  constructor(width, height) {
+    this._width = width;
+    this._height = height;
+  }
+
+  get width() {
+    return this._width;
+  }
+
+  set width(value) {
+    if (value <= 0) {
+      throw new Error('幅は正の数である必要があります');
+    }
+    this._width = value;
+  }
+
+  get height() {
+    return this._height;
+  }
+
+  set height(value) {
+    if (value <= 0) {
+      throw new Error('高さは正の数である必要があります');
+    }
+    this._height = value;
+  }
+
+  get area() {
+    return this._width * this._height;
+  }
+
+  get perimeter() {
+    return 2 * (this._width + this._height);
+  }
+
+  get diagonal() {
+    return Math.sqrt(this._width ** 2 + this._height ** 2);
+  }
 }
 
 // テスト
@@ -94,6 +154,33 @@ console.log('');
 
 class Temperature {
   // ここにコードを書いてください
+  constructor(celsius) {
+    this._celsius = celsius;
+  }
+
+  get celsius() {
+    return this._celsius;
+  }
+
+  set celsius(value) {
+    this._celsius = value;
+  }
+
+  get fahrenheit() {
+    return (this._celsius * 9) / 5 + 32;
+  }
+
+  set fahrenheit(value) {
+    this._celsius = ((value - 32) * 5) / 9;
+  }
+
+  get kelvin() {
+    return this._celsius + 273.15;
+  }
+
+  set kelvin(value) {
+    this._celsius = value - 273.15;
+  }
 }
 
 // テスト
@@ -132,6 +219,40 @@ console.log('');
 
 class User {
   // ここにコードを書いてください
+  constructor(email, password) {
+    this._email = email;
+    this._password = password;
+  }
+
+  get email() {
+    return this._email;
+  }
+
+  set email(value) {
+    if (!value.includes('@')) {
+      throw new Error('メールアドレスには @ が必要です');
+    }
+    this._email = value;
+  }
+
+  get username() {
+    return this._email.split('@')[0];
+  }
+
+  get domain() {
+    return this._email.split('@')[1];
+  }
+
+  set password(value) {
+    if (value.length < 8) {
+      throw new Error('パスワードは8文字以上である必要があります');
+    }
+    this._password = value;
+  }
+
+  isPasswordValid(password) {
+    return this._password === password;
+  }
 }
 
 // テスト
@@ -179,6 +300,40 @@ console.log('');
 
 class Circle {
   // ここにコードを書いてください
+  constructor(radius) {
+    this._radius = radius;
+  }
+
+  get radius() {
+    return this._radius;
+  }
+
+  set radius(value) {
+    if (value <= 0) {
+      throw new Error('半径は正の数である必要があります');
+    }
+    this._radius = value.toFixed(2);
+  }
+
+  get diameter() {
+    return parseFloat((this._radius * 2).toFixed(2));
+  }
+
+  set diameter(value) {
+    this._radius = value / 2;
+  }
+
+  get circumference() {
+    return parseFloat((2 * Math.PI * this._radius).toFixed(2));
+  }
+
+  set circumference(value) {
+    this._radius = value / (2 * Math.PI);
+  }
+
+  get area() {
+    return parseFloat((Math.PI * this._radius ** 2).toFixed(2));
+  }
 }
 
 // テスト
