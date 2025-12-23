@@ -12,13 +12,18 @@
 
 function delay(seconds) {
   // ここにコードを書く
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(`${seconds}秒経過`);
+    }, seconds * 1000);
+  });
 }
 
 // テスト
 console.log('問題1: 基本的な Promise');
-delay(2)
-  .then((message) => console.log(message))
-  .catch((error) => console.error(error));
+// delay(2)
+//   .then((message) => console.log(message))
+//   .catch((error) => console.error(error));
 
 /**
  * 問題 2: Promise チェーン
@@ -33,19 +38,44 @@ delay(2)
 
 function double(num) {
   // ここにコードを書く
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(num * 2);
+    }, 1000);
+  });
 }
 
 function addTen(num) {
   // ここにコードを書く
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(num + 10);
+    }, 1000);
+  });
 }
 
 function square(num) {
   // ここにコードを書く
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(num * num);
+    }, 1000);
+  });
 }
 
 // テスト
 console.log('\n問題2: Promise チェーン開始（初期値: 5）');
 // ここに Promise チェーンを書く
+// double(5)
+//   .then((result) => {
+//     console.log(result);
+//     return addTen(result);
+//   })
+//   .then((result) => {
+//     console.log(result);
+//     return square(result);
+//   })
+//   .then((result) => console.log(result));
 // 期待される結果: (5 * 2 + 10) ^ 2 = 400
 
 /**
@@ -61,11 +91,21 @@ console.log('\n問題2: Promise チェーン開始（初期値: 5）');
 function fetchUser(id) {
   // ここにコードを書く
   // { id: id, name: `ユーザー${id}` } を返す
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ id: id, name: `ユーザー${id}` });
+    }, 1000);
+  });
 }
 
 // テスト
 console.log('\n問題3: Promise.all でユーザー取得');
 // ここにコードを書く
+// Promise.all([fetchUser(1), fetchUser(2), fetchUser(3)])
+//   .then((users) => {
+//     console.log('取得したユーザー:', users);
+//   })
+//   .catch((error) => console.error('エラー:', error));
 
 /**
  * 問題 4: Promise.race の活用
@@ -99,6 +139,9 @@ function fastTask() {
 // テスト
 console.log('\n問題4: Promise.race');
 // ここにコードを書く
+// Promise.race([slowTask(), mediumTask(), fastTask()]).then((result) =>
+//   console.log('最速のタスク:', result)
+// );
 
 /**
  * 問題 5: エラーハンドリング
@@ -114,14 +157,23 @@ console.log('\n問題4: Promise.race');
 
 function randomTask() {
   // ここにコードを書く
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (Math.random() > 0.5) {
+        resolve('処理成功');
+      } else {
+        reject(new Error('処理失敗'));
+      }
+    }, 1000);
+  });
 }
 
 // テスト
 console.log('\n問題5: エラーハンドリング');
-randomTask()
-  .then((result) => console.log('成功:', result))
-  .catch((error) => console.error('失敗:', error))
-  .finally(() => console.log('処理完了'));
+// randomTask()
+//   .then((result) => console.log('成功:', result))
+//   .catch((error) => console.error('失敗:', error.message))
+//   .finally(() => console.log('処理完了'));
 
 /**
  * 問題 6: Promise チェーンでのエラーハンドリング
@@ -164,6 +216,11 @@ function step3(previousResult) {
 // テスト
 console.log('\n問題6: Promise チェーンのエラーハンドリング');
 // ここにコードを書く
+step1()
+  .then((result) => step2(result))
+  .then((result) => step3(result))
+  .catch((error) => console.error('エラー:', error.message))
+  .finally(() => console.log('処理完了'));
 
 /**
  * 問題 7: Promise のリトライ機能
@@ -195,6 +252,6 @@ function retryTask(maxRetries) {
 
 // テスト
 console.log('\n問題7: リトライ機能');
-retryTask(5)
-  .then((result) => console.log('最終結果:', result))
-  .catch((error) => console.error('すべて失敗:', error.message));
+// retryTask(5)
+//   .then((result) => console.log('最終結果:', result))
+//   .catch((error) => console.error('すべて失敗:', error.message));

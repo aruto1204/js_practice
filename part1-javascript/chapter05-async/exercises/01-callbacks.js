@@ -15,12 +15,12 @@
  */
 
 function delayedMessage(message, seconds, callback) {
-  // ここにコードを書く
+  setTimeout(() => callback(message), seconds * 1000);
 }
 
 // テスト
-console.log('問題1: タイマー処理を開始');
-delayedMessage('3秒経過しました', 3, (msg) => console.log(msg));
+// console.log('問題1: タイマー処理を開始');
+// delayedMessage('3秒経過しました', 3, (msg) => console.log(msg));
 
 /**
  * 問題 2: ファイル読み込みシミュレーション
@@ -33,12 +33,22 @@ delayedMessage('3秒経過しました', 3, (msg) => console.log(msg));
  */
 
 function readFile(filename, callback) {
-  // ここにコードを書く
+  setTimeout(() => callback(`${filename}の内容`), 1000);
 }
 
 // テスト
 console.log('\n問題2: ファイル読み込み開始');
 // file1.txt → file2.txt → file3.txt の順で読み込む
+// readFile('file1.txt', (content1) => {
+//   console.log(content1);
+//   readFile('file2.txt', (content2) => {
+//     console.log(content2);
+//     readFile('file3.txt', (content3) => {
+//       console.log(content3);
+//       console.log('すべてのファイル読み込み完了');
+//     });
+//   });
+// });
 
 /**
  * 問題 3: ユーザー認証フロー
@@ -52,20 +62,37 @@ console.log('\n問題2: ファイル読み込み開始');
  */
 
 function login(username, callback) {
-  // ここにコードを書く
+  setTimeout(() => {
+    const user = { id: 1, username, role: 'admin' };
+    console.log('ログイン成功:', username);
+    callback(user);
+  }, 1000);
 }
 
 function checkPermission(user, callback) {
-  // ここにコードを書く
+  setTimeout(() => {
+    console.log('権限確認:', user.role);
+    callback(user);
+  }, 1000);
 }
 
 function fetchData(user, callback) {
-  // ここにコードを書く
+  setTimeout(() => {
+    console.log('データ取得:', user.id);
+    callback(user);
+  }, 1000);
 }
 
 // テスト
 console.log('\n問題3: 認証フロー開始');
 // login → checkPermission → fetchData の順で実行
+// login('taro', (user) => {
+//   checkPermission(user, (authorizedUser) => {
+//     fetchData(authorizedUser, (data) => {
+//       console.log('最終データ:', data);
+//     });
+//   });
+// });
 
 /**
  * 問題 4: 並列コールバック処理
@@ -92,6 +119,24 @@ function task3(callback) {
 // テスト
 console.log('\n問題4: 並列処理開始');
 // ここにコードを書く
+let completedCount = 0;
+const totalTasks = 3;
+const results = [];
+
+function onTaskComplete(result) {
+  console.log(result);
+  results.push(result);
+  completedCount++;
+
+  if (completedCount === totalTasks) {
+    console.log('すべて完了');
+    console.log('結果:', results);
+  }
+}
+
+// task1(onTaskComplete);
+// task2(onTaskComplete);
+// task3(onTaskComplete);
 
 /**
  * 問題 5: エラーハンドリング付きコールバック
@@ -106,21 +151,28 @@ console.log('\n問題4: 並列処理開始');
 
 function divide(a, b, callback) {
   // ここにコードを書く
+  setTimeout(() => {
+    if (b === 0) {
+      callback(new Error('0で割ることはできません'), null);
+    } else {
+      callback(null, a / b);
+    }
+  }, 1000);
 }
 
 // テスト
 console.log('\n問題5: エラーハンドリング');
 divide(10, 2, (error, result) => {
   if (error) {
-    console.error('エラー:', error);
+    console.error('エラー:', error.message);
   } else {
     console.log('結果:', result);
   }
 });
 
-divide(10, 0, (error, result) => {
+divide(10, 2, (error, result) => {
   if (error) {
-    console.error('エラー:', error);
+    console.error('エラー:', error.message); // 0で割ることはできません
   } else {
     console.log('結果:', result);
   }
