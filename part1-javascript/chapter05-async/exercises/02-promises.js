@@ -216,11 +216,11 @@ function step3(previousResult) {
 // テスト
 console.log('\n問題6: Promise チェーンのエラーハンドリング');
 // ここにコードを書く
-step1()
-  .then((result) => step2(result))
-  .then((result) => step3(result))
-  .catch((error) => console.error('エラー:', error.message))
-  .finally(() => console.log('処理完了'));
+// step1()
+//   .then((result) => step2(result))
+//   .then((result) => step3(result))
+//   .catch((error) => console.error('エラー:', error.message))
+//   .finally(() => console.log('処理完了'));
 
 /**
  * 問題 7: Promise のリトライ機能
@@ -247,11 +247,27 @@ function unreliableTask() {
 }
 
 function retryTask(maxRetries) {
-  // ここにコードを書く
+  let attempts = 0;
+
+  function attempt() {
+    attempts++;
+    console.log(`試行 ${attempts} 回目`);
+
+    return unreliableTask().catch((error) => {
+      if (attempts < maxRetries) {
+        console.log(`失敗しました。リトライします...`);
+        return attempt();
+      } else {
+        throw new Error(`${maxRetries}回試行しましたが、すべて失敗しました`);
+      }
+    });
+  }
+
+  return attempt();
 }
 
 // テスト
 console.log('\n問題7: リトライ機能');
-// retryTask(5)
-//   .then((result) => console.log('最終結果:', result))
-//   .catch((error) => console.error('すべて失敗:', error.message));
+retryTask(5)
+  .then((result) => console.log('最終結果:', result))
+  .catch((error) => console.error('すべて失敗:', error.message));

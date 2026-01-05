@@ -16,11 +16,13 @@ function delay(ms) {
 
 async function waitAndPrint(message) {
   // ここにコードを書く
+  await delay(1000);
+  console.log(message);
 }
 
 // テスト
 console.log('問題1: 基本的な async/await');
-waitAndPrint('Hello, async/await!');
+// waitAndPrint('Hello, async/await!');
 
 /**
  * 問題 2: 連続した非同期処理
@@ -34,21 +36,31 @@ waitAndPrint('Hello, async/await!');
 
 async function fetchUserData(userId) {
   // ここにコードを書く
-  // { id: userId, name: `ユーザー${userId}` } を返す
+  await delay(1000);
+  return { id: userId, name: `ユーザー${userId}` };
 }
 
 async function fetchUserPosts(userId) {
   // ここにコードを書く
-  // ['投稿1', '投稿2', '投稿3'] を返す
+  await delay(1000);
+  return ['投稿1', '投稿2', '投稿3'];
 }
 
 async function getUserWithPosts(userId) {
   // ここにコードを書く
+  console.log('ユーザー情報を取得中...');
+  const user = await fetchUserData(userId);
+  console.log('ユーザー情報取得完了:', user);
+
+  console.log('投稿一覧を取得中...');
+  const posts = await fetchUserPosts(userId);
+  console.log('投稿一覧取得完了');
+  return { user, posts };
 }
 
 // テスト
 console.log('\n問題2: 連続した非同期処理');
-getUserWithPosts(1).then((result) => console.log(result));
+// getUserWithPosts(1).then((result) => console.log(result));
 
 /**
  * 問題 3: 並列実行の最適化
@@ -79,21 +91,27 @@ async function fetchDataSequential() {
 // 速い実装（並列実行）
 async function fetchDataParallel() {
   // ここにコードを書く
+  const [dataA, dataB, dataC] = await Promise.all([
+    fetchSlowly('A', 1),
+    fetchSlowly('B', 1),
+    fetchSlowly('C', 1),
+  ]);
+  return [dataA, dataB, dataC];
 }
 
 // テスト
 console.log('\n問題3: 並列実行の最適化');
-console.time('逐次実行');
-fetchDataSequential().then((result) => {
-  console.log('逐次実行結果:', result);
-  console.timeEnd('逐次実行');
-});
+// console.time('逐次実行');
+// fetchDataSequential().then((result) => {
+//   console.log('逐次実行結果:', result);
+//   console.timeEnd('逐次実行');
+// });
 
-console.time('並列実行');
-fetchDataParallel().then((result) => {
-  console.log('並列実行結果:', result);
-  console.timeEnd('並列実行');
-});
+// console.time('並列実行');
+// fetchDataParallel().then((result) => {
+//   console.log('並列実行結果:', result);
+//   console.timeEnd('並列実行');
+// });
 
 /**
  * 問題 4: try-catch によるエラーハンドリング
@@ -119,12 +137,21 @@ function riskyOperation(shouldFail) {
 
 async function safeOperation(shouldFail) {
   // ここにコードを書く
+  try {
+    const result = await riskyOperation(shouldFail);
+    console.log('結果:', result);
+    return result;
+  } catch (error) {
+    console.error('エラーが発生しました:', error.message);
+  } finally {
+    console.log('処理完了');
+  }
 }
 
 // テスト
 console.log('\n問題4: エラーハンドリング');
-safeOperation(false); // 成功ケース
-setTimeout(() => safeOperation(true), 2000); // 失敗ケース
+// safeOperation(false); // 成功ケース
+// setTimeout(() => safeOperation(true), 2000); // 失敗ケース
 
 /**
  * 問題 5: 複数の処理のエラーハンドリング
@@ -157,11 +184,22 @@ function task3() {
 
 async function processMultipleTasks() {
   // ここにコードを書く
+  try {
+    console.log('複数のタスクを開始');
+    const results = await Promise.all([task1(), task2(), task3()]);
+    console.log('すべてのタスク完了:', results);
+    return results;
+  } catch (error) {
+    console.error('いずれかのタスクが失敗しました:', error.message);
+    throw error;
+  }
 }
 
 // テスト
 console.log('\n問題5: 複数の処理のエラーハンドリング');
-processMultipleTasks();
+// processMultipleTasks().catch(() => {
+//   console.log('エラーハンドリング完了');
+// });
 
 /**
  * 問題 6: async 関数の戻り値
@@ -175,13 +213,14 @@ processMultipleTasks();
 
 async function getValue() {
   // ここにコードを書く
+  return 42;
 }
 
 // テスト
 console.log('\n問題6: async 関数の戻り値');
-const result = getValue();
-console.log('戻り値は Promise?', result instanceof Promise);
-result.then((value) => console.log('値:', value));
+// const result = getValue();
+// console.log('戻り値は Promise?', result instanceof Promise);
+// result.then((value) => console.log('値:', value));
 
 /**
  * 問題 7: データ取得と加工のパイプライン
@@ -195,28 +234,45 @@ result.then((value) => console.log('値:', value));
  */
 
 async function fetchRawData() {
-  // ここにコードを書く
-  // { values: [1, 2, 3, 4, 5] } を返す
+  console.log('1. 生データを取得中...');
+  await delay(1000);
+  return { values: [1, 2, 3, 4, 5] };
 }
 
 async function processData(data) {
-  // ここにコードを書く
-  // values を2倍にして返す
+  console.log('2. データを加工中...');
+  await delay(1000);
+  return { values: data.values.map((v) => v * 2) };
 }
 
 async function saveData(data) {
-  // ここにコードを書く
-  // '保存完了' を返す
+  console.log('3. データを保存中...');
+  await delay(1000);
+  console.log('保存されたデータ:', data);
+  return '保存完了';
 }
 
 async function runPipeline() {
-  // ここにコードを書く
-  // 各ステップの進捗を console.log で表示
+  try {
+    const rawData = await fetchRawData();
+    console.log('取得データ:', rawData);
+
+    const processedData = await processData(rawData);
+    console.log('加工データ:', processedData);
+
+    const result = await saveData(processedData);
+    console.log('最終結果:', result);
+
+    return result;
+  } catch (error) {
+    console.error('パイプラインエラー:', error);
+    throw error;
+  }
 }
 
 // テスト
 console.log('\n問題7: データ処理パイプライン');
-runPipeline().then(() => console.log('パイプライン完了'));
+// runPipeline().then(() => console.log('パイプライン完了'));
 
 /**
  * 問題 8: タイムアウト処理
@@ -230,6 +286,13 @@ runPipeline().then(() => console.log('パイプライン完了'));
 
 function withTimeout(promise, timeoutMs) {
   // ここにコードを書く
+  const timeoutPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject(new Error('タイムアウト'));
+    }, timeoutMs);
+  });
+
+  return Promise.race([promise, timeoutPromise]);
 }
 
 // テスト用の遅い処理
@@ -241,6 +304,6 @@ function slowProcess() {
 
 // テスト
 console.log('\n問題8: タイムアウト処理');
-withTimeout(slowProcess(), 2000)
-  .then((result) => console.log('結果:', result))
-  .catch((error) => console.error('エラー:', error.message));
+// withTimeout(slowProcess(), 2000)
+//   .then((result) => console.log('結果:', result))
+//   .catch((error) => console.error('エラー:', error.message));

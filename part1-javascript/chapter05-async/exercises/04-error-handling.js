@@ -20,11 +20,22 @@ function asyncError() {
 // 同期エラーの処理
 console.log('問題1-1: 同期エラーの処理');
 // ここにコードを書く
+try {
+  syncError();
+} catch (error) {
+  console.error('同期エラーをキャッチ:', error.message);
+}
 
 // 非同期エラーの処理
 console.log('\n問題1-2: 非同期エラーの処理');
 // ここにコードを書く
-
+asyncError()
+  .then(() => {
+    console.log('成功');
+  })
+  .catch((error) => {
+    console.error('非同期エラーをキャッチ:', error.message);
+  });
 /**
  * 問題 2: Promise チェーンでのエラー伝播
  * Promise チェーンの途中でエラーが発生した場合の挙動を確認してください。
@@ -52,7 +63,7 @@ function step3() {
 }
 
 // テスト
-console.log('\n問題2: Promise チェーンでのエラー伝播');
+// console.log('\n問題2: Promise チェーンでのエラー伝播');
 // ここにコードを書く
 
 /**
@@ -83,9 +94,9 @@ async function fetchWithFallback(shouldFail) {
 }
 
 // テスト
-console.log('\n問題3: エラーからの回復');
-fetchWithFallback(false).then((data) => console.log('成功:', data));
-fetchWithFallback(true).then((data) => console.log('フォールバック:', data));
+// console.log('\n問題3: エラーからの回復');
+// fetchWithFallback(false).then((data) => console.log('成功:', data));
+// fetchWithFallback(true).then((data) => console.log('フォールバック:', data));
 
 /**
  * 問題 4: カスタムエラークラス
@@ -125,10 +136,10 @@ async function handleRequest(type) {
 }
 
 // テスト
-console.log('\n問題4: カスタムエラークラス');
-handleRequest('success');
-setTimeout(() => handleRequest('network'), 1500);
-setTimeout(() => handleRequest('validation'), 3000);
+// console.log('\n問題4: カスタムエラークラス');
+// handleRequest('success');
+// setTimeout(() => handleRequest('network'), 1500);
+// setTimeout(() => handleRequest('validation'), 3000);
 
 /**
  * 問題 5: 複数のエラーハンドリング
@@ -154,13 +165,7 @@ function task(id, shouldFail) {
 
 async function runAllTasks() {
   // ここにコードを書く
-  const tasks = [
-    task(1, false),
-    task(2, true),
-    task(3, false),
-    task(4, true),
-    task(5, false),
-  ];
+  const tasks = [task(1, false), task(2, true), task(3, false), task(4, true), task(5, false)];
 
   // Promise.allSettled を使って全タスクの結果を取得
   // 成功と失敗を分類して表示
@@ -168,7 +173,7 @@ async function runAllTasks() {
 
 // テスト
 console.log('\n問題5: 複数のエラーハンドリング');
-runAllTasks();
+// runAllTasks();
 
 /**
  * 問題 6: リトライ機能の実装
@@ -199,10 +204,10 @@ function unstableOperation() {
 }
 
 // テスト
-console.log('\n問題6: リトライ機能');
-retry(unstableOperation, 5, 500)
-  .then((result) => console.log('最終結果:', result))
-  .catch((error) => console.error('すべて失敗:', error.message));
+// console.log('\n問題6: リトライ機能');
+// retry(unstableOperation, 5, 500)
+//   .then((result) => console.log('最終結果:', result))
+//   .catch((error) => console.error('すべて失敗:', error.message));
 
 /**
  * 問題 7: エラーログの集約
@@ -234,18 +239,18 @@ async function operationWithLogging(shouldFail, operationName) {
 }
 
 // テスト
-console.log('\n問題7: エラーログの集約');
-(async () => {
-  await operationWithLogging(false, '操作1');
-  await operationWithLogging(true, '操作2');
-  await operationWithLogging(true, '操作3');
-  await operationWithLogging(false, '操作4');
+// console.log('\n問題7: エラーログの集約');
+// (async () => {
+//   await operationWithLogging(false, '操作1');
+//   await operationWithLogging(true, '操作2');
+//   await operationWithLogging(true, '操作3');
+//   await operationWithLogging(false, '操作4');
 
-  console.log('\n記録されたエラー:');
-  logger.getErrors().forEach((error, index) => {
-    console.log(`${index + 1}. ${error.message} (${error.timestamp})`);
-  });
-})();
+//   console.log('\n記録されたエラー:');
+//   logger.getErrors().forEach((error, index) => {
+//     console.log(`${index + 1}. ${error.message} (${error.timestamp})`);
+//   });
+// })();
 
 /**
  * 問題 8: グレースフルシャットダウン
@@ -291,11 +296,11 @@ async function useResource(shouldFail) {
 }
 
 // テスト
-console.log('\n問題8: グレースフルシャットダウン');
-console.log('正常ケース:');
-useResource(false).catch((error) => console.error('エラー:', error.message));
+// console.log('\n問題8: グレースフルシャットダウン');
+// console.log('正常ケース:');
+// useResource(false).catch((error) => console.error('エラー:', error.message));
 
-setTimeout(() => {
-  console.log('\nエラーケース:');
-  useResource(true).catch((error) => console.error('エラー:', error.message));
-}, 2000);
+// setTimeout(() => {
+//   console.log('\nエラーケース:');
+//   useResource(true).catch((error) => console.error('エラー:', error.message));
+// }, 2000);
