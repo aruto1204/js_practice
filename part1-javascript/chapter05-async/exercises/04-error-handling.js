@@ -18,24 +18,34 @@ function asyncError() {
 }
 
 // 同期エラーの処理
-console.log('問題1-1: 同期エラーの処理');
-// ここにコードを書く
-try {
-  syncError();
-} catch (error) {
-  console.error('同期エラーをキャッチ:', error.message);
-}
+// console.log('問題1-1: 同期エラーの処理');
+// // ここにコードを書く
+// try {
+//   syncError();
+// } catch (error) {
+//   console.error('同期エラーをキャッチ:', error.message);
+// }
 
-// 非同期エラーの処理
-console.log('\n問題1-2: 非同期エラーの処理');
-// ここにコードを書く
-asyncError()
-  .then(() => {
-    console.log('成功');
-  })
-  .catch((error) => {
-    console.error('非同期エラーをキャッチ:', error.message);
-  });
+// // 非同期エラーの処理
+// console.log('\n問題1-2: 非同期エラーの処理');
+// // ここにコードを書く
+// asyncError()
+//   .then(() => {
+//     console.log('成功');
+//   })
+//   .catch((error) => {
+//     console.error('非同期エラーをキャッチ:', error.message);
+//   });
+
+// // async/await を使った非同期エラーの処理
+// (async () => {
+//   try {
+//     await asyncError();
+//   } catch (error) {
+//     console.error('async/await で非同期エラーをキャッチ:', error.message);
+//   }
+// })();
+
 /**
  * 問題 2: Promise チェーンでのエラー伝播
  * Promise チェーンの途中でエラーが発生した場合の挙動を確認してください。
@@ -64,8 +74,25 @@ function step3() {
 
 // テスト
 // console.log('\n問題2: Promise チェーンでのエラー伝播');
-// ここにコードを書く
-
+// // ここにコードを書く
+// step1()
+//   .then((result) => {
+//     console.log('ステップ1完了:', result);
+//     return step2();
+//   })
+//   .then((result) => {
+//     console.log('ステップ2完了:', result);
+//     return step3();
+//   })
+//   .then((result) => {
+//     console.log('ステップ3完了:', result);
+//   })
+//   .catch((error) => {
+//     console.error('エラーをキャッチ:', error.message);
+//   })
+//   .finally(() => {
+//     console.log('チェーン終了');
+//   });
 /**
  * 問題 3: エラーからの回復
  * エラーが発生しても処理を継続する方法を実装してください。
@@ -89,8 +116,13 @@ function fetchData(shouldFail) {
 }
 
 async function fetchWithFallback(shouldFail) {
-  // ここにコードを書く
-  // エラーが発生したら 'デフォルトデータ' を返す
+  try {
+    const data = await fetchData(shouldFail);
+    return data;
+  } catch (error) {
+    console.log('エラーが発生しました。デフォルト値を返します。');
+    return 'デフォルトデータ';
+  }
 }
 
 // テスト
@@ -110,10 +142,18 @@ async function fetchWithFallback(shouldFail) {
 
 class NetworkError extends Error {
   // ここにコードを書く
+  constructor(message) {
+    super(message);
+    this.name = 'NetworkError';
+  }
 }
 
 class ValidationError extends Error {
   // ここにコードを書く
+  constructor(message) {
+    super(message);
+    this.name = 'ValidationError';
+  }
 }
 
 function processRequest(type) {
@@ -133,6 +173,18 @@ function processRequest(type) {
 async function handleRequest(type) {
   // ここにコードを書く
   // エラーの種類に応じて異なるメッセージを表示
+  try {
+    const result = await processRequest(type);
+    console.log('処理成功:', result);
+  } catch (error) {
+    if (error instanceof NetworkError) {
+      console.error('ネットワークエラー:', error.message);
+    } else if (error instanceof ValidationError) {
+      console.error('バリデーションエラー:', error.message);
+    } else {
+      console.error('不明なエラー:', error);
+    }
+  }
 }
 
 // テスト
@@ -169,10 +221,22 @@ async function runAllTasks() {
 
   // Promise.allSettled を使って全タスクの結果を取得
   // 成功と失敗を分類して表示
+  const results = await Promise.allSettled(tasks);
+
+  const succeeded = results.filter((r) => r.status === 'fulfilled');
+  const failed = results.filter((r) => r.status === 'rejected');
+
+  console.log('\n成功したタスク:');
+  succeeded.forEach((r) => console.log('  -', r.value));
+
+  console.log('\n失敗したタスク:');
+  failed.forEach((r) => console.log('  -', r.reason.message));
+
+  console.log(`\n合計: ${succeeded.length}成功, ${failed.length}失敗`);
 }
 
 // テスト
-console.log('\n問題5: 複数のエラーハンドリング');
+// console.log('\n問題5: 複数のエラーハンドリング');
 // runAllTasks();
 
 /**
@@ -188,6 +252,26 @@ console.log('\n問題5: 複数のエラーハンドリング');
 
 async function retry(fn, maxAttempts, delay) {
   // ここにコードを書く
+  let lastError;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      console.log(`試行 ${attempt}/${maxAttempts}`);
+      const result = await fn();
+      console.log('成功しました');
+      return result;
+    } catch (error) {
+      console.log(`失敗: ${error.message}`);
+      lastError = error;
+
+      if (attempt < maxAttempts) {
+        console.log(`${delay}ms 待機してリトライします...`);
+        await new Promise((resolve) => setTimeout(resolve, delay));
+      }
+    }
+  }
+
+  throw lastError;
 }
 
 // テスト用の不安定な関数（70%の確率で失敗）
@@ -204,7 +288,7 @@ function unstableOperation() {
 }
 
 // テスト
-// console.log('\n問題6: リトライ機能');
+console.log('\n問題6: リトライ機能');
 // retry(unstableOperation, 5, 500)
 //   .then((result) => console.log('最終結果:', result))
 //   .catch((error) => console.error('すべて失敗:', error.message));
@@ -222,6 +306,25 @@ function unstableOperation() {
 
 class ErrorLogger {
   // ここにコードを書く
+  constructor() {
+    this.errors = [];
+  }
+
+  log(error) {
+    this.errors.push({
+      message: error.message,
+      timestamp: new Date().toLocaleString(),
+      stack: error.stack,
+    });
+  }
+
+  getErrors() {
+    return this.errors;
+  }
+
+  clear() {
+    this.errors = [];
+  }
 }
 
 const logger = new ErrorLogger();
@@ -293,14 +396,30 @@ async function useResource(shouldFail) {
   // ここにコードを書く
   // リソースを開く → 使う → 閉じる
   // エラーが発生しても必ずクローズする
+  const resource = new Resource('データベース接続');
+
+  try {
+    resource.open();
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    resource.use(shouldFail);
+    return '処理完了';
+  } catch (error) {
+    console.error('エラー:', error.message);
+    throw error;
+  } finally {
+    // エラーが発生してもリソースは必ずクローズ
+    if (resource.isOpen) {
+      resource.close();
+    }
+  }
 }
 
 // テスト
-// console.log('\n問題8: グレースフルシャットダウン');
-// console.log('正常ケース:');
-// useResource(false).catch((error) => console.error('エラー:', error.message));
+console.log('\n問題8: グレースフルシャットダウン');
+console.log('正常ケース:');
+useResource(false).catch((error) => console.error('エラー:', error.message));
 
-// setTimeout(() => {
-//   console.log('\nエラーケース:');
-//   useResource(true).catch((error) => console.error('エラー:', error.message));
-// }, 2000);
+setTimeout(() => {
+  console.log('\nエラーケース:');
+  useResource(true).catch((error) => console.error('エラー:', error.message));
+}, 2000);
