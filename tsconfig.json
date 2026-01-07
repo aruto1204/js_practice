@@ -36,6 +36,10 @@
     "declarationMap": true,
     "sourceMap": true
   },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
   "include": [
     "part2-typescript-basics/**/*.ts",
     "part3-typescript-advanced/**/*.ts"

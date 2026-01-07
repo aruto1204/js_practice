@@ -6,10 +6,10 @@
  */
 
 // ここに型注釈を追加
-// let username = '太郎';
-// let age = 30;
-// let isStudent = false;
-// let score = 85.5;
+// const username: string = '太郎';
+// const age: number = 30;
+// const isStudent: boolean = false;
+// const score: number = 85.5;
 
 /**
  * 問題 2: 関数の型注釈
@@ -22,6 +22,11 @@
  */
 
 // ここにコードを書く
+function add(a: number, b: number): number {
+  return a + b;
+}
+// テスト
+// console.log(add(1, 2)); // 3
 
 /**
  * 問題 3: 配列の型注釈
@@ -29,9 +34,9 @@
  */
 
 // ここに型注釈を追加
-// let numbers = [1, 2, 3, 4, 5];
-// let names = ['太郎', '花子', '次郎'];
-// let flags = [true, false, true];
+// const numbers: number[] = [1, 2, 3, 4, 5];
+// const names: string[] = ['太郎', '花子', '次郎'];
+// const flags: boolean[] = [true, false, true];
 
 /**
  * 問題 4: 戻り値の型注釈
@@ -45,7 +50,11 @@
  */
 
 // ここにコードを書く
-
+function getLength(str: string): number {
+  return str.length;
+}
+// テスト
+// console.log(getLength('Hello')); // 5
 /**
  * 問題 5: 複雑な関数の型注釈
  * 商品の合計金額を計算する関数を作成してください。
@@ -58,6 +67,9 @@
  */
 
 // ここにコードを書く
+function calculateTotal(price: number, quantity: number, taxRate: number): number {
+  return price * quantity * (1 + taxRate);
+}
 
 // テスト
 // console.log(calculateTotal(1000, 2, 0.1)); // 2200
@@ -76,10 +88,15 @@
  */
 
 // ここにコードを書く
-
+function createGreeting(name: string, title?: string): string {
+  if (title) {
+    return `Hello, ${title} ${name}!`;
+  }
+  return `Hello, ${name}!`;
+}
 // テスト
-// console.log(createGreeting('太郎'));           // Hello, 太郎!
-// console.log(createGreeting('太郎', 'さん'));   // Hello, さん 太郎!
+// console.log(createGreeting('太郎')); // Hello, 太郎!
+// console.log(createGreeting('太郎', 'さん')); // Hello, さん 太郎!
 
 /**
  * 問題 7: デフォルト引数の型注釈
@@ -93,10 +110,13 @@
  */
 
 // ここにコードを書く
+function repeat(str: string, times: number = 3): string {
+  return str.repeat(times);
+}
 
 // テスト
-// console.log(repeat('Hello'));      // HelloHelloHello
-// console.log(repeat('Hi', 5));      // HiHiHiHiHi
+// console.log(repeat('Hello')); // HelloHelloHello
+// console.log(repeat('Hi', 5)); // HiHiHiHiHi
 
 /**
  * 問題 8: 戻り値なしの関数
@@ -110,7 +130,9 @@
  */
 
 // ここにコードを書く
-
+function logMessage(message: string): void {
+  console.log(message);
+}
 // テスト
 // logMessage('TypeScript is awesome!');
 
@@ -131,20 +153,22 @@ function multiply2(a: number, b: number) {
 }
 
 // どちらも動作しますが、明示的な方が可読性が高い場合があります
+// console.log(multiply1(5, 3)); // 15
+// console.log(multiply2(5, 3)); // 15
 
 /**
  * 問題 10: 型エラーの修正
  * 以下のコードには型エラーがあります。修正してください。
  */
 
-/*
-function divide(a: number, b: number): number {
+function divide(a: number, b: number): number | string {
   if (b === 0) {
     return 'Cannot divide by zero'; // エラー: string を number に代入できない
   }
   return a / b;
 }
-*/
 
 // ヒント: 戻り値の型を変更するか、エラー処理を変更する
 // ここに修正したコードを書く
+console.log(divide(10, 2)); // 5
+console.log(divide(10, 0)); // Cannot divide by zero

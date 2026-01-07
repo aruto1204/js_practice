@@ -13,6 +13,9 @@
 
 // ここにコードを書く
 
+function greet(name: string): string {
+  return `Hello, ${name}!`;
+}
 // テスト
 // console.log(greet('TypeScript'));
 // 期待される出力: Hello, TypeScript!
@@ -30,6 +33,10 @@
 
 // ここにコードを書く
 
+function calculateAge(birthYear: number): number {
+  return 2025 - birthYear;
+}
+
 // テスト
 // console.log(calculateAge(2000)); // 25
 // console.log(calculateAge(1990)); // 35
@@ -44,9 +51,9 @@ function multiply(a: number, b: number): number {
   return a * b;
 }
 
-// console.log(multiply(5, 3));      // OK
-// console.log(multiply('5', 3));    // エラー - コメントを外してみる
-// console.log(multiply(5, '3'));    // エラー - コメントを外してみる
+// console.log(multiply(5, 3)); // OK
+// console.log(multiply('5', 3)); // エラー - コメントを外してみる
+// console.log(multiply(5, '3')); // エラー - コメントを外してみる
 
 /**
  * 問題 4: 型推論の確認
@@ -61,8 +68,9 @@ function multiply(a: number, b: number): number {
  */
 
 // ここにコードを書く
-// let message = 'Hello';
+// const message = 'Hello';
 // message = 123; // エラーになることを確認
+// console.log(typeof message);
 
 /**
  * 問題 5: 複数の型注釈
@@ -76,7 +84,9 @@ function multiply(a: number, b: number): number {
  */
 
 // ここにコードを書く
-
+function displayUser(name: string, age: number, isAdmin: boolean): string {
+  return `Name: ${name}, Age: ${age}, Admin: ${isAdmin}`;
+}
 // テスト
 // console.log(displayUser('太郎', 25, true));
 // 期待される出力: Name: 太郎, Age: 25, Admin: true

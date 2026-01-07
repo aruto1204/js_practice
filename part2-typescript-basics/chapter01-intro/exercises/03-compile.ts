@@ -14,7 +14,7 @@ function greet(name: string): string {
   return `Hello, ${name}!`;
 }
 
-console.log(greet('TypeScript'));
+// console.log(greet('TypeScript'));
 
 /**
  * 問題 2: 型エラーのあるコードをコンパイル
@@ -48,11 +48,13 @@ class Person {
     return `Hello, I'm ${this.name}`;
   }
 }
-
+const person = new Person('太郎');
+// console.log(person.greet());
 // テンプレートリテラル
+
 const message: string = `Result: ${add(5, 3)}`;
 
-console.log(message);
+// console.log(message);
 
 /**
  * 問題 4: ターゲットバージョンの変更
@@ -82,13 +84,13 @@ console.log(message);
  */
 
 // helper.ts に移動すべきコード
-export function formatCurrency(amount: number): string {
-  return `¥${amount.toLocaleString()}`;
-}
+// export function formatCurrency(amount: number): string {
+//   return `¥${amount.toLocaleString()}`;
+// }
 
-export function formatDate(date: Date): string {
-  return date.toLocaleDateString('ja-JP');
-}
+// export function formatDate(date: Date): string {
+//   return date.toLocaleDateString('ja-JP');
+// }
 
 // このファイルから使用
 // import { formatCurrency, formatDate } from './helper';
