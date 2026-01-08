@@ -49,7 +49,7 @@ interface User {
 
 const userTS: User = {
   name: '太郎',
-  age: 25
+  age: 25,
 };
 
 // console.log(userTS.naem); // コンパイルエラー（タイポを検出）
@@ -146,7 +146,7 @@ const laptop: Product = {
   id: 1,
   name: 'ノートPC',
   price: 100000,
-  inStock: true
+  inStock: true,
 };
 
 displayProduct(laptop);
@@ -188,6 +188,8 @@ class PersonTS {
   }
 }
 
+const person = new PersonTS('太郎');
+// console.log(person.greet());
 /**
  * 問題 8: 列挙型（Enum）
  *
@@ -197,7 +199,7 @@ class PersonTS {
 enum Status {
   Active = 'ACTIVE',
   Inactive = 'INACTIVE',
-  Pending = 'PENDING'
+  Pending = 'PENDING',
 }
 
 interface Account {
@@ -207,7 +209,7 @@ interface Account {
 
 const account: Account = {
   id: 1,
-  status: Status.Active
+  status: Status.Active,
 };
 
 // account.status = 'ACTIVE'; // エラー: string は Status 型に代入できない
@@ -234,8 +236,11 @@ function firstTS<T>(arr: T[]): T | undefined {
   return arr[0];
 }
 
-const num = firstTS([1, 2, 3]); // number 型と推論
-const str = firstTS(['a', 'b']); // string 型と推論
+const num = firstTS<number>([1, 2, 3]); // number 型と推論
+const str = firstTS<string>(['a', 'b']); // string 型と推論
+
+// console.log(num);
+// console.log(str);
 
 /**
  * 問題 10: 型ガードの活用
