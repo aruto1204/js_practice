@@ -6,9 +6,10 @@
  */
 
 // ここにコードを書く
-// function logMessage(message: string): void {
-//   console.log(message);
-// }
+function logMessage(message: string): void {
+  console.log(message);
+}
+logMessage('Hello, TypeScript!');
 
 /**
  * 問題 2: void 関数の return

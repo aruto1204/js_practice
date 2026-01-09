@@ -6,11 +6,11 @@
  */
 
 // ここに型注釈を追加
-// let productName = 'ノートPC';
-// let price = 99800;
-// let inStock = true;
-// let description = '高性能なノートパソコンです';
-
+const productName: string = 'ノートPC';
+const price: number = 99800;
+const inStock: boolean = true;
+const description: string = '高性能なノートパソコンです';
+console.log(productName, price, inStock, description);
 /**
  * 問題 2: 関数の型注釈
  * ユーザー情報を表示する関数に型注釈を追加してください。
@@ -21,21 +21,27 @@
  * - 戻り値: string
  */
 
+function displayUserInfo(name: string, age: number, isAdmin: boolean): string {
+  return `名前: ${name}, 年齢: ${age}, 管理者: ${isAdmin}`;
+}
+
 // ここにコードを書く
+
+console.log(displayUserInfo('太郎', 25, true));
 
 /**
  * 問題 3: 型エラーの修正
  * 以下のコードには型エラーがあります。修正してください。
  */
 
-/*
-let username: string = 'John';
+let username: string | number = 'John';
 username = 123;
 
-let count: number = '100';
+const count: number = 100;
 
-let isActive: boolean = 'true';
-*/
+const isActive: boolean = true;
+
+console.log(username, count, isActive);
 
 /**
  * 問題 4: null と undefined
@@ -43,9 +49,10 @@ let isActive: boolean = 'true';
  */
 
 // ここにコードを書く
-// let nullableValue: ??? = null;
-// nullableValue = 'hello';
-// nullableValue = null;
+let nullableValue: string | null = null;
+nullableValue = 'hello';
+nullableValue = null;
+console.log(nullableValue);
 
 /**
  * 問題 5: テンプレートリテラルの型
@@ -59,9 +66,10 @@ let isActive: boolean = 'true';
  */
 
 // ここにコードを書く
-
-// テスト
-// console.log(greet('太郎', 'おはよう')); // おはよう、太郎さん！
+function greet(name: string, timeOfDay: string): string {
+  return `${timeOfDay}、${name}さん！`;
+}
+console.log(greet('太郎', 'おはよう'));
 
 /**
  * 問題 6: number 型の様々な表現
@@ -69,9 +77,11 @@ let isActive: boolean = 'true';
  */
 
 // ここにコードを書く
-// let decimal: number = ???; // 10進数
-// let hex: number = ???; // 16進数（0xFF）
-// let binary: number = ???; // 2進数（0b1010）
+const decimal: number = 10; // 10進数
+const hex: number = 0xff; // 16進数（0xFF）
+const binary: number = 0b1010; // 2進数（0b1010）
+
+console.log(decimal, hex, binary);
 
 /**
  * 問題 7: 型の互換性チェック
@@ -104,10 +114,11 @@ flag = 1; // エラー？
  */
 
 // ここにコードを書く
-// let id: ???;
-// id = 123; // OK
-// id = 'ABC123'; // OK
-// id = true; // エラー
+let id: string | number | boolean;
+id = 123; // OK
+id = 'ABC123'; // OK
+id = true; // エラー
+console.log(id);
 
 /**
  * 問題 10: 型注釈のベストプラクティス
@@ -115,10 +126,13 @@ flag = 1; // エラー？
  */
 
 // ここに型注釈を追加
-// function calculateTax(amount, rate) {
-//   return amount * rate;
-// }
+function calculateTax(amount: number, rate: number): number {
+  return amount * rate;
+}
 
-// function formatCurrency(amount) {
-//   return `¥${amount.toLocaleString()}`;
-// }
+function formatCurrency(amount: number): string {
+  return `¥${amount.toLocaleString()}`;
+}
+
+console.log(calculateTax(1000, 0.1));
+console.log(formatCurrency(1000));

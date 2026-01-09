@@ -6,9 +6,11 @@
  */
 
 // ここに型注釈を追加
-// let scores = [85, 90, 78, 92];
-// let names = ['太郎', '花子', '次郎'];
-// let flags = [true, false, true];
+const scores: number[] = [85, 90, 78, 92];
+const names: string[] = ['太郎', '花子', '次郎'];
+const flags: boolean[] = [true, false, true];
+
+console.log(scores, names, flags);
 
 /**
  * 問題 2: 配列操作の型安全性
@@ -16,9 +18,11 @@
  */
 
 // ここにコードを書く
-// let numbers: number[] = [1, 2, 3];
-// numbers.push(4); // OK
+const numbers: number[] = [1, 2, 3];
+numbers.push(4); // OK
 // numbers.push('5'); // エラーになることを確認
+
+console.log(numbers);
 
 /**
  * 問題 3: 多次元配列
@@ -26,11 +30,12 @@
  */
 
 // ここにコードを書く
-// let matrix: ??? = [
-//   [1, 2, 3],
-//   [4, 5, 6],
-//   [7, 8, 9]
-// ];
+const matrix: number[][] = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+];
+console.log(matrix);
 
 /**
  * 問題 4: 読み取り専用配列
@@ -38,9 +43,11 @@
  */
 
 // ここにコードを書く
-// let readonlyScores: ??? = [100, 95, 88];
+const readonlyScores: readonly number[] = [100, 95, 88];
 // readonlyScores.push(92); // エラーになることを確認
 // readonlyScores[0] = 85; // エラーになることを確認
+
+console.log(readonlyScores);
 
 /**
  * 問題 5: 基本的なタプル
@@ -48,8 +55,9 @@
  */
 
 // ここにコードを書く
-// let point: ??? = [10, 20];
-// console.log(`x: ${point[0]}, y: ${point[1]}`);
+const point: [number, number] = [10, 20];
+console.log(`x: ${point[0]}, y: ${point[1]}`);
+console.log(point);
 
 /**
  * 問題 6: ラベル付きタプル
@@ -60,7 +68,8 @@
  */
 
 // ここにコードを書く
-// let product: ??? = ['ノートPC', 99800, true];
+const product: [string, number, boolean] = ['ノートPC', 99800, true];
+console.log(product);
 
 /**
  * 問題 7: オプショナルタプル
@@ -73,6 +82,8 @@
  */
 
 // ここにコードを書く
+const zipCode: [string, string?] = ['123', '4567'];
+console.log(zipCode);
 
 /**
  * 問題 8: 残余要素を持つタプル
@@ -83,7 +94,8 @@
  */
 
 // ここにコードを書く
-// let data: ??? = ['スコア', 85, 90, 78, 92];
+const data: [string, ...number[]] = ['スコア', 85, 90, 78, 92];
+console.log(data);
 
 /**
  * 問題 9: タプルを返す関数
@@ -96,10 +108,10 @@
  */
 
 // ここにコードを書く
-
-// テスト
-// const [name, age] = getUser(1);
-// console.log(`名前: ${name}, 年齢: ${age}`);
+function getUser(id: number): [string, number] {
+  return ['太郎', 25];
+}
+console.log(getUser(1));
 
 /**
  * 問題 10: 配列 vs タプルの使い分け
@@ -113,18 +125,19 @@
 // → タプル: [number, number, number]
 
 // ここにコードを書く
-// let colors: ??? = [255, 128, 0];
-// let allScores: ??? = [85, 90, 78, 92, 88];
+const colors: [number, number, number] = [255, 128, 0];
+const allScores: number[] = [85, 90, 78, 92, 88];
 
+console.log(colors, allScores);
 /**
  * 問題 11: タプルの分割代入
  * タプルを分割代入で取り出してください。
  */
 
 // ここにコードを書く
-// let person: [string, number, string] = ['太郎', 25, '東京'];
-// const [name, age, city] = person;
-// console.log(`${name}さん、${age}歳、${city}在住`);
+const person: [string, number, string] = ['太郎', 25, '東京'];
+const [name, age, city] = person;
+console.log(`${name}さん、${age}歳、${city}在住`);
 
 /**
  * 問題 12: 複雑なタプル
@@ -135,3 +148,10 @@
  */
 
 // ここにコードを書く
+const employee: [number, string, string[], boolean] = [
+  1,
+  '太郎',
+  ['TypeScript', 'React', 'Node.js'],
+  true,
+];
+console.log(employee);

@@ -19,26 +19,39 @@
  */
 
 // ここにコードを書く
-// let value: unknown = 'hello';
+// const value: unknown = 'hello';
 
-// 型ガードを使って安全に操作
+// 型ガードを使って安全に操作;
 // if (typeof value === 'string') {
 //   console.log(value.toUpperCase());
 // }
-
+// if (typeof value === 'number') {
+//   console.log(value.toFixed(2));
+// }
 /**
  * 問題 3: any から unknown への変換
  * 以下の any を unknown に書き換えて、型ガードを追加してください。
  */
 
-/*
-function processData(data: any) {
-  return data.toUpperCase();
-}
-*/
+// function processData(data: any) {
+//   if (typeof data === 'string') {
+//     return data.toUpperCase();
+//   }
+//   return '';
+// }
+// console.log(processData('hello'));
+// console.log(processData(123));
 
 // ここに unknown を使った安全なバージョンを書く
 
+function processData(data: unknown): string {
+  if (typeof data === 'string') {
+    return data.toUpperCase();
+  }
+  return '';
+}
+console.log(processData('hello'));
+console.log(processData(123));
 /**
  * 問題 4: 型ガードの実装
  * 様々な型をチェックする関数を作成してください。
@@ -54,23 +67,46 @@ function processData(data: any) {
  */
 
 // ここにコードを書く
-
+function processValue(value: unknown): string {
+  if (typeof value === 'string') {
+    return value.toUpperCase();
+  }
+  if (typeof value === 'number') {
+    return (value * 2).toString();
+  }
+  if (typeof value === 'boolean') {
+    return value ? 'true' : 'false';
+  }
+  return '不明な型';
+}
+console.log(processValue('hello'));
+console.log(processValue(21));
+console.log(processValue(true));
+console.log(processValue(null));
 /**
  * 問題 5: オブジェクトの型ガード
  * unknown 型のオブジェクトを安全に扱ってください。
  */
 
 function processUser(user: unknown): string {
-  // ここにコードを書く
-  // user が { name: string, age: number } の形式かチェック
-  // 正しい形式なら 'Name: {name}, Age: {age}' を返す
-  // そうでなければ '無効なユーザー' を返す
+  if (
+    typeof user === 'object' &&
+    user !== null &&
+    'name' in user &&
+    'age' in user &&
+    typeof (user as any).name === 'string' &&
+    typeof (user as any).age === 'number'
+  ) {
+    const validUser = user as { name: string; age: number };
+    return `Name: ${validUser.name}, Age: ${validUser.age}`;
+  }
+  return '無効なユーザー';
 }
 
 // テスト
-// console.log(processUser({ name: '太郎', age: 25 }));
-// console.log(processUser({ name: '太郎' }));
-// console.log(processUser('invalid'));
+console.log(processUser({ name: '太郎', age: 25 }));
+console.log(processUser({ name: '太郎' }));
+console.log(processUser('invalid'));
 
 /**
  * 問題 6: any の適切な使用例
@@ -91,9 +127,9 @@ function processUser(user: unknown): string {
  */
 
 // ここにコードを書く
-// let value: unknown = 'hello';
-// let str: string = value as string; // 型アサーション
-// console.log(str.toUpperCase());
+const value: unknown = 'hello';
+const str: string = value as string; // 型アサーション
+console.log(str.toUpperCase());
 
 /**
  * 問題 8: 配列の型ガード
@@ -102,10 +138,13 @@ function processUser(user: unknown): string {
 
 function sumNumbers(data: unknown): number {
   // ここにコードを書く
-  // data が number[] かチェック
-  // 正しい形式なら合計を返す
-  // そうでなければ 0 を返す
+  if (Array.isArray(data) && data.every((item) => typeof item === 'number')) {
+    return data.reduce((sum, num) => sum + num, 0);
+  }
+  return 0;
 }
+console.log(sumNumbers([1, 2, 3, 4, 5]));
+console.log(sumNumbers('invalid'));
 
 // テスト
 // console.log(sumNumbers([1, 2, 3, 4, 5])); // 15
@@ -122,10 +161,19 @@ interface User {
 }
 
 // ここにコードを書く
-// function isUser(value: unknown): value is User {
-//   // User 型かチェックする実装
-// }
-
+function isUser(value: unknown): value is User {
+  // User 型かチェックする実装
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'name' in value &&
+    'age' in value &&
+    typeof (value as any).name === 'string' &&
+    typeof (value as any).age === 'number'
+  );
+}
+console.log(`isUserチェック: ${isUser({ name: '太郎', age: 25 })}`);
+console.log(`isUserチェック: ${isUser({ name: '太郎' })}`);
 // 使用例
 // let data: unknown = { name: '太郎', age: 25 };
 // if (isUser(data)) {
@@ -140,14 +188,27 @@ interface User {
 type Response = string | number | { message: string } | null;
 
 function handleResponse(response: unknown): string {
-  // ここにコードを書く
-  // response が Response 型の各パターンに応じて処理
-  // - string: そのまま返す
-  // - number: 文字列に変換
-  // - { message: string }: message プロパティを返す
-  // - null: 'レスポンスなし'
-  // - その他: '不明なレスポンス'
+  if (typeof response === 'string') {
+    return response;
+  } else if (typeof response === 'number') {
+    return response.toString();
+  } else if (
+    typeof response === 'object' &&
+    response !== null &&
+    'message' in response &&
+    typeof (response as any).message === 'string'
+  ) {
+    return (response as { message: string }).message;
+  } else if (response === null) {
+    return 'レスポンスなし';
+  } else {
+    return '不明なレスポンス';
+  }
 }
+console.log(handleResponse('success'));
+console.log(handleResponse(200));
+console.log(handleResponse({ message: 'OK' }));
+console.log(handleResponse(null));
 
 /**
  * 問題 11: any と unknown の比較
@@ -182,13 +243,21 @@ interface ApiResponse {
 
 function processApiResponse(response: ApiResponse): void {
   // ここにコードを書く
-  // success が true の場合のみ data を処理
-  // data が配列の場合: 要素数を表示
-  // data がオブジェクトの場合: プロパティを表示
-  // それ以外: 型を表示
+  if (!response.success) {
+    console.log('APIリクエスト失敗');
+    return;
+  }
+  if (Array.isArray(response.data)) {
+    console.log(`配列の要素数: ${response.data.length}`);
+  } else if (typeof response.data === 'object' && response.data !== null) {
+    console.log(`オブジェクトのプロパティ: ${Object.keys(response.data).join(', ')}`);
+  } else {
+    console.log(`不明な型: ${typeof response.data}`);
+  }
 }
 
 // テスト
-// processApiResponse({ success: true, data: [1, 2, 3] });
-// processApiResponse({ success: true, data: { name: '太郎' } });
-// processApiResponse({ success: false, data: null });
+processApiResponse({ success: true, data: [1, 2, 3] });
+processApiResponse({ success: true, data: { name: '太郎', age: 25 } });
+processApiResponse({ success: true, data: 'hello' });
+processApiResponse({ success: false, data: null });
