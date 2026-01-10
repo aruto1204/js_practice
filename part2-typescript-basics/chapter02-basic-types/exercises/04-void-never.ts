@@ -17,13 +17,15 @@ logMessage('Hello, TypeScript!');
  */
 
 // ここにコードを書く
-// function doSomething(): void {
-//   console.log('処理実行');
-//   return; // OK
-//   // return undefined; // OK
-//   // return null; // エラー（strictNullChecks が有効な場合）
-//   // return 123; // エラー
-// }
+function doSomething(): void {
+  console.log('処理実行');
+  // return; // OK
+  // return undefined; // OK
+  // return null; // エラー（strictNullChecks が有効な場合）
+  // return 123; // エラー
+}
+
+doSomething();
 
 /**
  * 問題 3: コンソール出力関数
@@ -31,10 +33,21 @@ logMessage('Hello, TypeScript!');
  */
 
 // ここにコードを書く
-// function logInfo(message: string): void {}
-// function logError(message: string): void {}
-// function logWarning(message: string): void {}
+function logInfo(message: string): void {
+  console.log(`[INFO] ${message}`);
+}
 
+function logError(message: string): void {
+  console.error(`[ERROR] ${message}`);
+}
+
+function logWarning(message: string): void {
+  console.warn(`[WARNING] ${message}`);
+}
+
+logInfo('アプリケーション起動');
+logWarning('警告メッセージ');
+logError('エラーが発生しました');
 /**
  * 問題 4: 配列の forEach
  * 配列の各要素を処理する関数を作成してください。
