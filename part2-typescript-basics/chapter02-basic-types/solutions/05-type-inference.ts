@@ -4,9 +4,9 @@
  * 問題 1: 基本的な型推論
  */
 
-let message = 'Hello'; // string 型
-let count = 42; // number 型
-let isActive = true; // boolean 型
+const message = 'Hello'; // string 型
+const count = 42; // number 型
+const isActive = true; // boolean 型
 
 // マウスカーソルを変数に当てると型が確認できます
 
@@ -14,9 +14,9 @@ let isActive = true; // boolean 型
  * 問題 2: 配列の型推論
  */
 
-let numbers = [1, 2, 3]; // number[] 型
-let mixed = [1, 'two', true]; // (string | number | boolean)[] 型
-let empty = []; // any[] 型（危険）
+const numbers = [1, 2, 3];
+const mixed = [1, 'two', true]; // (string | number | boolean)[] 型
+const empty = []; // any[] 型（危険）
 
 /**
  * 問題 3: 関数の戻り値の型推論
@@ -38,9 +38,9 @@ function isEven(num: number) {
  * 問題 4: オブジェクトの型推論
  */
 
-let user = {
+const user = {
   name: '太郎',
-  age: 25
+  age: 25,
 }; // { name: string; age: number; } 型
 
 user.name = '花子'; // OK
@@ -51,10 +51,10 @@ user.age = 30; // OK
  * 問題 5: const による型推論
  */
 
-let mutableString = 'hello'; // string 型
+const mutableString = 'hello'; // string 型
 const immutableString = 'hello'; // 'hello' 型（リテラル型）
 
-let mutableNumber = 42; // number 型
+const mutableNumber = 42; // number 型
 const immutableNumber = 42; // 42 型（リテラル型）
 
 /**
@@ -78,12 +78,12 @@ numbers2.map((num) => {
  */
 
 // 悪い例: any[] と推論される
-let emptyArray = [];
+const emptyArray = [];
 emptyArray.push(1);
 emptyArray.push('text'); // OK（型安全でない）
 
 // 良い例: 型注釈を追加
-let typedArray: number[] = [];
+const typedArray: number[] = [];
 typedArray.push(1); // OK
 // typedArray.push('text'); // エラー
 
@@ -137,7 +137,7 @@ const calculator = {
   },
   subtract(a: number, b: number) {
     return a - b; // 戻り値の型は number と推論される
-  }
+  },
 };
 
 // calculator.add の型は (a: number, b: number) => number
@@ -192,13 +192,13 @@ const readonlyColors = ['red', 'green', 'blue'] as const;
 // 通常のオブジェクト
 const config = {
   host: 'localhost',
-  port: 3000
+  port: 3000,
 }; // { host: string; port: number; }
 
 // as const を使用
 const readonlyConfig = {
   host: 'localhost',
-  port: 3000
+  port: 3000,
 } as const;
 // { readonly host: 'localhost'; readonly port: 3000; }
 
@@ -223,7 +223,7 @@ function calculateTotal(items: Item[]): number {
 
 const items: Item[] = [
   { price: 100, quantity: 2 },
-  { price: 200, quantity: 1 }
+  { price: 200, quantity: 1 },
 ];
 
 console.log(calculateTotal(items)); // 400

@@ -54,21 +54,24 @@ logError('エラーが発生しました');
  */
 
 // ここにコードを書く
-// function printNumbers(numbers: number[]): void {
-//   numbers.forEach((num) => {
-//     console.log(num);
-//   });
-// }
+function printNumbers(numbers: number[]): void {
+  numbers.forEach((num) => {
+    console.log(num);
+  });
+}
 
+printNumbers([1, 2, 3, 4, 5]);
 /**
  * 問題 5: never 型の基本
  * 例外を投げる関数を作成してください。
  */
 
 // ここにコードを書く
-// function throwError(message: string): never {
-//   throw new Error(message);
-// }
+function throwError(message: string): never {
+  throw new Error(message);
+}
+
+// throwError('エラーが発生しました');
 
 /**
  * 問題 6: 無限ループ
@@ -76,11 +79,11 @@ logError('エラーが発生しました');
  */
 
 // ここにコードを書く
-// function infiniteLoop(): never {
-//   while (true) {
-//     // 処理
-//   }
-// }
+function infiniteLoop(): never {
+  while (true) {
+    // 処理
+  }
+}
 
 /**
  * 問題 7: void vs never
@@ -88,17 +91,17 @@ logError('エラーが発生しました');
  */
 
 // 値を返さないが、正常に終了する
-function funcA() {
+function funcA(): void {
   console.log('実行');
 }
 
 // 常に例外を投げる
-function funcB() {
+function funcB(): never {
   throw new Error('エラー');
 }
 
 // 条件によって例外を投げる
-function funcC(value: number) {
+function funcC(value: number): void {
   if (value < 0) {
     throw new Error('負の数は不正');
   }
@@ -128,43 +131,53 @@ function handleStatus(status: Status): string {
   }
 }
 
+console.log(handleStatus('success'));
 /**
  * 問題 9: アサーション関数
  * 条件が false の場合に例外を投げる関数を作成してください。
  */
 
 // ここにコードを書く
-// function assert(condition: boolean, message: string): asserts condition {
-//   if (!condition) {
-//     throw new Error(message);
-//   }
-// }
+function assert(condition: boolean, message: string): asserts condition {
+  if (!condition) {
+    throw new Error(message);
+  }
+}
 
 // 使用例
-// function processValue(value: string | null) {
-//   assert(value !== null, 'value は null であってはいけません');
-//   console.log(value.toUpperCase()); // value は string 型として扱える
-// }
+function processValue(value: string | null): void {
+  assert(value !== null, 'value は null であってはいけません');
+  console.log(value.toUpperCase()); // value は string 型として扱える
+}
 
+processValue('hello');
+// processValue(null); // エラー: value は null であってはいけません
 /**
  * 問題 10: エラーハンドリング
  * エラーを投げる関数と、それをキャッチする関数を作成してください。
  */
 
 // ここにコードを書く
+function fail(message: string): never {
+  throw new Error(message);
+}
+
 function divide(a: number, b: number): number {
   if (b === 0) {
     // ここに never を返す関数を呼び出す
+    fail('0で割ることはできません');
   }
   return a / b;
 }
 
+console.log(divide(10, 2)); // 5
+// console.log(divide(10, 0)); // エラー: 0で割ることはできません
 /**
  * 問題 11: 型ガードと never
  * 型の絞り込みで never 型になるケースを確認してください。
  */
 
-function processValue(value: string | number) {
+function processValue2(value: string | number): void {
   if (typeof value === 'string') {
     console.log(value.toUpperCase());
   } else if (typeof value === 'number') {
@@ -176,22 +189,25 @@ function processValue(value: string | number) {
   }
 }
 
+processValue2('hello');
+processValue2(42);
+
 /**
  * 問題 12: コールバック関数の型
  * コールバック関数が void を返す場合の例を作成してください。
  */
 
 // ここにコードを書く
-// function forEach(arr: number[], callback: (item: number) => void): void {
-//   for (const item of arr) {
-//     callback(item);
-//   }
-// }
+function forEach(arr: number[], callback: (item: number) => void): void {
+  for (const item of arr) {
+    callback(item);
+  }
+}
 
 // 使用例
-// forEach([1, 2, 3], (num) => {
-//   console.log(num);
-// });
+forEach([1, 2, 3], (num) => {
+  console.log(num);
+});
 
 /**
  * 問題 13: Promise と void
@@ -199,21 +215,24 @@ function processValue(value: string | number) {
  */
 
 // ここにコードを書く
-// async function saveData(data: string): Promise<void> {
-//   console.log('データを保存中...');
-//   await new Promise((resolve) => setTimeout(resolve, 1000));
-//   console.log('保存完了');
-// }
+async function saveData(data: string): Promise<void> {
+  console.log('データを保存中...');
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  console.log('保存完了:', data);
+}
 
+saveData('test data');
 /**
  * 問題 14: イベントハンドラ
  * イベントハンドラ関数を作成してください（void を返す）。
  */
 
 // ここにコードを書く
-// function handleClick(event: { x: number; y: number }): void {
-//   console.log(`クリック位置: (${event.x}, ${event.y})`);
-// }
+function handleClick(event: { x: number; y: number }): void {
+  console.log(`クリック位置: (${event.x}, ${event.y})`);
+}
+
+handleClick({ x: 100, y: 200 });
 
 /**
  * 問題 15: never の実践的な使用
@@ -240,3 +259,8 @@ function getArea(shape: Shape): number {
 function assertNever(value: never): never {
   throw new Error(`Unexpected value: ${value}`);
 }
+
+console.log(getArea('circle'));
+console.log(getArea('square'));
+console.log(getArea('triangle'));
+// console.log(getArea('rectangle')); // エラー: 未処理のケース

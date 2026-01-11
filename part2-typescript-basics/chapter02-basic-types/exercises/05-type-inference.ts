@@ -6,10 +6,13 @@
  */
 
 // ここにコードを書く
-// let message = 'Hello'; // 型は？
-// let count = 42; // 型は？
-// let isActive = true; // 型は？
+const message = 'Hello'; // 型は？
+const count = 42; // 型は？
+const isActive = true; // 型は？
 
+console.log(typeof message);
+console.log(typeof count);
+console.log(typeof isActive);
 // マウスカーソルを変数に当てて型を確認しましょう
 
 /**
@@ -18,9 +21,9 @@
  */
 
 // ここにコードを書く
-// let numbers = [1, 2, 3]; // 型は？
-// let mixed = [1, 'two', true]; // 型は？
-// let empty = []; // 型は？
+let numbers = [1, 2, 3]; // 型は？
+const mixed = [1, 'two', true]; // 型は？
+const empty = []; // 型は？
 
 /**
  * 問題 3: 関数の戻り値の型推論
@@ -152,7 +155,7 @@ const calculator = {
   },
   subtract(a: number, b: number) {
     return a - b;
-  }
+  },
 };
 
 // calculator.add の型は？ (a: number, b: number) => number
@@ -189,7 +192,7 @@ function getUsers() {
 }
 
 // ケース3: 空配列（必須）
-let items = [];
+const items = [];
 // items の型を指定すべき
 
 /**
