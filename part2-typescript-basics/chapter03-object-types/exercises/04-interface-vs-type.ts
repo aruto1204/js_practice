@@ -13,19 +13,28 @@
 // 将来的に AdminUser として拡張する予定
 
 // ここにコードを書いてください（interface または type を使う）
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
 
 // 問題 2: AdminUser を定義してください（問題1の型を拡張）
 // 追加プロパティ:
 // - role: 'admin'
 // - permissions: string[]
 
+interface AdminUser extends User {
+  role: 'admin';
+  permissions: string[];
+}
 // ここにコードを書いてください
 
 // 問題 3: HTTPメソッドを表す型を定義してください
 // 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' のいずれか
 
 // ここにコードを書いてください（適切な方を選択）
-
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 // 問題 4: APIレスポンスを表す型を定義してください
 // 成功の場合:
 // - status: 'success'
@@ -37,33 +46,40 @@
 // - code: number
 
 // ここにコードを書いてください（適切な方を選択）
-
+type ApiResponse =
+  | { status: 'success'; data: any }
+  | { status: 'error'; message: string; code: number };
 // 問題 5: Position 型をタプル型で定義してください
 // [number, number, number]（x, y, z座標）
 
 // ここにコードを書いてください（適切な方を選択）
-
+type Position = [number, number, number];
 // 問題 6: Shape インターフェースを定義してください
 // - color: string
 // - getArea(): number
 
 // ここにコードを書いてください
-
+interface Shape {
+  color: string;
+  getArea(): number;
+}
 // 問題 7: Circle 型を定義してください（Shape を拡張し、radius を追加）
 
 // ここにコードを書いてください（適切な方を選択）
-
+interface Circle extends Shape {
+  radius: number;
+}
 // 問題 8: ID 型をユニオン型で定義してください
 // string または number
 
 // ここにコードを書いてください（適切な方を選択）
-
+type ID = string | number;
 // 問題 9: DataStore 型を定義してください
 // キーが string で、値が any のオブジェクト
 // ヒント: Record<K, V> または { [key: string]: any } を使う
 
 // ここにコードを書いてください（適切な方を選択）
-
+type DataStore = Record<string, any>;
 // 問題 10: 以下のコメントを読んで、interface と type のどちらを使うべきか判断してください
 // それぞれのケースに対して適切な型定義を書いてください
 
@@ -72,11 +88,16 @@
 // - onClick: () => void
 
 // ここにコードを書いてください
+interface ButtonProps {
+  title: string;
+  onClick: () => void;
+}
 
 // ケース B: ステータスコード（固定の値のいずれか）
 // 200 | 400 | 404 | 500
 
 // ここにコードを書いてください
+type StatusCode = 200 | 400 | 404 | 500;
 
 // ケース C: データベースのモデル（他のモデルで継承される可能性がある）
 // - id: number
@@ -84,14 +105,25 @@
 // - updatedAt: Date
 
 // ここにコードを書いてください
+interface BaseModel {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 // テスト用のコード（実行して確認できます）
 // npx ts-node exercises/04-interface-vs-type.ts
 
 // 型定義が正しいか確認するテスト
-// const user: User = { id: 1, name: '太郎', email: 'taro@example.com' };
-// const admin: AdminUser = { id: 2, name: '花子', email: 'admin@example.com', role: 'admin', permissions: ['read', 'write'] };
-// const method: HttpMethod = 'GET';
-// const response: ApiResponse = { status: 'success', data: { message: 'OK' } };
-// const position: Position = [10, 20, 30];
-// const id: ID = '123'; // または 123
+const user: User = { id: 1, name: '太郎', email: 'taro@example.com' };
+const admin: AdminUser = {
+  id: 2,
+  name: '花子',
+  email: 'admin@example.com',
+  role: 'admin',
+  permissions: ['read', 'write'],
+};
+const method: HttpMethod = 'GET';
+const response: ApiResponse = { status: 'success', data: { message: 'OK' } };
+const position: Position = [10, 20, 30];
+const id: ID = '123'; // または 123

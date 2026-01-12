@@ -51,11 +51,11 @@ user.age = 30; // OK
  * 問題 5: const による型推論
  */
 
-const mutableString = 'hello'; // string 型
-const immutableString = 'hello'; // 'hello' 型（リテラル型）
+// const mutableString = 'hello'; // string 型
+// const immutableString = 'hello'; // 'hello' 型（リテラル型）
 
-const mutableNumber = 42; // number 型
-const immutableNumber = 42; // 42 型（リテラル型）
+// const mutableNumber = 42; // number 型
+// const immutableNumber = 42; // 42 型（リテラル型）
 
 /**
  * 問題 6: 文脈的型付け

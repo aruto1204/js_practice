@@ -11,12 +11,17 @@
 // - inStock: boolean
 
 // ここにコードを書いてください
-
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+  inStock: boolean;
+};
 // 問題 2: Status 型をユニオン型で定義してください
 // 'pending' | 'processing' | 'completed' | 'cancelled' のいずれか
 
 // ここにコードを書いてください
-
+type Status = 'pending' | 'processing' | 'completed' | 'cancelled';
 // 問題 3: Order 型を定義してください（上記の Product と Status を使用）
 // - orderId: string
 // - product: Product
@@ -24,7 +29,12 @@
 // - status: Status
 
 // ここにコードを書いてください
-
+type Order = {
+  orderId: string;
+  product: Product;
+  quantity: number;
+  status: Status;
+};
 // 問題 4: Person 型と Contact 型を定義し、交差型で Employee 型を作成してください
 // Person:
 // - name: string
@@ -39,6 +49,15 @@
 // - position: string
 
 // ここにコードを書いてください
+type Person = {
+  name: string;
+  age: number;
+};
+type Contact = {
+  email: string;
+  phone: string;
+};
+type Employee = Person & Contact & { employeeId: string; position: string };
 
 // 問題 5: Result 型を判別可能なユニオン型で定義してください
 // Success の場合:
@@ -50,17 +69,26 @@
 // - error: string
 
 // ここにコードを書いてください
+type Result = { success: true; data: string } | { success: false; error: string };
 
 // 問題 6: handleResult 関数を実装してください
 // Result 型を引数に取り、success の値に応じて適切な処理を行います
 
 // ここにコードを書いてください
-function handleResult(/* 引数の型を定義 */) {
-  // 実装
+function handleResult(result: Result): void {
+  if (result.success) {
+    console.log('✅ 成功:', result.data);
+  } else {
+    console.log('❌ エラー:', result.error);
+  }
 }
+// 実装
+handleResult({ success: true, data: 'データ取得成功' });
+handleResult({ success: false, error: 'データ取得失敗' });
 
 // 問題 7: Coordinate 型をタプル型で定義してください
 // [number, number] の形式（x座標, y座標）
+type Coordinate = [number, number];
 
 // ここにコードを書いてください
 
@@ -69,10 +97,13 @@ function handleResult(/* 引数の型を定義 */) {
 // 距離の計算式: √((x2-x1)² + (y2-y1)²)
 
 // ここにコードを書いてください
-function calculateDistance(/* 引数の型を定義 */) {
-  // 実装
+function calculateDistance(point1: Coordinate, point2: Coordinate): number {
+  const [x1, y1] = point1;
+  const [x2, y2] = point2;
+  return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
 }
-
+// 実装
+console.log(calculateDistance([0, 0], [3, 4]));
 // テスト用のコード（実行して確認できます）
 // npx ts-node exercises/03-type-alias.ts
 

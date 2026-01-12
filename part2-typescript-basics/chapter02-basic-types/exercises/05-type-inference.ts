@@ -21,9 +21,9 @@ console.log(typeof isActive);
  */
 
 // ここにコードを書く
-let numbers = [1, 2, 3]; // 型は？
-const mixed = [1, 'two', true]; // 型は？
-const empty = []; // 型は？
+// let numbers = [1, 2, 3]; // 型は？
+// const mixed = [1, 'two', true]; // 型は？
+// const empty = []; // 型は？
 
 /**
  * 問題 3: 関数の戻り値の型推論
@@ -48,13 +48,13 @@ function isEven(num: number) {
  */
 
 // ここにコードを書く
-// let user = {
-//   name: '太郎',
-//   age: 25
-// }; // 型は？
+const user = {
+  name: '太郎',
+  age: 25,
+}; // 型は？
 
-// user.name = '花子'; // OK
-// user.age = 30; // OK
+user.name = '花子'; // OK
+user.age = 30; // OK
 // user.email = 'test@example.com'; // エラー
 
 /**
@@ -75,17 +75,17 @@ function isEven(num: number) {
  */
 
 // ここにコードを書く
-// const numbers = [1, 2, 3, 4, 5];
+const numbers = [1, 2, 3, 4, 5];
 
-// numbers.forEach((num) => {
-//   // num の型は自動的に number と推論される
-//   console.log(num.toFixed(2));
-// });
+numbers.forEach((num) => {
+  // num の型は自動的に number と推論される
+  console.log(num.toFixed(2));
+});
 
-// numbers.map((num) => {
-//   // num の型は？
-//   return num * 2;
-// });
+numbers.map((num) => {
+  // num の型は？
+  return num * 2;
+});
 
 /**
  * 問題 7: 型推論の限界
@@ -165,9 +165,9 @@ const calculator = {
  * 配列メソッドチェーンでの型推論を確認してください。
  */
 
-const numbers = [1, 2, 3, 4, 5];
+const numbers2 = [1, 2, 3, 4, 5];
 
-const result = numbers
+const result = numbers2
   .filter((n) => n > 2) // number[]
   .map((n) => n * 2) // number[]
   .reduce((sum, n) => sum + n, 0); // number
@@ -179,20 +179,25 @@ const result = numbers
  * 以下のケースで型注釈を追加すべき場所を特定してください。
  */
 
+interface User {
+  name: string;
+  age: number;
+}
+
 // ケース1: 関数の引数（必須）
-function processUser(user) {
+function processUser(user: User) {
   // user の型を指定すべき
   return user.name;
 }
 
 // ケース2: 関数の戻り値（推奨）
-function getUsers() {
+function getUsers(): User[] {
   // 戻り値の型を明示すべき
   return [{ name: '太郎', age: 25 }];
 }
 
 // ケース3: 空配列（必須）
-const items = [];
+const items: string[] = [];
 // items の型を指定すべき
 
 /**
@@ -206,27 +211,37 @@ const items = [];
 
 // const config = {
 //   host: 'localhost',
-//   port: 3000
+//   port: 3000,
 // }; // { host: string; port: number; }
 
 // const readonlyConfig = {
 //   host: 'localhost',
-//   port: 3000
+//   port: 3000,
 // } as const; // { readonly host: 'localhost'; readonly port: 3000; }
 
 /**
  * 問題 15: 型推論のベストプラクティス
  * 以下のコードを型推論と明示的な型注釈を適切に使い分けてください。
  */
-
+type Item = {
+  price: number;
+  quantity: number;
+};
 // 改善前
-function calculateTotal(items) {
+function calculateTotal(items: Item[]): number {
   let total = 0;
   for (const item of items) {
     total += item.price * item.quantity;
   }
   return total;
 }
+
+const items2: Item[] = [
+  { price: 100, quantity: 2 },
+  { price: 200, quantity: 1 },
+];
+
+console.log(calculateTotal(items2));
 
 // 改善後（ここにコードを書く）
 // - items の型を明示
