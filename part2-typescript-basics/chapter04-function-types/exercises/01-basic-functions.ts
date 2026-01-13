@@ -9,30 +9,35 @@
 // ==========================================
 // 2つの数値を受け取り、その積を返す multiply 関数を定義してください
 // TODO: ここに multiply 関数を実装
-
+function multiply(a: number, b: number): number {
+  return a * b;
+}
 
 // ==========================================
 // 問題 2: 文字列操作関数
 // ==========================================
 // 文字列を受け取り、その文字数を返す getLength 関数を定義してください
 // TODO: ここに getLength 関数を実装
-
-
+function getLength(str: string): number {
+  return str.length;
+}
 // ==========================================
 // 問題 3: boolean を返す関数
 // ==========================================
 // 数値を受け取り、それが偶数かどうかを返す isEven 関数を定義してください
 // TODO: ここに isEven 関数を実装
-
-
+function isEven(num: number): boolean {
+  return num % 2 === 0;
+}
 // ==========================================
 // 問題 4: void 型の関数
 // ==========================================
 // 名前を受け取り、コンソールに挨拶メッセージを出力する greet 関数を定義してください
 // 例: greet('Alice') → "Hello, Alice!" とコンソールに出力
 // TODO: ここに greet 関数を実装
-
-
+function greet(name: string): void {
+  console.log(`Hello, ${name}!`);
+}
 // ==========================================
 // 問題 5: 複数の引数を持つ関数
 // ==========================================
@@ -40,61 +45,70 @@
 // それらを組み合わせた文字列を返す createProfile 関数を定義してください
 // 例: createProfile('Alice', 25, 'Tokyo') → "Alice is 25 years old and lives in Tokyo."
 // TODO: ここに createProfile 関数を実装
-
-
+function createProfile(name: string, age: number, city: string): string {
+  return `${name} is ${age} years old and lives in ${city}.`;
+}
 // ==========================================
 // 問題 6: オブジェクトを返す関数
 // ==========================================
 // 2つの数値を受け取り、その和と差をオブジェクトで返す calculate 関数を定義してください
 // 戻り値の型は { sum: number; difference: number } としてください
 // TODO: ここに calculate 関数を実装
-
+function calculate(a: number, b: number): { sum: number; difference: number } {
+  return { sum: a + b, difference: a - b };
+}
 
 // ==========================================
 // 問題 7: 配列を受け取る関数
 // ==========================================
 // 数値の配列を受け取り、その平均値を返す getAverage 関数を定義してください
 // TODO: ここに getAverage 関数を実装
-
-
+function getAverage(numbers: number[]): number {
+  return numbers.reduce((sum, num) => sum + num, 0) / numbers.length;
+}
 // ==========================================
 // 問題 8: アロー関数での型定義
 // ==========================================
 // 文字列を受け取り、その最初の文字を大文字にして返す capitalize 関数を
 // アロー関数で定義してください
 // TODO: ここに capitalize 関数を実装
-
-
+const capitalize = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
 // ==========================================
 // 問題 9: 複雑な戻り値の型
 // ==========================================
 // ユーザー情報を表す型を定義し、名前とメールアドレスを受け取って
 // ユーザーオブジェクトを返す createUser 関数を定義してください
 // TODO: User 型と createUser 関数を実装
-
-
+type User = {
+  name: string;
+  email: string;
+};
+function createUser(name: string, email: string): User {
+  return { name, email };
+}
 // ==========================================
 // 問題 10: null を返す可能性がある関数
 // ==========================================
 // 配列と検索する値を受け取り、その値が配列内にあればインデックスを、
 // なければ null を返す findIndex 関数を定義してください
 // TODO: ここに findIndex 関数を実装
-
-
+function findIndex(array: number[], value: number): number | null {
+  const index = array.indexOf(value);
+  return index !== -1 ? index : null;
+}
 // ==========================================
 // テストコード（実装後にコメントを外して実行）
 // ==========================================
-/*
-console.log(multiply(3, 4));                    // 12
-console.log(getLength('TypeScript'));           // 10
-console.log(isEven(4));                         // true
-console.log(isEven(7));                         // false
-greet('Alice');                                  // "Hello, Alice!"
+
+console.log(multiply(3, 4)); // 12
+console.log(getLength('TypeScript')); // 10
+console.log(isEven(4)); // true
+console.log(isEven(7)); // false
+greet('Alice'); // "Hello, Alice!"
 console.log(createProfile('Bob', 30, 'Osaka')); // "Bob is 30 years old and lives in Osaka."
-console.log(calculate(10, 3));                  // { sum: 13, difference: 7 }
-console.log(getAverage([1, 2, 3, 4, 5]));      // 3
-console.log(capitalize('hello'));               // "Hello"
+console.log(calculate(10, 3)); // { sum: 13, difference: 7 }
+console.log(getAverage([1, 2, 3, 4, 5])); // 3
+console.log(capitalize('hello')); // "Hello"
 console.log(createUser('Charlie', 'charlie@example.com'));
-console.log(findIndex([1, 2, 3, 4], 3));       // 2
-console.log(findIndex([1, 2, 3, 4], 5));       // null
-*/
+console.log(findIndex([1, 2, 3, 4], 3)); // 2
+console.log(findIndex([1, 2, 3, 4], 5)); // null
