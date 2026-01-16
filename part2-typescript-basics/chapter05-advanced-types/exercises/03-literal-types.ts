@@ -11,6 +11,10 @@
 // そして、Direction を受け取って移動メッセージを返す move 関数を実装してください
 // TODO: Direction 型と move 関数を実装
 
+type Direction = 'north' | 'south' | 'east' | 'west';
+function move(direction: Direction): string {
+  return `Moving ${direction}`;
+}
 
 // ==========================================
 // 問題 2: 数値リテラル型
@@ -19,6 +23,18 @@
 // そして、HttpStatus を受け取ってステータスメッセージを返す getStatusMessage 関数を実装してください
 // TODO: HttpStatus 型と getStatusMessage 関数を実装
 
+type HttpStatus = 200 | 201 | 400 | 401 | 404 | 500;
+function getStatusMessage(status: HttpStatus): string {
+  const messages: Record<HttpStatus, string> = {
+    200: 'OK',
+    201: 'Created',
+    400: 'Bad Request',
+    401: 'Unauthorized',
+    404: 'Not Found',
+    500: 'Internal Server Error',
+  };
+  return messages[status];
+}
 
 // ==========================================
 // 問題 3: サイズの定義
@@ -28,7 +44,17 @@
 // xs: 12, s: 14, m: 16, l: 18, xl: 20
 // TODO: Size 型と getSizeInPixels 関数を実装
 
-
+type Size = 'xs' | 's' | 'm' | 'l' | 'xl';
+function getSizeInPixels(size: Size): number {
+  const sizes: Record<Size, number> = {
+    xs: 12,
+    s: 14,
+    m: 16,
+    l: 18,
+    xl: 20,
+  };
+  return sizes[size];
+}
 // ==========================================
 // 問題 4: boolean リテラル型
 // ==========================================
@@ -36,6 +62,11 @@
 // そして、AlwaysTrue を返す関数 confirmAction を実装してください
 // TODO: AlwaysTrue 型と confirmAction 関数を実装
 
+type AlwaysTrue = true;
+
+function confirmAction(): AlwaysTrue {
+  return true;
+}
 
 // ==========================================
 // 問題 5: オブジェクトの判別
@@ -46,7 +77,24 @@
 // そして、Shape を受け取って面積を計算する calculateArea 関数を実装してください
 // TODO: Circle, Square, Shape 型と calculateArea 関数を実装
 
+type Circle = {
+  kind: 'circle';
+  radius: number;
+};
 
+type Square = {
+  kind: 'square';
+  sideLength: number;
+};
+
+type Shape = Circle | Square;
+
+function calculateArea(shape: Shape): number {
+  if (shape.kind === 'circle') {
+    return Math.PI * shape.radius ** 2;
+  }
+  return shape.sideLength ** 2;
+}
 // ==========================================
 // 問題 6: イベントの型定義
 // ==========================================
@@ -55,7 +103,26 @@
 // Event 型をこれらのユニオンとして定義してください
 // そして、Event を受け取って処理する handleEvent 関数を実装してください
 // TODO: ClickEvent, KeyEvent, Event 型と handleEvent 関数を実装
+type ClickEvent = {
+  type: 'click';
+  x: number;
+  y: number;
+};
 
+type KeyEvent = {
+  type: 'keypress';
+  key: string;
+};
+
+type Event = ClickEvent | KeyEvent;
+
+function handleEvent(event: Event): void {
+  if (event.type === 'click') {
+    console.log(`Clicked at (${event.x}, ${event.y})`);
+  } else {
+    console.log(`Key pressed: ${event.key}`);
+  }
+}
 
 // ==========================================
 // 問題 7: 色のリテラル型
@@ -65,7 +132,15 @@
 // red: '#FF0000', green: '#00FF00', blue: '#0000FF'
 // TODO: Color 型と getColorCode 関数を実装
 
-
+type Color = 'red' | 'green' | 'blue';
+function getColorCode(color: Color): string {
+  const colors: Record<Color, string> = {
+    red: '#FF0000',
+    green: '#00FF00',
+    blue: '#0000FF',
+  };
+  return colors[color];
+}
 // ==========================================
 // 問題 8: 状態管理
 // ==========================================
@@ -77,6 +152,32 @@
 // State を受け取って UI テキストを返す getStateText 関数を実装してください
 // TODO: 各State型と getStateText 関数を実装
 
+type LoadingState = {
+  status: 'loading';
+};
+
+type SuccessState = {
+  status: 'success';
+  data: string;
+};
+
+type ErrorState = {
+  status: 'error';
+  error: Error;
+};
+
+type State = LoadingState | SuccessState | ErrorState;
+
+function getStateText(state: State): string {
+  switch (state.status) {
+    case 'loading':
+      return 'Loading...';
+    case 'success':
+      return `Success: ${state.data}`;
+    case 'error':
+      return `Error: ${state.error.message}`;
+  }
+}
 
 // ==========================================
 // 問題 9: リテラル型の配列
@@ -85,6 +186,10 @@
 // Weekday の配列を受け取って営業日かどうかを判定する isBusinessDay 関数を実装してください
 // TODO: Weekday 型と isBusinessDay 関数を実装
 
+type Weekday = 'mon' | 'tue' | 'wed' | 'thu' | 'fri';
+function isBusinessDay(day: Weekday): boolean {
+  return day !== 'sat' && day !== 'sun';
+}
 
 // ==========================================
 // 問題 10: ネストしたリテラル型
@@ -96,6 +201,24 @@
 // そして、PaymentMethod を受け取って支払い情報を表示する displayPayment 関数を実装してください
 // TODO: PaymentMethod 型と displayPayment 関数を実装
 
+type PaymentMethod =
+  | { method: 'credit_card'; cardNumber: string }
+  | { method: 'paypal'; email: string }
+  | { method: 'bank_transfer'; accountNumber: string };
+
+function displayPayment(payment: PaymentMethod): void {
+  switch (payment.method) {
+    case 'credit_card':
+      console.log(`Credit Card: ${payment.cardNumber}`);
+      break;
+    case 'paypal':
+      console.log(`PayPal: ${payment.email}`);
+      break;
+    case 'bank_transfer':
+      console.log(`Bank Transfer: ${payment.accountNumber}`);
+      break;
+  }
+}
 
 // ==========================================
 // 問題 11: リテラル型の絞り込み
@@ -105,6 +228,16 @@
 // red → green, green → yellow, yellow → red
 // TODO: TrafficLight 型と getNextLight 関数を実装
 
+type TrafficLight = 'red' | 'yellow' | 'green';
+
+function getNextLight(current: TrafficLight): TrafficLight {
+  const transitions: Record<TrafficLight, TrafficLight> = {
+    red: 'green',
+    green: 'yellow',
+    yellow: 'red',
+  };
+  return transitions[current];
+}
 
 // ==========================================
 // 問題 12: const アサーション
@@ -113,6 +246,13 @@
 // そして、その型から ColorName 型を抽出してください
 // TODO: COLORS と ColorName 型を実装
 
+const COLORS = {
+  RED: '#FF0000',
+  GREEN: '#00FF00',
+  BLUE: '#0000FF',
+} as const;
+
+type ColorName = keyof typeof COLORS;
 
 // ==========================================
 // 問題 13: タグ付きユニオンの応用
@@ -123,7 +263,24 @@
 // - { type: 'delete', url: string, id: string }
 // そして、Request を受け取って HTTP リクエストの説明を返す describeRequest 関数を実装してください
 // TODO: Request 型と describeRequest 関数を実装
+type Request =
+  | { type: 'get'; url: string }
+  | { type: 'post'; url: string; body: any }
+  | { type: 'delete'; url: string; id: string };
 
+function describeRequest(request: Request): void {
+  switch (request.type) {
+    case 'get':
+      console.log(`GET ${request.url}`);
+      break;
+    case 'post':
+      console.log(`POST ${request.url} with body:`, request.body);
+      break;
+    case 'delete':
+      console.log(`DELETE ${request.url}/${request.id}`);
+      break;
+  }
+}
 
 // ==========================================
 // 問題 14: リテラル型と型ガード
@@ -135,6 +292,21 @@
 // そして、Animal を受け取って詳細情報を返す getAnimalInfo 関数を実装してください
 // TODO: Animal 型と getAnimalInfo 関数を実装
 
+type Animal =
+  | { species: 'dog'; breed: string }
+  | { species: 'cat'; indoor: boolean }
+  | { species: 'bird'; canFly: boolean };
+
+function getAnimalInfo(animal: Animal): string {
+  switch (animal.species) {
+    case 'dog':
+      return `Dog (${animal.breed})`;
+    case 'cat':
+      return `Cat (${animal.indoor ? 'Indoor' : 'Outdoor'})`;
+    case 'bird':
+      return `Bird (${animal.canFly ? 'Can fly' : 'Cannot fly'})`;
+  }
+}
 
 // ==========================================
 // 問題 15: 複雑な判別可能なユニオン
@@ -147,37 +319,71 @@
 // そして、Message[] を受け取ってサマリーを表示する summarizeMessages 関数を実装してください
 // TODO: Message 型と summarizeMessages 関数を実装
 
+type Message =
+  | { kind: 'text'; content: string; sender: string }
+  | { kind: 'image'; url: string; width: number; height: number }
+  | { kind: 'video'; url: string; duration: number }
+  | { kind: 'file'; filename: string; size: number };
+
+function summarizeMessages(messages: Message[]): void {
+  const summary = messages.reduce(
+    (acc, msg) => {
+      acc[msg.kind] = (acc[msg.kind] || 0) + 1;
+      return acc;
+    },
+    {} as Record<string, number>
+  );
+
+  console.log('Message Summary:');
+  Object.entries(summary).forEach(([kind, count]) => {
+    console.log(`  ${kind}: ${count}`);
+  });
+}
 
 // ==========================================
 // テストコード（実装後にコメントを外して実行）
 // ==========================================
-/*
-console.log(move('north'));                          // "Moving north"
-console.log(getStatusMessage(200));                  // "OK"
-console.log(getStatusMessage(404));                  // "Not Found"
-console.log(getSizeInPixels('m'));                   // 16
-console.log(confirmAction());                        // true
+
+console.log(move('north')); // "Moving north"
+
+console.log(getStatusMessage(200)); // "OK"
+console.log(getStatusMessage(404)); // "Not Found"
+
+console.log(getSizeInPixels('m')); // 16
+
+console.log(confirmAction()); // true
+
 console.log(calculateArea({ kind: 'circle', radius: 5 }));
 console.log(calculateArea({ kind: 'square', sideLength: 4 }));
+
 handleEvent({ type: 'click', x: 100, y: 200 });
 handleEvent({ type: 'keypress', key: 'Enter' });
-console.log(getColorCode('red'));                    // "#FF0000"
-console.log(getStateText({ status: 'loading' }));   // "Loading..."
+
+console.log(getColorCode('red')); // "#FF0000"
+
+console.log(getStateText({ status: 'loading' })); // "Loading..."
 console.log(getStateText({ status: 'success', data: 'OK' }));
-console.log(isBusinessDay('mon'));                   // true
-console.log(isBusinessDay('sat' as any));            // false
+
+console.log(isBusinessDay('mon')); // true
+console.log(isBusinessDay('sat' as any)); // false
+
 displayPayment({ method: 'credit_card', cardNumber: '1234-5678' });
 displayPayment({ method: 'paypal', email: 'user@example.com' });
-console.log(getNextLight('red'));                    // "green"
-console.log(getNextLight('green'));                  // "yellow"
+
+console.log(getNextLight('red')); // "green"
+console.log(getNextLight('green')); // "yellow"
+
+console.log(COLORS.RED); // "#FF0000"
+
 describeRequest({ type: 'get', url: '/api/users' });
 describeRequest({ type: 'post', url: '/api/users', body: { name: 'Alice' } });
+
 console.log(getAnimalInfo({ species: 'dog', breed: 'Labrador' }));
 console.log(getAnimalInfo({ species: 'cat', indoor: true }));
+
 const messages: Message[] = [
   { kind: 'text', content: 'Hello', sender: 'Alice' },
   { kind: 'image', url: 'photo.jpg', width: 800, height: 600 },
-  { kind: 'video', url: 'video.mp4', duration: 120 }
+  { kind: 'video', url: 'video.mp4', duration: 120 },
 ];
 summarizeMessages(messages);
-*/
