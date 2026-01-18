@@ -10,6 +10,11 @@
 // length プロパティを持つ値を受け取り、その長さを返す getLength 関数を実装してください
 // TODO: ここに getLength 関数を実装
 
+function getLength<T extends { length: number }>(value: T): number {
+  return value.length;
+}
+
+
 
 // ==========================================
 // 問題 2: オブジェクトのプロパティ取得
@@ -17,6 +22,10 @@
 // オブジェクトとキーを受け取り、そのプロパティの値を返す getProperty 関数を実装してください
 // K extends keyof T を使用
 // TODO: ここに getProperty 関数を実装
+
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
+}
 
 
 // ==========================================
@@ -26,6 +35,10 @@
 // setProperty 関数を実装してください
 // TODO: ここに setProperty 関数を実装
 
+function setProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]): T {
+  return { ...obj, [key]: value };
+}
+
 
 // ==========================================
 // 問題 4: 比較可能な型の制約
@@ -33,6 +46,13 @@
 // Comparable インターフェースを定義してください（compareTo メソッドを持つ）
 // そして、Comparable を実装した型の配列をソートする sort 関数を実装してください
 // TODO: Comparable インターフェースと sort 関数を実装
+interface Comparable<T> {
+  compareTo(other: T): number;
+}
+function sort<T extends Comparable<T>>(array: T[]): T[] {
+  return [...array].sort((a, b) => a.compareTo(b));
+}
+
 
 
 // ==========================================
@@ -42,6 +62,12 @@
 // 数値の場合は加算、文字列の場合は連結
 // TODO: ここに add 関数を実装
 
+function add<T extends number | string>(a: T, b: T): T {
+  if (typeof a === 'number' && typeof b === 'number') {
+    return (a + b) as T;
+  }
+  return (String(a) + String(b)) as T;
+}
 
 // ==========================================
 // 問題 6: 配列要素の制約
@@ -50,6 +76,10 @@
 // T extends any[] を使用
 // TODO: ここに flatten 関数を実装
 
+function flatten<T>(array: T[][]): T[] {
+  return array.flat();
+}
+
 
 // ==========================================
 // 問題 7: コンストラクタの制約
@@ -57,6 +87,9 @@
 // クラスのコンストラクタを受け取り、インスタンスを生成する create 関数を実装してください
 // new (...args: any[]) => T を使用
 // TODO: ここに create 関数を実装
+function create<T>(constructor: new (...args: any[]) => T, ...args: any[]): T {
+  return new constructor(...args);
+}
 
 
 // ==========================================
@@ -66,6 +99,16 @@
 // 両方を満たす型を受け取る describe 関数を実装してください
 // TODO: Named, Aged インターフェースと describe 関数を実装
 
+interface Named {
+  name: string;
+}
+interface Aged {
+  age: number;
+}
+function describe<T extends Named & Aged>(obj: T): string {
+  return `${obj.name} is ${obj.age} years old`;
+}
+
 
 // ==========================================
 // 問題 9: オブジェクト型の制約
@@ -74,6 +117,9 @@
 // 2つのオブジェクトをマージして返す
 // TODO: ここに merge 関数を実装
 
+function merge<T extends object, U extends object>(obj1: T, obj2: U): T & U {
+  return { ...obj1, ...obj2 } as T & U;
+}
 
 // ==========================================
 // 問題 10: キーの制約
@@ -81,6 +127,15 @@
 // オブジェクトから指定したキーのみを抽出する pick 関数を実装してください
 // Pick<T, K> ユーティリティ型を自分で実装
 // TODO: ここに pick 関数を実装
+
+function pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
+  const result = {} as Pick<T, K>;
+  for (const key of keys) {
+    result[key] = obj[key];
+  }
+  return result;
+}
+
 
 
 // ==========================================
@@ -90,12 +145,22 @@
 // T extends number を使用
 // TODO: ここに min 関数を実装
 
+function min<T extends number>(array: T[]): T | undefined {
+  if (array.length === 0) return undefined;
+  return Math.min(...array) as T;
+}
+
+
 
 // ==========================================
 // 問題 12: メソッドを持つ型の制約
 // ==========================================
 // toString メソッドを持つ型を受け取り、文字列に変換する stringify 関数を実装してください
 // TODO: ここに stringify 関数を実装
+
+function stringify<T extends { toString(): string }>(value: T): string {
+  return value.toString();
+}
 
 
 // ==========================================
@@ -105,6 +170,16 @@
 // プロパティが存在すればその値を、なければデフォルト値を返す
 // getWithDefault 関数を実装してください
 // TODO: ここに getWithDefault 関数を実装
+function getWithDefault<T extends object, K extends string>(
+  obj: T,
+  key: K,
+  defaultValue: K extends keyof T ? T[K] : any
+): K extends keyof T ? T[K] : any {
+  if (key in obj) {
+    return (obj as any)[key];
+  }
+  return defaultValue;
+}
 
 
 // ==========================================
@@ -114,6 +189,13 @@
 // T extends (...args: any[]) => any を使用
 // TODO: ここに call 関数を実装
 
+function call<T extends (...args: any[]) => any>(
+  fn: T,
+  ...args: Parameters<T>
+): ReturnType<T> {
+  return fn(...args);
+}
+
 
 // ==========================================
 // 問題 15: Promise の制約
@@ -122,11 +204,12 @@
 // T extends Promise<infer U> を使用
 // TODO: Awaited<T> 型を実装
 
+type CustomAwaited<T> = T extends Promise<infer U> ? U : T;
 
 // ==========================================
 // テストコード（実装後にコメントを外して実行）
 // ==========================================
-/*
+
 console.log(getLength('hello'));                     // 5
 console.log(getLength([1, 2, 3]));                   // 3
 
@@ -162,11 +245,10 @@ console.log(min([3, 1, 4, 1, 5]));                  // 1
 const num = { toString: () => '42' };
 console.log(stringify(num));                         // "42"
 
-const value = getWithDefault(obj, 'email', 'N/A');
-console.log(value);                                  // "N/A"
+const value = getWithDefault(obj, 'email', 'default value');
+console.log(value);                                  // "default value"
 
 const fn = (x: number, y: number) => x + y;
 console.log(call(fn, 3, 4));                        // 7
 
-type NumPromise = Awaited<Promise<number>>;          // number
-*/
+// type NumPromise = Awaited<Promise<number>>;          // number
