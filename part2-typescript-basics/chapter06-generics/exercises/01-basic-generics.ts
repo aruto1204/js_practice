@@ -9,6 +9,9 @@
 // ==========================================
 // 引数をそのまま返す identity 関数をジェネリクスで実装してください
 // TODO: ここに identity 関数を実装
+function identity<T>(value: T): T {
+  return value;
+}
 
 
 // ==========================================
@@ -17,28 +20,36 @@
 // 配列の最初の要素を返す first 関数をジェネリクスで実装してください
 // 配列が空の場合は undefined を返す
 // TODO: ここに first 関数を実装
-
+function first<T>(array: T[]): T | undefined {
+  return array[0];
+}
 
 // ==========================================
 // 問題 3: 配列の最後の要素を取得
 // ==========================================
 // 配列の最後の要素を返す last 関数をジェネリクスで実装してください
 // TODO: ここに last 関数を実装
-
+function last<T>(array: T[]): T | undefined {
+  return array[array.length - 1];
+}
 
 // ==========================================
 // 問題 4: ペアの作成
 // ==========================================
 // 2つの値を受け取り、タプルとして返す makePair 関数をジェネリクスで実装してください
 // TODO: ここに makePair 関数を実装
-
+function makePair<T, U>(first: T, second: U): [T, U] {
+  return [first, second];
+}
 
 // ==========================================
 // 問題 5: 配列の反転
 // ==========================================
 // 配列を反転させる reverse 関数をジェネリクスで実装してください
 // TODO: ここに reverse 関数を実装
-
+function reverse<T>(array: T[]): T[] {
+  return [...array].reverse();
+}
 
 // ==========================================
 // 問題 6: ラッパーオブジェクト
@@ -46,14 +57,18 @@
 // 値をラップするオブジェクトを返す wrap 関数をジェネリクスで実装してください
 // 戻り値の型: { value: T }
 // TODO: ここに wrap 関数を実装
-
+function wrap<T>(value: T): { value: T } {
+  return { value };
+}
 
 // ==========================================
 // 問題 7: 配列のフィルタリング
 // ==========================================
 // 配列と述語関数を受け取り、フィルタリングした配列を返す filter 関数をジェネリクスで実装してください
 // TODO: ここに filter 関数を実装
-
+function filter<T>(array: T[], predicate: (item: T) => boolean): T[] {
+  return array.filter(predicate);
+}
 
 // ==========================================
 // 問題 8: 配列のマッピング
@@ -61,6 +76,9 @@
 // 配列と変換関数を受け取り、変換後の配列を返す map 関数をジェネリクスで実装してください
 // 入力と出力の型が異なる可能性があることに注意
 // TODO: ここに map 関数を実装
+function map<T, U>(array: T[], fn: (item: T) => U): U[] {
+  return array.map(fn);
+}
 
 
 // ==========================================
@@ -68,6 +86,9 @@
 // ==========================================
 // 2つの配列を受け取り、結合した配列を返す concat 関数をジェネリクスで実装してください
 // TODO: ここに concat 関数を実装
+function concat<T>(array1: T[], array2: T[]): T[] {
+  return [...array1, ...array2];
+}
 
 
 // ==========================================
@@ -76,6 +97,9 @@
 // 配列と述語関数を受け取り、条件を満たす最初の要素を返す find 関数をジェネリクスで実装してください
 // 見つからない場合は undefined を返す
 // TODO: ここに find 関数を実装
+function find<T>(array: T[], predicate: (item: T) => boolean): T | undefined {
+  return array.find(predicate);
+}
 
 
 // ==========================================
@@ -87,7 +111,7 @@
 // - error: string（success が false の場合）
 // ヒント: 判別可能なユニオンを使用
 // TODO: Result<T> インターフェースを実装
-
+type Result<T> = { success: true; data: T } | { success: false; error: string };
 
 // ==========================================
 // 問題 12: オプショナルな値
@@ -96,7 +120,11 @@
 // そして、Maybe<T> を受け取り、null でなければ値を、null なら defaultValue を返す
 // getOrDefault 関数を実装してください
 // TODO: Maybe<T> 型と getOrDefault 関数を実装
+type Maybe<T> = T | null;
 
+function getOrDefault<T>(value: Maybe<T>, defaultValue: T): T {
+  return value !== null ? value : defaultValue;
+}
 
 // ==========================================
 // 問題 13: ジェネリックな比較関数
@@ -104,7 +132,9 @@
 // 2つの値と比較関数を受け取り、大きい方を返す max 関数をジェネリクスで実装してください
 // 比較関数の型: (a: T, b: T) => number（a > b なら正、a < b なら負、等しければ0）
 // TODO: ここに max 関数を実装
-
+function max<T>(a: T, b: T, comparator: (a: T, b: T) => number): T {
+  return comparator(a, b) > 0 ? a : b;
+}
 
 // ==========================================
 // 問題 14: 配列の重複削除
@@ -112,6 +142,9 @@
 // 配列を受け取り、重複を削除した配列を返す unique 関数をジェネリクスで実装してください
 // TODO: ここに unique 関数を実装
 
+function unique<T>(array: T[]): T[] {
+  return [...new Set(array)];
+}
 
 // ==========================================
 // 問題 15: ジェネリックな型エイリアス
@@ -121,11 +154,16 @@
 // all 関数を実装してください
 // TODO: Predicate<T> 型と all 関数を実装
 
+type Predicate<T> = (value: T) => boolean;
+function all<T>(array: T[], predicate: Predicate<T>): boolean {
+  return array.every(predicate);
+}
+
 
 // ==========================================
 // テストコード（実装後にコメントを外して実行）
 // ==========================================
-/*
+
 console.log(identity(42));                           // 42
 console.log(identity('hello'));                      // "hello"
 
@@ -167,4 +205,3 @@ console.log(unique([1, 2, 2, 3, 3, 4]));            // [1, 2, 3, 4]
 const isPositive: Predicate<number> = x => x > 0;
 console.log(all([1, 2, 3], isPositive));            // true
 console.log(all([1, -2, 3], isPositive));           // false
-*/
