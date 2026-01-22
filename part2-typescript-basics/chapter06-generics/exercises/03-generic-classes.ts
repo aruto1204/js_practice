@@ -290,6 +290,24 @@ class TreeNode<T> {
 // setValue が呼ばれたら全ての購読者に通知
 // TODO: ここに Observable クラスを実装
 
+class Observable<T> {
+  private subscribers: Array<(value: T) => void> = [];
+
+  constructor(private value: T) {}
+
+  getValue(): T {
+    return this.value;
+  }
+
+  setValue(value: T): void {
+    this.value = value;
+    this.subscribers.forEach(callback => callback(value));
+  }
+
+  subscribe(callback: (value: T) => void): void {
+    this.subscribers.push(callback);
+  }
+}
 
 // ==========================================
 // 問題 11: Container クラスの拡張
@@ -299,6 +317,24 @@ class TreeNode<T> {
 // NumberContainer: sum(): number（数値の合計を返す）
 // TODO: Container クラスと NumberContainer クラスを実装
 
+class Container<T> {
+  protected items: T[] = [];
+
+  add(item: T): void {
+    this.items.push(item);
+  }
+
+  getAll(): T[] {
+    return [...this.items];
+  }
+}
+
+class NumberContainer extends Container<number> {
+  sum(): number {
+    return this.items.reduce((acc, curr) => acc + curr, 0);
+  }
+}
+
 
 // ==========================================
 // 問題 12: Comparator を使った SortedList
@@ -307,6 +343,20 @@ class TreeNode<T> {
 // コンストラクタで比較関数を受け取る
 // メソッド: add(item: T), getAll(): T[]
 // TODO: ここに SortedList クラスを実装
+class SortedList<T> {
+  private items: T[] = [];
+
+  constructor(private comparator: (a: T, b: T) => number) {}
+
+  add(item: T): void {
+    this.items.push(item);
+    this.items.sort(this.comparator);
+  }
+
+  getAll(): T[] {
+    return [...this.items];
+  }
+}
 
 
 // ==========================================
@@ -315,6 +365,21 @@ class TreeNode<T> {
 // 遅延評価を実装する Lazy<T> クラスを作成してください
 // コンストラクタで関数を受け取り、getValue() が最初に呼ばれたときのみ実行
 // TODO: ここに Lazy クラスを実装
+class Lazy<T> {
+  private computed = false;
+  private value: T | undefined;
+
+  constructor(private factory: () => T) {}
+
+  getValue(): T {
+    if (!this.computed) {
+      this.value = this.factory();
+      this.computed = true;
+    }
+    return this.value!;
+  }
+}
+
 
 
 // ==========================================
@@ -325,6 +390,27 @@ class TreeNode<T> {
 //          emit(event: string, data: T), off(event: string)
 // TODO: ここに EventEmitter クラスを実装
 
+class EventEmitter<T> {
+  private events = new Map<string, Array<(data: T) => void>>();
+
+  on(event: string, callback: (data: T) => void): void {
+    if (!this.events.has(event)) {
+      this.events.set(event, []);
+    }
+    this.events.get(event)!.push(callback);
+  }
+
+  emit(event: string, data: T): void {
+    const callbacks = this.events.get(event);
+    if (callbacks) {
+      callbacks.forEach(callback => callback(data));
+    }
+  }
+
+  off(event: string): void {
+    this.events.delete(event);
+  }
+}
 
 // ==========================================
 // 問題 15: Builder パターン
@@ -333,6 +419,18 @@ class TreeNode<T> {
 // メソッド: set<K extends keyof T>(key: K, value: T[K]): Builder<T>, build(): T
 // TODO: ここに Builder クラスを実装
 
+class Builder<T> {
+  private obj: Partial<T> = {};
+
+  set<K extends keyof T>(key: K, value: T[K]): Builder<T> {
+    this.obj[key] = value;
+    return this;
+  }
+
+  build(): T {
+    return this.obj as T;
+  }
+}
 
 // ==========================================
 // テストコード（実装後にコメントを外して実行）
@@ -387,27 +485,37 @@ console.log(tree.value);                             // 5
 console.log(tree.left?.value);                       // 3
 console.log(tree.right?.value);                      // 7
 
-// const observable = new Observable(10);
-// observable.subscribe(value => console.log('Value:', value));
-// observable.setValue(20);                             // Value: 20
+const observable = new Observable(10);
+observable.subscribe(value => console.log('Value:', value));
+observable.setValue(20);                             // Value: 20
 
-// const sortedList = new SortedList<number>((a, b) => a - b);
-// sortedList.add(3);
-// sortedList.add(1);
-// sortedList.add(2);
-// console.log(sortedList.getAll());                    // [1, 2, 3]
+const numberContainer = new NumberContainer();
+numberContainer.add(1);
+numberContainer.add(2);
+numberContainer.add(3);
+console.log(numberContainer.sum());                  // 6
 
-// const lazy = new Lazy(() => {
-//   console.log('Computing...');
-//   return 42;
-// });
-// console.log(lazy.getValue());                        // Computing... 42
-// console.log(lazy.getValue());                        // 42 (no log)
+const sortedList = new SortedList<number>((a, b) => a - b);
+sortedList.add(3);
+sortedList.add(1);
+sortedList.add(2);
+console.log(sortedList.getAll());                    // [1, 2, 3]
 
-// interface User {
-//   name: string;
-//   age: number;
-// }
-// const builder = new Builder<User>();
-// const user = builder.set('name', 'Alice').set('age', 30).build();
-// console.log(user);
+const lazy = new Lazy(() => {
+  console.log('Computing...');
+  return 42;
+});
+console.log(lazy.getValue());                        // Computing... 42
+console.log(lazy.getValue());                        // 42 (no log)
+
+const emitter = new EventEmitter<string>();
+emitter.on('message', data => console.log('Received:', data));
+emitter.emit('message', 'Hello');                    // Received: Hello
+
+interface User {
+  name: string;
+  age: number;
+}
+const builder = new Builder<User>();
+const user = builder.set('name', 'Alice').set('age', 30).build();
+console.log(user);
