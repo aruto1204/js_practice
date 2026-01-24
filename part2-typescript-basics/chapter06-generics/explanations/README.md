@@ -55,6 +55,20 @@ TypeScript 組み込みのユーティリティ型を使った実践的な型操
 - `ReturnType`, `Parameters` による関数型の操作
 - カスタムユーティリティ型の作成
 
+### [05-advanced-generics.md](./05-advanced-generics.md)
+**高度なジェネリクスパターン**
+
+条件型、Mapped Types、infer キーワードなどを組み合わせた高度な型操作について解説しています。
+
+**主なトピック:**
+- 条件型（Conditional Types）の基本と応用
+- `infer` キーワードによる型の推論
+- Mapped Types とキーのリマッピング
+- テンプレートリテラル型
+- `DeepPartial`, `DeepReadonly` などの再帰的型
+- `UnionToIntersection` などの高度な型変換
+- 型安全なパスアクセス関数の実装
+
 ## 学習の進め方
 
 ### 推奨される学習順序
@@ -63,6 +77,7 @@ TypeScript 組み込みのユーティリティ型を使った実践的な型操
 2. **ジェネリック制約** - 型パラメータに制限を設ける方法を学ぶ
 3. **ジェネリッククラス** - クラスでジェネリクスを活用する
 4. **ユーティリティ型** - 組み込み型を使いこなす
+5. **高度なジェネリクス** - 条件型や Mapped Types を活用する
 
 ### 各ドキュメントの構成
 
@@ -105,8 +120,8 @@ code part2-typescript-basics/chapter06-generics/explanations/01-basic-generics.m
 ジェネリクスの基本
        ↓
 ジェネリック制約 ←→ ユーティリティ型
-       ↓
-ジェネリッククラス
+       ↓                ↓
+ジェネリッククラス ←→ 高度なジェネリクス
 ```
 
 ### 重要な組み合わせ
