@@ -199,6 +199,25 @@ class Temperature {
 
 // ここに実装
 
+class MathUtils {
+  static readonly PI: number = 3.14159; // 静的な定数
+
+  // 円の面積を計算
+  static circleArea(radius: number): number {
+    return MathUtils.PI * radius ** 2;
+  }
+
+  // 円の円周を計算
+  static circleCircumference(radius: number): number {
+    return 2 * MathUtils.PI * radius;
+  }
+
+  // 長方形の面積を計算
+  static rectangleArea(width: number, height: number): number {
+    return width * height;
+  }
+}
+
 
 /* 問題 8: プライベートコンストラクタとシングルトンパターン
  * DatabaseConnection クラスを作成してください。
@@ -211,6 +230,28 @@ class Temperature {
 
 // ここに実装
 
+class DatabaseConnection {
+  private static instance: DatabaseConnection | null = null;
+  private connectionString: string;
+
+  // プライベートコンストラクタ（外部から new できない）
+  private constructor(connectionString: string) {
+    this.connectionString = connectionString;
+  }
+
+  // インスタンスを取得（存在しない場合は作成）
+  static getInstance(connectionString: string): DatabaseConnection {
+    if (DatabaseConnection.instance === null) {
+      DatabaseConnection.instance = new DatabaseConnection(connectionString);
+    }
+    return DatabaseConnection.instance;
+  }
+
+  // データベースに接続
+  connect(): void {
+    console.log(`Connected to: ${this.connectionString}`);
+  }
+}
 
 /* 問題 9: 配列型プロパティ
  * Playlist クラスを作成してください。
@@ -329,16 +370,16 @@ console.log(temp.fahrenheit); // 77
 temp.fahrenheit = 86;
 console.log(temp.celsius); // 30
 
-// console.log('\n--- 問題 7: MathUtils ---');
-// console.log(MathUtils.circleArea(5));
-// console.log(MathUtils.circleCircumference(5));
-// console.log(MathUtils.rectangleArea(4, 6));
+console.log('\n--- 問題 7: MathUtils ---');
+console.log(MathUtils.circleArea(5));
+console.log(MathUtils.circleCircumference(5));
+console.log(MathUtils.rectangleArea(4, 6));
 
-// console.log('\n--- 問題 8: DatabaseConnection ---');
-// const db1 = DatabaseConnection.getInstance('localhost:5432');
-// const db2 = DatabaseConnection.getInstance('localhost:3306');
-// console.log(db1 === db2); // true (同一インスタンス)
-// db1.connect();
+console.log('\n--- 問題 8: DatabaseConnection ---');
+const db1 = DatabaseConnection.getInstance('localhost:5432');
+const db2 = DatabaseConnection.getInstance('localhost:3306');
+console.log(db1 === db2); // true (同一インスタンス)
+db1.connect();
 
 // console.log('\n--- 問題 9: Playlist ---');
 // const playlist = new Playlist('お気に入り');
