@@ -11,6 +11,21 @@
 
 // ここに実装
 
+class Book {
+  title: string;
+  author: string;
+  pages: number;
+
+  constructor(title: string, author: string, pages: number) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+  }
+
+  getInfo(): string {
+    return `「${this.title}」著者: ${this.author}, ページ数: ${this.pages}`;
+  }
+}
 
 /* 問題 2: オプショナルプロパティ
  * Employee クラスを作成してください。
@@ -175,8 +190,8 @@
 
 // テストコード
 console.log('--- 問題 1: Book ---');
-// const book = new Book('TypeScript入門', '山田太郎', 350);
-// console.log(book.getInfo());
+const book = new Book('TypeScript入門', '山田太郎', 350);
+console.log(book.getInfo());
 
 console.log('\n--- 問題 2: Employee ---');
 // const emp1 = new Employee('佐藤花子', '開発部', '090-1234-5678');
