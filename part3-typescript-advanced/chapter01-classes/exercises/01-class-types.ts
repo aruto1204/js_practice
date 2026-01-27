@@ -165,6 +165,29 @@ class Calculator {
 
 // ここに実装
 
+class Temperature {
+  private _celsius: number = 0; // 内部的に摂氏で保持
+
+  // 摂氏の getter
+  get celsius(): number {
+    return this._celsius;
+  }
+
+  // 摂氏の setter
+  set celsius(value: number) {
+    this._celsius = value;
+  }
+
+  // 華氏の getter（摂氏から華氏に変換）
+  get fahrenheit(): number {
+    return this._celsius * 9 / 5 + 32;
+  }
+
+  // 華氏の setter（華氏から摂氏に変換）
+  set fahrenheit(value: number) {
+    this._celsius = (value - 32) * 5 / 9;
+  }
+}
 
 /* 問題 7: 静的メンバー
  * MathUtils クラスを作成してください。
@@ -299,12 +322,12 @@ const calc = new Calculator();
 const result = calc.add(10).subtract(3).multiply(2).divide(2).getResult();
 console.log(result); // 7
 
-// console.log('\n--- 問題 6: Temperature ---');
-// const temp = new Temperature();
-// temp.celsius = 25;
-// console.log(temp.fahrenheit); // 77
-// temp.fahrenheit = 86;
-// console.log(temp.celsius); // 30
+console.log('\n--- 問題 6: Temperature ---');
+const temp = new Temperature();
+temp.celsius = 25;
+console.log(temp.fahrenheit); // 77
+temp.fahrenheit = 86;
+console.log(temp.celsius); // 30
 
 // console.log('\n--- 問題 7: MathUtils ---');
 // console.log(MathUtils.circleArea(5));
