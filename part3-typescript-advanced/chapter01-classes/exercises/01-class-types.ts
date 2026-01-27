@@ -35,6 +35,22 @@ class Book {
 
 // ここに実装
 
+class Employee {
+  name: string;
+  department: string;
+  phoneNumber?: string; // オプショナルプロパテ
+
+
+  constructor(name: string, department: string, phoneNumber?: string) {
+    this.name = name;
+    this.department = department;
+    this.phoneNumber = phoneNumber;
+  }
+
+  getContact(): string {
+    return `連絡先: ${this.phoneNumber ? `電話番号: ${this.phoneNumber}` : '電話番号なし'}`;
+  }
+}
 
 /* 問題 3: readonly プロパティ
  * Car クラスを作成してください。
@@ -45,6 +61,21 @@ class Book {
 
 // ここに実装
 
+class Car {
+  readonly vin: string; // 車両識別番号（変更不可）
+  model: string;
+  readonly year: number; // 年式（変更不可）
+
+  constructor(vin: string, model: string, year: number) {
+    this.vin = vin;
+    this.model = model;
+    this.year = year;
+  }
+
+  getAge(currentYear: number): number {
+    return currentYear - this.year;
+  }
+}
 
 /* 問題 4: パラメータプロパティ
  * Point クラスを作成してください。
@@ -54,6 +85,18 @@ class Book {
  */
 
 // ここに実装
+
+class Point {
+  constructor(public x: number, public y: number) {}
+
+  distanceFromOrigin(): number {
+    return Math.sqrt(this.x ** 2 + this.y ** 2);
+  }
+
+  distanceTo(other: Point): number {
+    return Math.sqrt((this.x - other.x) ** 2 + (this.y - other.y) ** 2);
+  }
+}
 
 
 /* 問題 5: 複数のメソッド型注釈
@@ -69,6 +112,47 @@ class Book {
 
 // ここに実装
 
+class Calculator {
+  private result: number = 0; // 計算結果を保持するプライベートプロパティ
+
+  // 加算メソッド（this を返すことでメソッドチェーンが可能）
+  add(value: number): Calculator {
+    this.result += value;
+    return this;
+  }
+
+  // 減算メソッド
+  subtract(value: number): Calculator {
+    this.result -= value;
+    return this;
+  }
+
+  // 乗算メソッド
+  multiply(value: number): Calculator {
+    this.result *= value;
+    return this;
+  }
+
+  // 除算メソッド（0除算チェック付き）
+  divide(value: number): Calculator {
+    if (value === 0) {
+      throw new Error('0で除算することはできません');
+    }
+    this.result /= value;
+    return this;
+  }
+
+  // 現在の結果を取得
+  getResult(): number {
+    return this.result;
+  }
+
+  // 結果をリセット
+  clear(): Calculator {
+    this.result = 0;
+    return this;
+  }
+}
 
 /* 問題 6: getter と setter
  * Temperature クラスを作成してください。
@@ -194,46 +278,46 @@ const book = new Book('TypeScript入門', '山田太郎', 350);
 console.log(book.getInfo());
 
 console.log('\n--- 問題 2: Employee ---');
-// const emp1 = new Employee('佐藤花子', '開発部', '090-1234-5678');
-// const emp2 = new Employee('鈴木一郎', '営業部');
-// console.log(emp1.getContact());
-// console.log(emp2.getContact());
+const emp1 = new Employee('佐藤花子', '開発部', '090-1234-5678');
+const emp2 = new Employee('鈴木一郎', '営業部');
+console.log(emp1.getContact());
+console.log(emp2.getContact());
 
 console.log('\n--- 問題 3: Car ---');
-// const car = new Car('1HGBH41JXMN109186', 'Toyota Camry', 2020);
-// console.log(car.getAge(2024));
-// // car.vin = 'new VIN'; // Error: readonly
+const car = new Car('1HGBH41JXMN109186', 'Toyota Camry', 2020);
+console.log(car.getAge(2024));
+// car.vin = 'new VIN'; // Error: readonly
 
 console.log('\n--- 問題 4: Point ---');
-// const p1 = new Point(3, 4);
-// const p2 = new Point(0, 0);
-// console.log(p1.distanceFromOrigin());
-// console.log(p1.distanceTo(p2));
+const p1 = new Point(3, 4);
+const p2 = new Point(0, 0);
+console.log(p1.distanceFromOrigin());
+console.log(p1.distanceTo(p2));
 
-console.log('\n--- 問題 5: Calculator ---');
-// const calc = new Calculator();
-// const result = calc.add(10).subtract(3).multiply(2).divide(2).getResult();
-// console.log(result); // 7
+// console.log('\n--- 問題 5: Calculator ---');
+const calc = new Calculator();
+const result = calc.add(10).subtract(3).multiply(2).divide(2).getResult();
+console.log(result); // 7
 
-console.log('\n--- 問題 6: Temperature ---');
+// console.log('\n--- 問題 6: Temperature ---');
 // const temp = new Temperature();
 // temp.celsius = 25;
 // console.log(temp.fahrenheit); // 77
 // temp.fahrenheit = 86;
 // console.log(temp.celsius); // 30
 
-console.log('\n--- 問題 7: MathUtils ---');
+// console.log('\n--- 問題 7: MathUtils ---');
 // console.log(MathUtils.circleArea(5));
 // console.log(MathUtils.circleCircumference(5));
 // console.log(MathUtils.rectangleArea(4, 6));
 
-console.log('\n--- 問題 8: DatabaseConnection ---');
+// console.log('\n--- 問題 8: DatabaseConnection ---');
 // const db1 = DatabaseConnection.getInstance('localhost:5432');
 // const db2 = DatabaseConnection.getInstance('localhost:3306');
 // console.log(db1 === db2); // true (同一インスタンス)
 // db1.connect();
 
-console.log('\n--- 問題 9: Playlist ---');
+// console.log('\n--- 問題 9: Playlist ---');
 // const playlist = new Playlist('お気に入り');
 // playlist.addSong('曲1');
 // playlist.addSong('曲2');
@@ -242,27 +326,27 @@ console.log('\n--- 問題 9: Playlist ---');
 // playlist.removeSong('曲1');
 // console.log(playlist.getSongs());
 
-console.log('\n--- 問題 10: User ---');
+// console.log('\n--- 問題 10: User ---');
 // const user = new User('田中太郎', { street: '1-2-3', city: '東京', zipCode: '100-0001' });
 // console.log(user.getFullAddress());
 // user.updateAddress({ city: '大阪' });
 // console.log(user.getFullAddress());
 
-console.log('\n--- 問題 11: Formatter ---');
+// console.log('\n--- 問題 11: Formatter ---');
 // const formatter = new Formatter();
 // console.log(formatter.format('Hello'));
 // console.log(formatter.format(42));
 // console.log(formatter.format(true));
 // console.log(formatter.format(['a', 'b', 'c']));
 
-console.log('\n--- 問題 12: Coordinate3D ---');
+// console.log('\n--- 問題 12: Coordinate3D ---');
 // const coord = new Coordinate3D(3, 4, 5);
 // console.log(coord.getX(), coord.getY(), coord.getZ());
 // console.log(coord.distanceFromOrigin());
 // coord.setPosition(1, 2, 2);
 // console.log(coord.distanceFromOrigin());
 
-console.log('\n--- 問題 13: EventHandler ---');
+// console.log('\n--- 問題 13: EventHandler ---');
 // const eventHandler = new EventHandler();
 // eventHandler.setHandler((event, data) => {
 //   console.log(`Event: ${event}, Data: ${JSON.stringify(data)}`);
@@ -271,7 +355,7 @@ console.log('\n--- 問題 13: EventHandler ---');
 // eventHandler.clearHandler();
 // eventHandler.trigger('click', { x: 100, y: 200 }); // 何も起きない
 
-console.log('\n--- 問題 14: Dictionary ---');
+// console.log('\n--- 問題 14: Dictionary ---');
 // const dict = new Dictionary();
 // dict.set('name', '太郎');
 // dict.set('age', '25');
@@ -281,7 +365,7 @@ console.log('\n--- 問題 14: Dictionary ---');
 // dict.delete('age');
 // console.log(dict.keys());
 
-console.log('\n--- 問題 15: Box ---');
+// console.log('\n--- 問題 15: Box ---');
 // const numberBox = new Box<number>();
 // numberBox.set(42);
 // console.log(numberBox.get());
