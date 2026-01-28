@@ -308,6 +308,25 @@ class Playlist {
  */
 
 // ここに実装
+class User {
+  name: string;
+  address: { street: string; city: string; zipCode: string };
+
+  constructor(name: string, address: { street: string; city: string; zipCode: string }) {
+    this.name = name;
+    this.address = address;
+  }
+
+  // 完全な住所を文字列で返す
+  getFullAddress(): string {
+    return `〒${this.address.zipCode} ${this.address.city} ${this.address.street}`;
+  }
+
+  // 住所を部分的に更新（Partial を使用して一部のフィールドのみ更新可能）
+  updateAddress(newAddress: Partial<{ street: string; city: string; zipCode: string }>): void {
+    this.address = { ...this.address, ...newAddress };
+  }
+}
 
 
 /* 問題 11: メソッドのオーバーロード（型定義のみ）
@@ -319,6 +338,27 @@ class Playlist {
  */
 
 // ここに実装
+class Formatter {
+  // オーバーロードシグネチャ（型定義のみ）
+  format(value: string): string;
+  format(value: number): string;
+  format(value: boolean): string;
+  format(value: string[]): string;
+
+  // 実装シグネチャ
+  format(value: string | number | boolean | string[]): string {
+    if (typeof value === 'string') {
+      return value;
+    } else if (typeof value === 'number') {
+      return `Number: ${value}`;
+    } else if (typeof value === 'boolean') {
+      return `Boolean: ${value}`;
+    } else if (Array.isArray(value)) {
+      return `Array: [${value.join(', ')}]`;
+    }
+    return '';
+  }
+}
 
 
 /* 問題 12: タプル型のプロパティ
@@ -424,18 +464,18 @@ console.log(playlist.getSongCount());
 playlist.removeSong('曲1');
 console.log(playlist.getSongs());
 
-// console.log('\n--- 問題 10: User ---');
-// const user = new User('田中太郎', { street: '1-2-3', city: '東京', zipCode: '100-0001' });
-// console.log(user.getFullAddress());
-// user.updateAddress({ city: '大阪' });
-// console.log(user.getFullAddress());
+console.log('\n--- 問題 10: User ---');
+const user = new User('田中太郎', { street: '1-2-3', city: '東京', zipCode: '100-0001' });
+console.log(user.getFullAddress());
+user.updateAddress({ city: '大阪' });
+console.log(user.getFullAddress());
 
-// console.log('\n--- 問題 11: Formatter ---');
-// const formatter = new Formatter();
-// console.log(formatter.format('Hello'));
-// console.log(formatter.format(42));
-// console.log(formatter.format(true));
-// console.log(formatter.format(['a', 'b', 'c']));
+console.log('\n--- 問題 11: Formatter ---');
+const formatter = new Formatter();
+console.log(formatter.format('Hello'));
+console.log(formatter.format(42));
+console.log(formatter.format(true));
+console.log(formatter.format(['a', 'b', 'c']));
 
 // console.log('\n--- 問題 12: Coordinate3D ---');
 // const coord = new Coordinate3D(3, 4, 5);
