@@ -372,6 +372,39 @@ class Formatter {
  */
 
 // ここに実装
+class Coordinate3D {
+  position: [number, number, number]; // タプル型（要素数と型が固定）
+
+  constructor(x: number, y: number, z: number) {
+    this.position = [x, y, z];
+  }
+
+  // X座標を取得
+  getX(): number {
+    return this.position[0];
+  }
+
+  // Y座標を取得
+  getY(): number {
+    return this.position[1];
+  }
+
+  // Z座標を取得
+  getZ(): number {
+    return this.position[2];
+  }
+
+  // 座標を設定
+  setPosition(x: number, y: number, z: number): void {
+    this.position = [x, y, z];
+  }
+
+  // 原点からの距離を計算
+  distanceFromOrigin(): number {
+    const [x, y, z] = this.position;
+    return Math.sqrt(x ** 2 + y ** 2 + z ** 2);
+  }
+}
 
 
 /* 問題 13: 関数型プロパティ
@@ -477,12 +510,12 @@ console.log(formatter.format(42));
 console.log(formatter.format(true));
 console.log(formatter.format(['a', 'b', 'c']));
 
-// console.log('\n--- 問題 12: Coordinate3D ---');
-// const coord = new Coordinate3D(3, 4, 5);
-// console.log(coord.getX(), coord.getY(), coord.getZ());
-// console.log(coord.distanceFromOrigin());
-// coord.setPosition(1, 2, 2);
-// console.log(coord.distanceFromOrigin());
+console.log('\n--- 問題 12: Coordinate3D ---');
+const coord = new Coordinate3D(3, 4, 5);
+console.log(coord.getX(), coord.getY(), coord.getZ());
+console.log(coord.distanceFromOrigin());
+coord.setPosition(1, 2, 2);
+console.log(coord.distanceFromOrigin());
 
 // console.log('\n--- 問題 13: EventHandler ---');
 // const eventHandler = new EventHandler();
