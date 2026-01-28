@@ -451,6 +451,39 @@ class EventHandler {
 
 // ここに実装
 
+class Dictionary {
+  private items: { [key: string]: string } = {}; // キーが文字列、値も文字列
+
+  // キーと値を設定
+  set(key: string, value: string): void {
+    this.items[key] = value;
+  }
+
+  // キーに対応する値を取得
+  get(key: string): string | undefined {
+    return this.items[key];
+  }
+
+  // キーが存在するかチェック
+  has(key: string): boolean {
+    return key in this.items;
+  }
+
+  // キーを削除（削除成功時は true）
+  delete(key: string): boolean {
+    if (this.has(key)) {
+      delete this.items[key];
+      return true;
+    }
+    return false;
+  }
+
+  // すべてのキーを取得
+  keys(): string[] {
+    return Object.keys(this.items);
+  }
+}
+
 
 /* 問題 15: ジェネリッククラス（基本）
  * Box<T> クラスを作成してください。
@@ -547,15 +580,15 @@ eventHandler.trigger('click', { x: 100, y: 200 });
 eventHandler.clearHandler();
 eventHandler.trigger('click', { x: 100, y: 200 }); // 何も起きない
 
-// console.log('\n--- 問題 14: Dictionary ---');
-// const dict = new Dictionary();
-// dict.set('name', '太郎');
-// dict.set('age', '25');
-// console.log(dict.get('name'));
-// console.log(dict.has('age'));
-// console.log(dict.keys());
-// dict.delete('age');
-// console.log(dict.keys());
+console.log('\n--- 問題 14: Dictionary ---');
+const dict = new Dictionary();
+dict.set('name', '太郎');
+dict.set('age', '25');
+console.log(dict.get('name'));
+console.log(dict.has('age'));
+console.log(dict.keys());
+dict.delete('age');
+console.log(dict.keys());
 
 // console.log('\n--- 問題 15: Box ---');
 // const numberBox = new Box<number>();
