@@ -263,6 +263,40 @@ class DatabaseConnection {
  */
 
 // ここに実装
+class Playlist {
+  name: string;
+  private songs: string[] = []; // プライベートな配列
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  // 曲を追加
+  addSong(song: string): void {
+    this.songs.push(song);
+  }
+
+  // 曲を削除（削除成功時は true を返す）
+  removeSong(song: string): boolean {
+    const index = this.songs.indexOf(song);
+    if (index !== -1) {
+      this.songs.splice(index, 1);
+      return true;
+    }
+    return false;
+  }
+
+  // 曲のリストを取得（読み取り専用配列として返す）
+  getSongs(): readonly string[] {
+    return this.songs;
+  }
+
+  // 曲数を取得
+  getSongCount(): number {
+    return this.songs.length;
+  }
+}
+
 
 
 /* 問題 10: ネストしたオブジェクト型
@@ -381,14 +415,14 @@ const db2 = DatabaseConnection.getInstance('localhost:3306');
 console.log(db1 === db2); // true (同一インスタンス)
 db1.connect();
 
-// console.log('\n--- 問題 9: Playlist ---');
-// const playlist = new Playlist('お気に入り');
-// playlist.addSong('曲1');
-// playlist.addSong('曲2');
-// console.log(playlist.getSongs());
-// console.log(playlist.getSongCount());
-// playlist.removeSong('曲1');
-// console.log(playlist.getSongs());
+console.log('\n--- 問題 9: Playlist ---');
+const playlist = new Playlist('お気に入り');
+playlist.addSong('曲1');
+playlist.addSong('曲2');
+console.log(playlist.getSongs());
+console.log(playlist.getSongCount());
+playlist.removeSong('曲1');
+console.log(playlist.getSongs());
 
 // console.log('\n--- 問題 10: User ---');
 // const user = new User('田中太郎', { street: '1-2-3', city: '東京', zipCode: '100-0001' });
