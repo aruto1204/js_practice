@@ -495,7 +495,29 @@ class Dictionary {
  */
 
 // ここに実装
+class Box<T> {
+  private value: T | null = null; // 任意の型 T の値を保持
 
+  // 値を設定
+  set(value: T): void {
+    this.value = value;
+  }
+
+  // 値を取得
+  get(): T | null {
+    return this.value;
+  }
+
+  // 空かどうかをチェック
+  isEmpty(): boolean {
+    return this.value === null;
+  }
+
+  // 値をクリア
+  clear(): void {
+    this.value = null;
+  }
+}
 
 // テストコード
 console.log('--- 問題 1: Book ---');
@@ -590,10 +612,10 @@ console.log(dict.keys());
 dict.delete('age');
 console.log(dict.keys());
 
-// console.log('\n--- 問題 15: Box ---');
-// const numberBox = new Box<number>();
-// numberBox.set(42);
-// console.log(numberBox.get());
-// console.log(numberBox.isEmpty());
-// numberBox.clear();
-// console.log(numberBox.isEmpty());
+console.log('\n--- 問題 15: Box ---');
+const numberBox = new Box<number>();
+numberBox.set(42);
+console.log(numberBox.get());
+console.log(numberBox.isEmpty());
+numberBox.clear();
+console.log(numberBox.isEmpty());
