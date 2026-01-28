@@ -416,6 +416,27 @@ class Coordinate3D {
  */
 
 // ここに実装
+class EventHandler {
+  private handler: ((event: string, data: any) => void) | null = null;
+
+  // ハンドラを設定
+  setHandler(handler: (event: string, data: any) => void): void {
+    this.handler = handler;
+  }
+
+  // イベントを発火（ハンドラが設定されていれば実行）
+  trigger(event: string, data: any): void {
+    if (this.handler) {
+      this.handler(event, data);
+    }
+  }
+
+  // ハンドラをクリア
+  clearHandler(): void {
+    this.handler = null;
+  }
+}
+
 
 
 /* 問題 14: インデックスシグネチャ
@@ -517,14 +538,14 @@ console.log(coord.distanceFromOrigin());
 coord.setPosition(1, 2, 2);
 console.log(coord.distanceFromOrigin());
 
-// console.log('\n--- 問題 13: EventHandler ---');
-// const eventHandler = new EventHandler();
-// eventHandler.setHandler((event, data) => {
-//   console.log(`Event: ${event}, Data: ${JSON.stringify(data)}`);
-// });
-// eventHandler.trigger('click', { x: 100, y: 200 });
-// eventHandler.clearHandler();
-// eventHandler.trigger('click', { x: 100, y: 200 }); // 何も起きない
+console.log('\n--- 問題 13: EventHandler ---');
+const eventHandler = new EventHandler();
+eventHandler.setHandler((event, data) => {
+  console.log(`Event: ${event}, Data: ${JSON.stringify(data)}`);
+});
+eventHandler.trigger('click', { x: 100, y: 200 });
+eventHandler.clearHandler();
+eventHandler.trigger('click', { x: 100, y: 200 }); // 何も起きない
 
 // console.log('\n--- 問題 14: Dictionary ---');
 // const dict = new Dictionary();
