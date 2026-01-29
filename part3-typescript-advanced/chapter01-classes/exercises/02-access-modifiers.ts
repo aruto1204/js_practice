@@ -71,6 +71,40 @@ class Password {
  */
 
 // ここに実装
+class Animal {
+  // protected プロパティは継承先クラスからアクセス可能
+  protected name: string;
+  protected age: number;
+
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+
+  public getInfo(): string {
+    return `名前: ${this.name}, 年齢: ${this.age}歳`;
+  }
+}
+
+class Dog extends Animal {
+  // private プロパティは Dog クラス内のみアクセス可能
+  private breed: string;
+
+  constructor(name: string, age: number, breed: string) {
+    super(name, age);
+    this.breed = breed;
+  }
+
+  public bark(): void {
+    // protected な name プロパティにアクセス可能
+    console.log(`${this.name}がワンワン！`);
+  }
+
+  public getDetailedInfo(): string {
+    // protected な name, age と private な breed にアクセス
+    return `名前: ${this.name}, 年齢: ${this.age}歳, 犬種: ${this.breed}`;
+  }
+}
 
 
 /* 問題 4: private フィールドとカプセル化
@@ -271,11 +305,11 @@ console.log(pwd.verify('wrong')); // false
 console.log(pwd.verify('securePass123')); // true
 console.log(pwd.getPasswordLength()); // 13
 
-// console.log('\n--- 問題 3: Animal & Dog ---');
-// const dog = new Dog('ポチ', 3, '柴犬');
-// console.log(dog.getInfo());
-// dog.bark();
-// console.log(dog.getDetailedInfo());
+console.log('\n--- 問題 3: Animal & Dog ---');
+const dog = new Dog('ポチ', 3, '柴犬');
+console.log(dog.getInfo());
+dog.bark();
+console.log(dog.getDetailedInfo());
 
 // console.log('\n--- 問題 4: BankAccount ---');
 // const account = new BankAccount('12345678');
