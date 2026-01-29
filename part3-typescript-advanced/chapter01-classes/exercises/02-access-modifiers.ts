@@ -119,6 +119,41 @@ class Dog extends Animal {
  */
 
 // ここに実装
+class BankAccount {
+  // private readonly は初期化後変更不可
+  private readonly accountNumber: string;
+  private balance: number = 0;
+  private transactions: string[] = [];
+
+  constructor(accountNumber: string) {
+    this.accountNumber = accountNumber;
+  }
+
+  public deposit(amount: number): void {
+    if (amount > 0) {
+      this.balance += amount;
+      this.transactions.push(`入金: +${amount}円`);
+    }
+  }
+
+  public withdraw(amount: number): boolean {
+    if (amount > 0 && this.balance >= amount) {
+      this.balance -= amount;
+      this.transactions.push(`出金: -${amount}円`);
+      return true;
+    }
+    return false;
+  }
+
+  public getBalance(): number {
+    return this.balance;
+  }
+
+  public getTransactionHistory(): readonly string[] {
+    // 配列のコピーを返して内部データを保護
+    return [...this.transactions];
+  }
+}
 
 
 /* 問題 5: protected メソッドのオーバーライド
@@ -311,14 +346,14 @@ console.log(dog.getInfo());
 dog.bark();
 console.log(dog.getDetailedInfo());
 
-// console.log('\n--- 問題 4: BankAccount ---');
-// const account = new BankAccount('12345678');
-// account.deposit(1000);
-// account.deposit(500);
-// console.log(account.getBalance()); // 1500
-// console.log(account.withdraw(300)); // true
-// console.log(account.getBalance()); // 1200
-// console.log(account.getTransactionHistory());
+console.log('\n--- 問題 4: BankAccount ---');
+const account = new BankAccount('12345678');
+account.deposit(1000);
+account.deposit(500);
+console.log(account.getBalance()); // 1500
+console.log(account.withdraw(300)); // true
+console.log(account.getBalance()); // 1200
+console.log(account.getTransactionHistory());
 
 // console.log('\n--- 問題 5: Vehicle & ElectricCar ---');
 // const ev = new ElectricCar('Tesla', 80);
