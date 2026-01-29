@@ -14,6 +14,19 @@
 
 // ここに実装
 
+class Counter {
+  public count: number = 0;
+  public increment(): void {
+    this.count++;
+  }
+  public decrement(): void {
+    this.count--;
+  }
+  public reset(): void {
+    this.count = 0;
+  }
+}
+
 
 /* 問題 2: private メンバー
  * Password クラスを作成してください。
@@ -222,16 +235,16 @@ type User = {
 
 // テストコード
 console.log('--- 問題 1: Counter ---');
-// const counter = new Counter();
-// counter.increment();
-// counter.increment();
-// console.log(counter.count); // 2
-// counter.decrement();
-// console.log(counter.count); // 1
-// counter.reset();
-// console.log(counter.count); // 0
+const counter = new Counter();
+counter.increment();
+counter.increment();
+console.log(counter.count); // 2
+counter.decrement();
+console.log(counter.count); // 1
+counter.reset();
+console.log(counter.count); // 0
 
-console.log('\n--- 問題 2: Password ---');
+// console.log('\n--- 問題 2: Password ---');
 // const pwd = new Password();
 // console.log(pwd.setPassword('123')); // false
 // console.log(pwd.setPassword('securePass123')); // true
@@ -239,13 +252,13 @@ console.log('\n--- 問題 2: Password ---');
 // console.log(pwd.verify('securePass123')); // true
 // console.log(pwd.getPasswordLength()); // 13
 
-console.log('\n--- 問題 3: Animal & Dog ---');
+// console.log('\n--- 問題 3: Animal & Dog ---');
 // const dog = new Dog('ポチ', 3, '柴犬');
 // console.log(dog.getInfo());
 // dog.bark();
 // console.log(dog.getDetailedInfo());
 
-console.log('\n--- 問題 4: BankAccount ---');
+// console.log('\n--- 問題 4: BankAccount ---');
 // const account = new BankAccount('12345678');
 // account.deposit(1000);
 // account.deposit(500);
@@ -254,65 +267,65 @@ console.log('\n--- 問題 4: BankAccount ---');
 // console.log(account.getBalance()); // 1200
 // console.log(account.getTransactionHistory());
 
-console.log('\n--- 問題 5: Vehicle & ElectricCar ---');
+// console.log('\n--- 問題 5: Vehicle & ElectricCar ---');
 // const ev = new ElectricCar('Tesla', 80);
 // ev.start(); // "モーター始動"
 // console.log(ev.getBatteryLevel()); // 80
 
-console.log('\n--- 問題 6: TodoList ---');
+// console.log('\n--- 問題 6: TodoList ---');
 // const todoList = new TodoList('仕事', 5);
 // todoList.addTodo('タスク1');
 // todoList.addTodo('タスク2');
 // console.log(todoList.getTodos());
 
-console.log('\n--- 問題 7: Person ---');
+// console.log('\n--- 問題 7: Person ---');
 // const person = new Person(25);
 // console.log(person.age); // 25
 // person.celebrateBirthday();
 // console.log(person.age); // 26
 
-console.log('\n--- 問題 8: IdGenerator ---');
+// console.log('\n--- 問題 8: IdGenerator ---');
 // console.log(IdGenerator.generateId()); // ID1001
 // console.log(IdGenerator.generateId()); // ID1002
 // IdGenerator.reset();
 // console.log(IdGenerator.generateId()); // ID1001
 
-console.log('\n--- 問題 9: Logger ---');
+// console.log('\n--- 問題 9: Logger ---');
 // const consoleLogger = new ConsoleLogger();
 // consoleLogger.log('情報メッセージ');
 // const fileLogger = new FileLogger();
 // fileLogger.log('デバッグメッセージ');
 
-console.log('\n--- 問題 10: EmailValidator ---');
+// console.log('\n--- 問題 10: EmailValidator ---');
 // const validator = new EmailValidator();
 // console.log(validator.validate('test@example.com'));
 // console.log(validator.validate('invalid'));
 
-console.log('\n--- 問題 11: Shape & Rectangle ---');
+// console.log('\n--- 問題 11: Shape & Rectangle ---');
 // const rect = new Rectangle('赤', 10, 5);
 // console.log(rect.getArea()); // 50
 
-console.log('\n--- 問題 12: UserRepository ---');
+// console.log('\n--- 問題 12: UserRepository ---');
 // const db: Database = new Map();
 // const repo = new UserRepository(db);
 // const user: User = { id: '1', name: '太郎', email: 'taro@example.com' };
 // repo.save(user);
 // console.log(repo.findById('1'));
 
-console.log('\n--- 問題 13: Product ---');
+// console.log('\n--- 問題 13: Product ---');
 // const product = new Product('P001', 'ノートPC', 100000, 10);
 // console.log(product.getPrice()); // 100000
 // product.setPrice(95000);
 // console.log(product.getPrice()); // 95000
 // console.log(product.isInStock()); // true
 
-console.log('\n--- 問題 14: SecureStorage ---');
+// console.log('\n--- 問題 14: SecureStorage ---');
 // const storage1 = new SecureStorage('myKey');
 // storage1.set('秘密のデータ');
 // const storage2 = new SecureStorage('myKey');
 // console.log(storage2.get()); // '秘密のデータ'
 
-console.log('\n--- 問題 15: NotificationService ---');
+// console.log('\n--- 問題 15: NotificationService ---');
 // const service = new NotificationService();
 // service.subscribe('user1@example.com');
 // service.subscribe('user2@example.com');
