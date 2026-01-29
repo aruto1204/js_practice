@@ -38,7 +38,26 @@ class Counter {
 
 // ここに実装
 
+class Password {
+  // private プロパティはクラス外からアクセス不可
+  private password: string = '';
 
+  public setPassword(newPassword: string): boolean {
+    if (newPassword.length >= 8) {
+      this.password = newPassword;
+      return true;
+    }
+    return false;
+  }
+
+  public verify(inputPassword: string): boolean {
+    return this.password === inputPassword;
+  }
+
+  public getPasswordLength(): number {
+    return this.password.length;
+  }
+}
 /* 問題 3: protected メンバー
  * Animal クラスと Dog クラスを作成してください。
  * Animal:
@@ -244,13 +263,13 @@ console.log(counter.count); // 1
 counter.reset();
 console.log(counter.count); // 0
 
-// console.log('\n--- 問題 2: Password ---');
-// const pwd = new Password();
-// console.log(pwd.setPassword('123')); // false
-// console.log(pwd.setPassword('securePass123')); // true
-// console.log(pwd.verify('wrong')); // false
-// console.log(pwd.verify('securePass123')); // true
-// console.log(pwd.getPasswordLength()); // 13
+console.log('\n--- 問題 2: Password ---');
+const pwd = new Password();
+console.log(pwd.setPassword('123')); // false
+console.log(pwd.setPassword('securePass123')); // true
+console.log(pwd.verify('wrong')); // false
+console.log(pwd.verify('securePass123')); // true
+console.log(pwd.getPasswordLength()); // 13
 
 // console.log('\n--- 問題 3: Animal & Dog ---');
 // const dog = new Dog('ポチ', 3, '柴犬');
