@@ -293,6 +293,26 @@ class Person {
  */
 
 // ここに実装
+class IdGenerator {
+  // private static プロパティはクラス内の静的メソッドからのみアクセス可能
+  private static currentId: number = 1000;
+  private static readonly prefix: string = 'ID';
+
+  // private static ヘルパーメソッド
+  private static formatId(id: number): string {
+    return `${this.prefix}${id}`;
+  }
+
+  public static generateId(): string {
+    this.currentId++;
+    return this.formatId(this.currentId);
+  }
+
+  public static reset(): void {
+    this.currentId = 1000;
+  }
+}
+
 
 
 /* 問題 9: protected コンストラクタ
@@ -460,11 +480,11 @@ console.log(person.age); // 25
 person.celebrateBirthday();
 console.log(person.age); // 26
 
-// console.log('\n--- 問題 8: IdGenerator ---');
-// console.log(IdGenerator.generateId()); // ID1001
-// console.log(IdGenerator.generateId()); // ID1002
-// IdGenerator.reset();
-// console.log(IdGenerator.generateId()); // ID1001
+console.log('\n--- 問題 8: IdGenerator ---');
+console.log(IdGenerator.generateId()); // ID1001
+console.log(IdGenerator.generateId()); // ID1002
+IdGenerator.reset();
+console.log(IdGenerator.generateId()); // ID1001
 
 // console.log('\n--- 問題 9: Logger ---');
 // const consoleLogger = new ConsoleLogger();
