@@ -422,6 +422,33 @@ class EmailValidator {
  */
 
 // ここに実装
+abstract class Shape {
+  // protected static プロパティは継承先クラスからアクセス可能
+  protected static readonly MIN_SIZE: number = 0;
+  protected color: string;
+
+  constructor(color: string) {
+    this.color = color;
+  }
+
+  abstract getArea(): number;
+}
+
+class Rectangle extends Shape {
+  private width: number;
+  private height: number;
+
+  constructor(color: string, width: number, height: number) {
+    super(color);
+    // protected static プロパティにアクセス
+    this.width = width > Shape.MIN_SIZE ? width : Shape.MIN_SIZE;
+    this.height = height > Shape.MIN_SIZE ? height : Shape.MIN_SIZE;
+  }
+
+  public getArea(): number {
+    return this.width * this.height;
+  }
+}
 
 
 /* 問題 12: private フィールドと依存性注入
@@ -561,9 +588,9 @@ const validator = new EmailValidator();
 console.log(validator.validate('test@example.com'));
 console.log(validator.validate('invalid'));
 
-// console.log('\n--- 問題 11: Shape & Rectangle ---');
-// const rect = new Rectangle('赤', 10, 5);
-// console.log(rect.getArea()); // 50
+console.log('\n--- 問題 11: Shape & Rectangle ---');
+const rect = new Rectangle('赤', 10, 5);
+console.log(rect.getArea()); // 50
 
 // console.log('\n--- 問題 12: UserRepository ---');
 // const db: Database = new Map();
