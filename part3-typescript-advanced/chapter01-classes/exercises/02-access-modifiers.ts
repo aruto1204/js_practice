@@ -170,6 +170,42 @@ class BankAccount {
 
 // ここに実装
 
+class Vehicle {
+  protected brand: string;
+
+  constructor(brand: string) {
+    this.brand = brand;
+  }
+
+  // protected メソッドは継承先でオーバーライド可能
+  protected startEngine(): string {
+    return 'エンジン始動';
+  }
+
+  public start(): void {
+    const message = this.startEngine();
+    console.log(`${this.brand}: ${message}`);
+  }
+}
+
+class ElectricCar extends Vehicle {
+  private batteryLevel: number;
+
+  constructor(brand: string, batteryLevel: number) {
+    super(brand);
+    this.batteryLevel = batteryLevel;
+  }
+
+  // protected メソッドをオーバーライド
+  protected startEngine(): string {
+    return 'モーター始動';
+  }
+
+  public getBatteryLevel(): number {
+    return this.batteryLevel;
+  }
+}
+
 
 /* 問題 6: アクセス修飾子の混在
  * TodoList クラスを作成してください。
@@ -355,10 +391,10 @@ console.log(account.withdraw(300)); // true
 console.log(account.getBalance()); // 1200
 console.log(account.getTransactionHistory());
 
-// console.log('\n--- 問題 5: Vehicle & ElectricCar ---');
-// const ev = new ElectricCar('Tesla', 80);
-// ev.start(); // "モーター始動"
-// console.log(ev.getBatteryLevel()); // 80
+console.log('\n--- 問題 5: Vehicle & ElectricCar ---');
+const ev = new ElectricCar('Tesla', 80);
+ev.start(); // "モーター始動"
+console.log(ev.getBatteryLevel()); // 80
 
 // console.log('\n--- 問題 6: TodoList ---');
 // const todoList = new TodoList('仕事', 5);
