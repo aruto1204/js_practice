@@ -257,6 +257,31 @@ class TodoList {
 
 // ここに実装
 
+class Person {
+  private _age: number;
+
+  constructor(age: number) {
+    this._age = age >= 0 ? age : 0;
+  }
+
+  // public getter
+  public get age(): number {
+    return this._age;
+  }
+
+  // private setter（クラス内部でのみ使用可能）
+  private set age(value: number) {
+    if (value >= 0) {
+      this._age = value;
+    }
+  }
+
+  public celebrateBirthday(): void {
+    // private setter を内部で使用
+    this.age = this._age + 1;
+  }
+}
+
 
 /* 問題 8: 静的メンバーとアクセス修飾子
  * IdGenerator クラスを作成してください。
@@ -429,11 +454,11 @@ todoList.addTodo('タスク1');
 todoList.addTodo('タスク2');
 console.log(todoList.getTodos());
 
-// console.log('\n--- 問題 7: Person ---');
-// const person = new Person(25);
-// console.log(person.age); // 25
-// person.celebrateBirthday();
-// console.log(person.age); // 26
+console.log('\n--- 問題 7: Person ---');
+const person = new Person(25);
+console.log(person.age); // 25
+person.celebrateBirthday();
+console.log(person.age); // 26
 
 // console.log('\n--- 問題 8: IdGenerator ---');
 // console.log(IdGenerator.generateId()); // ID1001
