@@ -330,6 +330,37 @@ class IdGenerator {
  */
 
 // ここに実装
+abstract class Logger {
+  protected logLevel: string;
+
+  // protected コンストラクタは継承先クラスからのみ呼び出し可能
+  protected constructor(logLevel: string) {
+    this.logLevel = logLevel;
+  }
+
+  abstract log(message: string): void;
+}
+
+class ConsoleLogger extends Logger {
+  constructor() {
+    super('INFO');
+  }
+
+  public log(message: string): void {
+    console.log(`[${this.logLevel}] ${message}`);
+  }
+}
+
+class FileLogger extends Logger {
+  constructor() {
+    super('DEBUG');
+  }
+
+  public log(message: string): void {
+    console.log(`Writing to file: [${this.logLevel}] ${message}`);
+  }
+}
+
 
 
 /* 問題 10: private メソッドと内部ロジック
@@ -486,11 +517,11 @@ console.log(IdGenerator.generateId()); // ID1002
 IdGenerator.reset();
 console.log(IdGenerator.generateId()); // ID1001
 
-// console.log('\n--- 問題 9: Logger ---');
-// const consoleLogger = new ConsoleLogger();
-// consoleLogger.log('情報メッセージ');
-// const fileLogger = new FileLogger();
-// fileLogger.log('デバッグメッセージ');
+console.log('\n--- 問題 9: Logger ---');
+const consoleLogger = new ConsoleLogger();
+consoleLogger.log('情報メッセージ');
+const fileLogger = new FileLogger();
+fileLogger.log('デバッグメッセージ');
 
 // console.log('\n--- 問題 10: EmailValidator ---');
 // const validator = new EmailValidator();
