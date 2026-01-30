@@ -219,6 +219,33 @@ class ElectricCar extends Vehicle {
 
 // ここに実装
 
+class TodoList {
+  private todos: string[] = [];
+  public maxTodos: number;
+  protected category: string;
+
+  constructor(category: string, maxTodos: number) {
+    this.category = category;
+    this.maxTodos = maxTodos;
+  }
+
+  private isValidTodo(todo: string): boolean {
+    return todo.trim().length > 0;
+  }
+
+  public addTodo(todo: string): boolean {
+    if (this.isValidTodo(todo) && this.todos.length < this.maxTodos) {
+      this.todos.push(todo);
+      return true;
+    }
+    return false;
+  }
+
+  public getTodos(): readonly string[] {
+    return [...this.todos];
+  }
+}
+
 
 /* 問題 7: private setter, public getter
  * Person クラスを作成してください。
@@ -396,11 +423,11 @@ const ev = new ElectricCar('Tesla', 80);
 ev.start(); // "モーター始動"
 console.log(ev.getBatteryLevel()); // 80
 
-// console.log('\n--- 問題 6: TodoList ---');
-// const todoList = new TodoList('仕事', 5);
-// todoList.addTodo('タスク1');
-// todoList.addTodo('タスク2');
-// console.log(todoList.getTodos());
+console.log('\n--- 問題 6: TodoList ---');
+const todoList = new TodoList('仕事', 5);
+todoList.addTodo('タスク1');
+todoList.addTodo('タスク2');
+console.log(todoList.getTodos());
 
 // console.log('\n--- 問題 7: Person ---');
 // const person = new Person(25);
