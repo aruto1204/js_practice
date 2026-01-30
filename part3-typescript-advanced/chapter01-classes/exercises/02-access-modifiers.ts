@@ -373,6 +373,39 @@ class FileLogger extends Logger {
  */
 
 // ここに実装
+class EmailValidator {
+  // private メソッドで検証ロジックを分割
+  private hasAtSign(email: string): boolean {
+    return email.includes('@');
+  }
+
+  private hasDomain(email: string): boolean {
+    return email.includes('.');
+  }
+
+  private hasValidLength(email: string): boolean {
+    return email.length >= 5;
+  }
+
+  public validate(email: string): { valid: boolean; errors: string[] } {
+    const errors: string[] = [];
+
+    if (!this.hasValidLength(email)) {
+      errors.push('メールアドレスは5文字以上必要です');
+    }
+    if (!this.hasAtSign(email)) {
+      errors.push('@記号が必要です');
+    }
+    if (!this.hasDomain(email)) {
+      errors.push('ドメインが必要です');
+    }
+
+    return {
+      valid: errors.length === 0,
+      errors
+    };
+  }
+}
 
 
 /* 問題 11: protected static メンバー
@@ -523,10 +556,10 @@ consoleLogger.log('情報メッセージ');
 const fileLogger = new FileLogger();
 fileLogger.log('デバッグメッセージ');
 
-// console.log('\n--- 問題 10: EmailValidator ---');
-// const validator = new EmailValidator();
-// console.log(validator.validate('test@example.com'));
-// console.log(validator.validate('invalid'));
+console.log('\n--- 問題 10: EmailValidator ---');
+const validator = new EmailValidator();
+console.log(validator.validate('test@example.com'));
+console.log(validator.validate('invalid'));
 
 // console.log('\n--- 問題 11: Shape & Rectangle ---');
 // const rect = new Rectangle('赤', 10, 5);
