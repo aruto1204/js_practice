@@ -555,6 +555,27 @@ class Product {
  */
 
 // ここに実装
+class SecureStorage {
+  // private static でクラス全体で共有されるデータストア
+  private static dataStore: Map<string, string> = new Map();
+  private key: string;
+
+  constructor(key: string) {
+    this.key = key;
+  }
+
+  public set(value: string): void {
+    SecureStorage.dataStore.set(this.key, value);
+  }
+
+  public get(): string | undefined {
+    return SecureStorage.dataStore.get(this.key);
+  }
+
+  public delete(): boolean {
+    return SecureStorage.dataStore.delete(this.key);
+  }
+}
 
 
 /* 問題 15: 複雑なアクセス制御
@@ -660,11 +681,11 @@ product.setPrice(95000);
 console.log(product.getPrice()); // 95000
 console.log(product.isInStock()); // true
 
-// console.log('\n--- 問題 14: SecureStorage ---');
-// const storage1 = new SecureStorage('myKey');
-// storage1.set('秘密のデータ');
-// const storage2 = new SecureStorage('myKey');
-// console.log(storage2.get()); // '秘密のデータ'
+console.log('\n--- 問題 14: SecureStorage ---');
+const storage1 = new SecureStorage('myKey');
+storage1.set('秘密のデータ');
+const storage2 = new SecureStorage('myKey');
+console.log(storage2.get()); // '秘密のデータ'
 
 // console.log('\n--- 問題 15: NotificationService ---');
 // const service = new NotificationService();
