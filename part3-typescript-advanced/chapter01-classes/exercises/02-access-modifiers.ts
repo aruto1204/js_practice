@@ -517,6 +517,32 @@ class UserRepository {
 
 // ここに実装
 
+class Product {
+  // パラメータプロパティでプロパティを宣言と同時に初期化
+  constructor(
+    public id: string,
+    public name: string,
+    private price: number,
+    protected stock: number
+  ) {}
+
+  public getPrice(): number {
+    return this.price;
+  }
+
+  public setPrice(newPrice: number): boolean {
+    if (newPrice >= 0) {
+      this.price = newPrice;
+      return true;
+    }
+    return false;
+  }
+
+  public isInStock(): boolean {
+    return this.stock > 0;
+  }
+}
+
 
 /* 問題 14: private と WeakMap パターン（高度）
  * SecureStorage クラスを作成してください。
@@ -626,12 +652,13 @@ const user: User = { id: '1', name: '太郎', email: 'taro@example.com' };
 repo.save(user);
 console.log(repo.findById('1'));
 
-// console.log('\n--- 問題 13: Product ---');
-// const product = new Product('P001', 'ノートPC', 100000, 10);
-// console.log(product.getPrice()); // 100000
-// product.setPrice(95000);
-// console.log(product.getPrice()); // 95000
-// console.log(product.isInStock()); // true
+
+console.log('\n--- 問題 13: Product ---');
+const product = new Product('P001', 'ノートPC', 100000, 10);
+console.log(product.getPrice()); // 100000
+product.setPrice(95000);
+console.log(product.getPrice()); // 95000
+console.log(product.isInStock()); // true
 
 // console.log('\n--- 問題 14: SecureStorage ---');
 // const storage1 = new SecureStorage('myKey');
