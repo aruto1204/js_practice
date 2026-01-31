@@ -473,7 +473,34 @@ type User = {
 };
 
 // ここに実装
+class UserRepository {
+  // private プロパティで外部依存を保持
+  private database: Database;
 
+  constructor(database: Database) {
+    this.database = database;
+  }
+
+  // private メソッドでバリデーションロジックを隠蔽
+  private validateUser(user: User): boolean {
+    return (
+      user.id.length > 0 &&
+      user.name.length > 0 &&
+      user.email.includes('@')
+    );
+  }
+
+  public findById(id: string): User | null {
+    const user = this.database.get(id);
+    return user || null;
+  }
+
+  public save(user: User): void {
+    if (this.validateUser(user)) {
+      this.database.set(user.id, user);
+    }
+  }
+}
 
 /* 問題 13: アクセス修飾子とパラメータプロパティ
  * Product クラスを作成してください。
@@ -592,12 +619,12 @@ console.log('\n--- 問題 11: Shape & Rectangle ---');
 const rect = new Rectangle('赤', 10, 5);
 console.log(rect.getArea()); // 50
 
-// console.log('\n--- 問題 12: UserRepository ---');
-// const db: Database = new Map();
-// const repo = new UserRepository(db);
-// const user: User = { id: '1', name: '太郎', email: 'taro@example.com' };
-// repo.save(user);
-// console.log(repo.findById('1'));
+console.log('\n--- 問題 12: UserRepository ---');
+const db: Database = new Map();
+const repo = new UserRepository(db);
+const user: User = { id: '1', name: '太郎', email: 'taro@example.com' };
+repo.save(user);
+console.log(repo.findById('1'));
 
 // console.log('\n--- 問題 13: Product ---');
 // const product = new Product('P001', 'ノートPC', 100000, 10);
