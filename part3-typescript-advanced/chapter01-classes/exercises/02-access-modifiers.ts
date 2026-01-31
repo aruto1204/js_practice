@@ -592,7 +592,51 @@ class SecureStorage {
  */
 
 // ここに実装
+class NotificationService {
+  private subscribers: Set<string> = new Set();
+  protected notificationCount: number = 0;
+  private readonly maxSubscribers: number = 100;
 
+  // private メソッドでメールアドレスの検証
+  private isValidEmail(email: string): boolean {
+    return email.includes('@') && email.includes('.');
+  }
+
+  // protected メソッドは継承先クラスから利用可能
+  protected incrementCount(): void {
+    this.notificationCount++;
+  }
+
+  public subscribe(email: string): boolean {
+    if (
+      this.isValidEmail(email) &&
+      this.subscribers.size < this.maxSubscribers
+    ) {
+      this.subscribers.add(email);
+      return true;
+    }
+    return false;
+  }
+
+  public unsubscribe(email: string): boolean {
+    return this.subscribers.delete(email);
+  }
+
+  public notify(message: string): number {
+    let count = 0;
+    this.subscribers.forEach((email) => {
+      console.log(`通知送信: ${email} - ${message}`);
+      count++;
+    });
+    this.incrementCount();
+    return count;
+  }
+
+  // public getter で購読者数を取得
+  public get subscriberCount(): number {
+    return this.subscribers.size;
+  }
+}
 
 // テストコード
 console.log('--- 問題 1: Counter ---');
@@ -687,10 +731,10 @@ storage1.set('秘密のデータ');
 const storage2 = new SecureStorage('myKey');
 console.log(storage2.get()); // '秘密のデータ'
 
-// console.log('\n--- 問題 15: NotificationService ---');
-// const service = new NotificationService();
-// service.subscribe('user1@example.com');
-// service.subscribe('user2@example.com');
-// console.log(service.subscriberCount); // 2
-// const sent = service.notify('新着情報があります');
-// console.log(sent); // 2
+console.log('\n--- 問題 15: NotificationService ---');
+const service = new NotificationService();
+service.subscribe('user1@example.com');
+service.subscribe('user2@example.com');
+console.log(service.subscriberCount); // 2
+const sent = service.notify('新着情報があります');
+console.log(sent); // 2
