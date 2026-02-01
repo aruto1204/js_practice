@@ -294,6 +294,56 @@ class FileLogger extends Logger {
  */
 
 // ここに実装
+abstract class Animal {
+  protected name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  abstract makeSound(): string;
+
+  introduce(): void {
+    console.log(`This is ${this.name}`);
+  }
+}
+
+abstract class Mammal extends Animal {
+  protected hasFur: boolean;
+
+  constructor(name: string, hasFur: boolean) {
+    super(name);
+    this.hasFur = hasFur;
+  }
+
+  abstract getFurColor(): string;
+
+  describeFur(): string {
+    if (this.hasFur) {
+      return `This mammal has ${this.getFurColor()} fur`;
+    }
+    return 'This mammal has no fur';
+  }
+}
+
+class Dog extends Mammal {
+  private furColor: string;
+
+  constructor(name: string, hasFur: boolean, furColor: string) {
+    super(name, hasFur);
+    this.furColor = furColor;
+  }
+
+  // Animal の抽象メソッドを実装
+  makeSound(): string {
+    return 'Woof! Woof!';
+  }
+
+  // Mammal の抽象メソッドを実装
+  getFurColor(): string {
+    return this.furColor;
+  }
+}
 
 
 /* 問題 7: 抽象クラスとジェネリクス
@@ -492,10 +542,10 @@ fileLogger.log('メッセージ2');
 console.log(Logger.getLogCount()); // 2
 
 console.log('\n--- 問題 6: Animal, Mammal, Dog ---');
-// const dog = new Dog('ポチ', true, '茶色');
-// dog.introduce();
-// console.log(dog.makeSound());
-// console.log(dog.describeFur());
+const dog = new Dog('ポチ', true, '茶色');
+dog.introduce();
+console.log(dog.makeSound());
+console.log(dog.describeFur());
 
 console.log('\n--- 問題 7: Repository ---');
 // const userRepo = new UserRepository();
