@@ -133,6 +133,46 @@ class PartTimeEmployee extends Employee {
  */
 
 // ここに実装
+abstract class Vehicle {
+  abstract start(): string;
+  abstract stop(): string;
+  abstract getFuelType(): string;
+
+  operationCycle(): void {
+    console.log(this.start());
+    console.log(`Fuel type: ${this.getFuelType()}`);
+    console.log(this.stop());
+  }
+}
+
+class Car extends Vehicle {
+  start(): string {
+    return 'Car engine started';
+  }
+
+  stop(): string {
+    return 'Car engine stopped';
+  }
+
+  getFuelType(): string {
+    return 'Gasoline';
+  }
+}
+
+class ElectricBike extends Vehicle {
+  start(): string {
+    return 'Electric bike powered on';
+  }
+
+  stop(): string {
+    return 'Electric bike powered off';
+  }
+
+  getFuelType(): string {
+    return 'Electric';
+  }
+}
+
 
 
 /* 問題 4: テンプレートメソッドパターン
@@ -370,10 +410,10 @@ console.log(fullTime.getInfo(), fullTime.calculateSalary());
 console.log(partTime.getInfo(), partTime.calculateSalary());
 
 console.log('\n--- 問題 3: Vehicle ---');
-// const car = new Car();
-// car.operationCycle();
-// const bike = new ElectricBike();
-// bike.operationCycle();
+const car = new Car();
+car.operationCycle();
+const bike = new ElectricBike();
+bike.operationCycle();
 
 console.log('\n--- 問題 4: DataProcessor ---');
 // const processor = new JsonProcessor();
