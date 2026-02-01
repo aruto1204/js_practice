@@ -461,6 +461,59 @@ class ApiClient extends HttpClient {
  */
 
 // ここに実装
+abstract class Notification {
+  protected message: string;
+
+  constructor(message: string) {
+    this.message = message;
+  }
+
+  abstract send(): void;
+
+  prepare(): void {
+    console.log(`Preparing: ${this.message}`);
+  }
+}
+
+class EmailNotification extends Notification {
+  private to: string;
+
+  constructor(message: string, to: string) {
+    super(message);
+    this.to = to;
+  }
+
+  send(): void {
+    console.log(`Sending email to ${this.to}: ${this.message}`);
+  }
+}
+
+class SmsNotification extends Notification {
+  private phoneNumber: string;
+
+  constructor(message: string, phoneNumber: string) {
+    super(message);
+    this.phoneNumber = phoneNumber;
+  }
+
+  send(): void {
+    console.log(`Sending SMS to ${this.phoneNumber}: ${this.message}`);
+  }
+}
+
+class NotificationFactory {
+  static create(type: 'email' | 'sms', message: string, recipient: string): Notification {
+    switch (type) {
+      case 'email':
+        return new EmailNotification(message, recipient);
+      case 'sms':
+        return new SmsNotification(message, recipient);
+      default:
+        throw new Error('Unknown notification type');
+    }
+  }
+}
+
 
 
 /* 問題 10: 抽象クラスと readonly
@@ -617,9 +670,9 @@ const apiClient = new ApiClient('https://api.example.com');
 console.log(apiClient.get('/users'));
 
 console.log('\n--- 問題 9: NotificationFactory ---');
-// const email = NotificationFactory.create('email', 'こんにちは', 'user@example.com');
-// email.prepare();
-// email.send();
+const email = NotificationFactory.create('email', 'こんにちは', 'user@example.com');
+email.prepare();
+email.send();
 
 console.log('\n--- 問題 10: Configuration ---');
 // const config = new JsonConfiguration('app-config');
