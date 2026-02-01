@@ -192,6 +192,45 @@ class ElectricBike extends Vehicle {
  */
 
 // ここに実装
+abstract class DataProcessor {
+  // テンプレートメソッド: 処理の流れを定義
+  process(data: string): string {
+    if (!this.validate(data)) {
+      throw new Error('Invalid data');
+    }
+    const transformed = this.transform(data);
+    this.save(transformed);
+    return transformed;
+  }
+
+  // 抽象メソッド: 派生クラスで詳細を実装
+  protected abstract validate(data: string): boolean;
+  protected abstract transform(data: string): string;
+  protected abstract save(data: string): void;
+}
+
+class JsonProcessor extends DataProcessor {
+  // JSON 文字列として妥当かチェック
+  protected validate(data: string): boolean {
+    try {
+      JSON.parse(data);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  // JSON を整形（インデント2スペース）
+  protected transform(data: string): string {
+    const parsed = JSON.parse(data);
+    return JSON.stringify(parsed, null, 2);
+  }
+
+  // データを保存（今回は出力のみ）
+  protected save(data: string): void {
+    console.log(`Saving JSON: ${data}`);
+  }
+}
 
 
 /* 問題 5: 抽象クラスと静的メンバー
@@ -416,8 +455,8 @@ const bike = new ElectricBike();
 bike.operationCycle();
 
 console.log('\n--- 問題 4: DataProcessor ---');
-// const processor = new JsonProcessor();
-// console.log(processor.process('{"name":"太郎"}'));
+const processor = new JsonProcessor();
+console.log(processor.process('{"name":"太郎"}'));
 
 console.log('\n--- 問題 5: Logger ---');
 // const consoleLogger = new ConsoleLogger();
