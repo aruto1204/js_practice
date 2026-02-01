@@ -410,6 +410,36 @@ class UserRepository extends Repository<User> {
  */
 
 // ここに実装
+abstract class HttpClient {
+  protected abstract buildUrl(endpoint: string): string;
+  protected abstract handleError(error: Error): void;
+
+  // public メソッドから protected メソッドを呼び出す
+  get(endpoint: string): string {
+    const url = this.buildUrl(endpoint);
+    return `Fetching: ${url}`;
+  }
+}
+
+class ApiClient extends HttpClient {
+  private baseUrl: string;
+
+  constructor(baseUrl: string) {
+    super();
+    this.baseUrl = baseUrl;
+  }
+
+  // URL を構築する処理
+  protected buildUrl(endpoint: string): string {
+    return `${this.baseUrl}${endpoint}`;
+  }
+
+  // エラーハンドリング処理
+  protected handleError(error: Error): void {
+    console.error(`API Error: ${error.message}`);
+  }
+}
+
 
 
 /* 問題 9: Factory パターンと抽象クラス
@@ -583,8 +613,8 @@ console.log(userRepo.count());
 console.log(userRepo.getAll());
 
 console.log('\n--- 問題 8: HttpClient ---');
-// const apiClient = new ApiClient('https://api.example.com');
-// console.log(apiClient.get('/users'));
+const apiClient = new ApiClient('https://api.example.com');
+console.log(apiClient.get('/users'));
 
 console.log('\n--- 問題 9: NotificationFactory ---');
 // const email = NotificationFactory.create('email', 'こんにちは', 'user@example.com');
