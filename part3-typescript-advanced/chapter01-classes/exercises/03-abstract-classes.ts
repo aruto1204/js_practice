@@ -72,6 +72,51 @@ class Circle extends Shape {
 
 // ここに実装
 
+abstract class Employee {
+  protected name: string;
+  protected id: string;
+
+  constructor(name: string, id: string) {
+    this.name = name;
+    this.id = id;
+  }
+
+  abstract calculateSalary(): number;
+
+  getInfo(): string {
+    return `Employee: ${this.name} (ID: ${this.id})`;
+  }
+}
+
+class FullTimeEmployee extends Employee {
+  private monthlySalary: number;
+
+  constructor(name: string, id: string, monthlySalary: number) {
+    super(name, id);
+    this.monthlySalary = monthlySalary;
+  }
+
+  // 正社員は月給をそのまま返す
+  calculateSalary(): number {
+    return this.monthlySalary;
+  }
+}
+
+class PartTimeEmployee extends Employee {
+  private hourlyRate: number;
+  private hoursWorked: number;
+
+  constructor(name: string, id: string, hourlyRate: number, hoursWorked: number) {
+    super(name, id);
+    this.hourlyRate = hourlyRate;
+    this.hoursWorked = hoursWorked;
+  }
+
+  // パートタイムは時給 × 労働時間
+  calculateSalary(): number {
+    return this.hourlyRate * this.hoursWorked;
+  }
+}
 
 /* 問題 3: 複数の抽象メソッド
  * 抽象クラス Vehicle を作成してください。
@@ -319,10 +364,10 @@ console.log(circle.getArea());
 console.log(circle.getPerimeter());
 
 console.log('\n--- 問題 2: Employee ---');
-// const fullTime = new FullTimeEmployee('太郎', 'E001', 300000);
-// const partTime = new PartTimeEmployee('花子', 'E002', 1500, 80);
-// console.log(fullTime.getInfo(), fullTime.calculateSalary());
-// console.log(partTime.getInfo(), partTime.calculateSalary());
+const fullTime = new FullTimeEmployee('太郎', 'E001', 300000);
+const partTime = new PartTimeEmployee('花子', 'E002', 1500, 80);
+console.log(fullTime.getInfo(), fullTime.calculateSalary());
+console.log(partTime.getInfo(), partTime.calculateSalary());
 
 console.log('\n--- 問題 3: Vehicle ---');
 // const car = new Car();
