@@ -16,7 +16,41 @@
  */
 
 // ここに実装
+abstract class Shape {
+  protected color: string;
 
+  constructor(color: string) {
+    this.color = color;
+  }
+
+  // 抽象メソッド: 派生クラスで実装が必須
+  abstract getArea(): number;
+  abstract getPerimeter(): number;
+
+  // 通常メソッド: 派生クラスで共通の処理
+  describe(): string {
+    return `This is a ${this.color} shape`;
+  }
+}
+
+class Circle extends Shape {
+  private radius: number;
+
+  constructor(color: string, radius: number) {
+    super(color);
+    this.radius = radius;
+  }
+
+  // 抽象メソッドの実装: 円の面積 = π * r²
+  getArea(): number {
+    return Math.PI * this.radius ** 2;
+  }
+
+  // 抽象メソッドの実装: 円の周長 = 2 * π * r
+  getPerimeter(): number {
+    return 2 * Math.PI * this.radius;
+  }
+}
 
 /* 問題 2: 抽象クラスとコンストラクタ
  * 抽象クラス Employee を作成してください。
@@ -279,10 +313,10 @@ type User = {
 
 // テストコード
 console.log('--- 問題 1: Shape ---');
-// const circle = new Circle('赤', 5);
-// console.log(circle.describe());
-// console.log(circle.getArea());
-// console.log(circle.getPerimeter());
+const circle = new Circle('赤', 5);
+console.log(circle.describe());
+console.log(circle.getArea());
+console.log(circle.getPerimeter());
 
 console.log('\n--- 問題 2: Employee ---');
 // const fullTime = new FullTimeEmployee('太郎', 'E001', 300000);
