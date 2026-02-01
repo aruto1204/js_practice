@@ -530,6 +530,40 @@ class NotificationFactory {
  */
 
 // ここに実装
+abstract class Configuration {
+  protected readonly configName: string;
+
+  constructor(configName: string) {
+    this.configName = configName;
+  }
+
+  abstract load(): Record<string, any>;
+  abstract validate(): boolean;
+
+  // 初期化処理: バリデーション → ロード
+  initialize(): Record<string, any> | null {
+    if (this.validate()) {
+      return this.load();
+    }
+    return null;
+  }
+}
+
+class JsonConfiguration extends Configuration {
+  protected load(): Record<string, any> {
+    // 実際にはファイルから読み込むが、ここでは固定値
+    return {
+      name: this.configName,
+      version: '1.0.0',
+      settings: { debug: true }
+    };
+  }
+
+  protected validate(): boolean {
+    // 設定名が空でないかチェック
+    return this.configName.trim() !== '';
+  }
+}
 
 
 /* 問題 11: 抽象クラスと計算ロジック
@@ -675,9 +709,9 @@ email.prepare();
 email.send();
 
 console.log('\n--- 問題 10: Configuration ---');
-// const config = new JsonConfiguration('app-config');
-// const data = config.initialize();
-// console.log(data);
+const config = new JsonConfiguration('app-config');
+const data = config.initialize();
+console.log(data);
 
 console.log('\n--- 問題 11: Shape3D ---');
 // const sphere = new Sphere(5);
