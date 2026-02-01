@@ -250,7 +250,33 @@ class JsonProcessor extends DataProcessor {
  */
 
 // ここに実装
+abstract class Logger {
+  protected static logCount: number = 0;
 
+  protected abstract writeLog(message: string): void;
+
+  // 静的カウンターを使ってログ回数を記録
+  log(message: string): void {
+    Logger.logCount++;
+    this.writeLog(message);
+  }
+
+  static getLogCount(): number {
+    return Logger.logCount;
+  }
+}
+
+class ConsoleLogger extends Logger {
+  protected writeLog(message: string): void {
+    console.log(message);
+  }
+}
+
+class FileLogger extends Logger {
+  protected writeLog(message: string): void {
+    console.log(`Writing to file: ${message}`);
+  }
+}
 
 /* 問題 6: 階層的な抽象クラス
  * 抽象クラス Animal を作成してください。
@@ -459,11 +485,11 @@ const processor = new JsonProcessor();
 console.log(processor.process('{"name":"太郎"}'));
 
 console.log('\n--- 問題 5: Logger ---');
-// const consoleLogger = new ConsoleLogger();
-// const fileLogger = new FileLogger();
-// consoleLogger.log('メッセージ1');
-// fileLogger.log('メッセージ2');
-// console.log(Logger.getLogCount()); // 2
+const consoleLogger = new ConsoleLogger();
+const fileLogger = new FileLogger();
+consoleLogger.log('メッセージ1');
+fileLogger.log('メッセージ2');
+console.log(Logger.getLogCount()); // 2
 
 console.log('\n--- 問題 6: Animal, Mammal, Dog ---');
 // const dog = new Dog('ポチ', true, '茶色');
