@@ -365,7 +365,35 @@ type User = {
 };
 
 // ここに実装
+abstract class Repository<T> {
+  protected items: T[] = [];
 
+  abstract validate(item: T): boolean;
+
+  // バリデーションが通った場合のみ追加
+  add(item: T): boolean {
+    if (this.validate(item)) {
+      this.items.push(item);
+      return true;
+    }
+    return false;
+  }
+
+  getAll(): T[] {
+    return this.items;
+  }
+
+  count(): number {
+    return this.items.length;
+  }
+}
+
+class UserRepository extends Repository<User> {
+  // User 型に特化したバリデーション
+  validate(item: User): boolean {
+    return item.name.trim() !== '' && item.email.trim() !== '';
+  }
+}
 
 /* 問題 8: 抽象クラスとプロテクトメソッド
  * 抽象クラス HttpClient を作成してください。
@@ -548,10 +576,11 @@ console.log(dog.makeSound());
 console.log(dog.describeFur());
 
 console.log('\n--- 問題 7: Repository ---');
-// const userRepo = new UserRepository();
-// userRepo.add({ id: '1', name: '太郎', email: 'taro@example.com' });
-// userRepo.add({ id: '2', name: '', email: 'invalid' }); // false
-// console.log(userRepo.count());
+const userRepo = new UserRepository();
+userRepo.add({ id: '1', name: '太郎', email: 'taro@example.com' });
+userRepo.add({ id: '2', name: '', email: 'invalid' }); // false
+console.log(userRepo.count());
+console.log(userRepo.getAll());
 
 console.log('\n--- 問題 8: HttpClient ---');
 // const apiClient = new ApiClient('https://api.example.com');
