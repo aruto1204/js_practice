@@ -804,7 +804,59 @@ class CustomEventEmitter extends EventEmitter {
  */
 
 // ここに実装
+abstract class Command {
+  private timestamp: Date;
 
+  constructor() {
+    this.timestamp = new Date();
+  }
+
+  abstract execute(): void;
+  abstract undo(): void;
+
+  getTimestamp(): Date {
+    return this.timestamp;
+  }
+}
+
+class AddTextCommand extends Command {
+  private text: string;
+  private document: string[];
+
+  constructor(text: string, document: string[]) {
+    super();
+    this.text = text;
+    this.document = document;
+  }
+
+  // コマンドの実行: テキストを追加
+  execute(): void {
+    this.document.push(this.text);
+  }
+
+  // コマンドの取り消し: 最後の要素を削除
+  undo(): void {
+    this.document.pop();
+  }
+}
+
+class CommandInvoker {
+  private history: Command[] = [];
+
+  // コマンドを実行して履歴に追加
+  executeCommand(command: Command): void {
+    command.execute();
+    this.history.push(command);
+  }
+
+  // 最後のコマンドを取り消し
+  undoLastCommand(): void {
+    const command = this.history.pop();
+    if (command) {
+      command.undo();
+    }
+  }
+}
 
 // テストコード
 console.log('--- 問題 1: Shape ---');
@@ -889,10 +941,10 @@ emitter.on('click', (data: any) => console.log('Clicked:', data));
 emitter.emit('click', { x: 100, y: 200 });
 
 console.log('\n--- 問題 15: Command ---');
-// const document: string[] = [];
-// const cmd1 = new AddTextCommand('Hello', document);
-// const invoker = new CommandInvoker();
-// invoker.executeCommand(cmd1);
-// console.log(document); // ['Hello']
-// invoker.undoLastCommand();
-// console.log(document); // []
+const document: string[] = [];
+const cmd1 = new AddTextCommand('Hello', document);
+const invoker = new CommandInvoker();
+invoker.executeCommand(cmd1);
+console.log(document); // ['Hello']
+invoker.undoLastCommand();
+console.log(document); // []
