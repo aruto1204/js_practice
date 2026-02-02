@@ -884,9 +884,9 @@ const sql = query.select('id', 'name').where('age > 20').where('active = true').
 console.log(sql);
 
 console.log('\n--- 問題 14: EventEmitter ---');
-// const emitter = new CustomEventEmitter();
-// emitter.on('click', (data: any) => console.log('Clicked:', data));
-// emitter.emit('click', { x: 100, y: 200 });
+const emitter = new CustomEventEmitter();
+emitter.on('click', (data: any) => console.log('Clicked:', data));
+emitter.emit('click', { x: 100, y: 200 });
 
 console.log('\n--- 問題 15: Command ---');
 // const document: string[] = [];
