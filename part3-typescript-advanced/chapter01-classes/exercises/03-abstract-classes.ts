@@ -700,6 +700,41 @@ class Counter extends StatefulComponent {
  */
 
 // ここに実装
+abstract class QueryBuilder {
+  protected tableName: string;
+  protected conditions: string[] = [];
+
+  constructor(tableName: string) {
+    this.tableName = tableName;
+  }
+
+  abstract build(): string;
+
+  // メソッドチェーンのため this を返す
+  where(condition: string): this {
+    this.conditions.push(condition);
+    return this;
+  }
+}
+
+class SelectQueryBuilder extends QueryBuilder {
+  private fields: string[] = ['*'];
+
+  select(...fields: string[]): this {
+    this.fields = fields;
+    return this;
+  }
+
+  // SQL クエリを構築
+  build(): string {
+    const fieldsStr = this.fields.join(', ');
+    const whereClause = this.conditions.length > 0
+      ? ` WHERE ${this.conditions.join(' AND ')}`
+      : '';
+    return `SELECT ${fieldsStr} FROM ${this.tableName}${whereClause}`;
+  }
+}
+
 
 
 /* 問題 14: 抽象クラスとイベント処理
@@ -812,9 +847,9 @@ counter.increment();
 console.log(counter.render());
 
 console.log('\n--- 問題 13: QueryBuilder ---');
-// const query = new SelectQueryBuilder('users');
-// const sql = query.select('id', 'name').where('age > 20').where('active = true').build();
-// console.log(sql);
+const query = new SelectQueryBuilder('users');
+const sql = query.select('id', 'name').where('age > 20').where('active = true').build();
+console.log(sql);
 
 console.log('\n--- 問題 14: EventEmitter ---');
 // const emitter = new CustomEventEmitter();
