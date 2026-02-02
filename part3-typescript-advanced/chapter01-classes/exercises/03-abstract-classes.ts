@@ -650,6 +650,40 @@ class Cube extends Shape3D {
 
 // ここに実装
 
+abstract class StatefulComponent {
+  protected state: any;
+
+  constructor(initialState: any) {
+    this.state = initialState;
+  }
+
+  abstract render(): string;
+
+  // 状態を更新して再レンダリング
+  setState(newState: any): void {
+    this.state = { ...this.state, ...newState };
+    this.render();
+  }
+}
+
+class Counter extends StatefulComponent {
+  constructor(initialState: { count: number }) {
+    super(initialState);
+  }
+
+  increment(): void {
+    this.setState({ count: this.state.count + 1 });
+  }
+
+  decrement(): void {
+    this.setState({ count: this.state.count - 1 });
+  }
+
+  render(): string {
+    return `Count: ${this.state.count}`;
+  }
+}
+
 
 /* 問題 13: 抽象クラスとビルダーパターン
  * 抽象クラス QueryBuilder を作成してください。
@@ -771,11 +805,11 @@ console.log(cube.getVolume());
 console.log(cube.getDensity(100));
 
 console.log('\n--- 問題 12: StatefulComponent ---');
-// const counter = new Counter({ count: 0 });
-// console.log(counter.render());
-// counter.increment();
-// counter.increment();
-// console.log(counter.render());
+const counter = new Counter({ count: 0 });
+console.log(counter.render());
+counter.increment();
+counter.increment();
+console.log(counter.render());
 
 console.log('\n--- 問題 13: QueryBuilder ---');
 // const query = new SelectQueryBuilder('users');
