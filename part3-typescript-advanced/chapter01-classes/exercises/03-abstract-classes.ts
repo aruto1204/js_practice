@@ -751,6 +751,38 @@ class SelectQueryBuilder extends QueryBuilder {
  */
 
 // ここに実装
+abstract class EventEmitter {
+  protected listeners: Map<string, Function[]>;
+
+  constructor() {
+    this.listeners = new Map();
+  }
+
+  protected abstract onEvent(event: string, data: any): void;
+
+  // イベントリスナーを登録
+  on(event: string, callback: Function): void {
+    if (!this.listeners.has(event)) {
+      this.listeners.set(event, []);
+    }
+    this.listeners.get(event)!.push(callback);
+  }
+
+  // イベントを発火
+  emit(event: string, data: any): void {
+    this.onEvent(event, data);
+    const callbacks = this.listeners.get(event);
+    if (callbacks) {
+      callbacks.forEach(callback => callback(data));
+    }
+  }
+}
+
+class CustomEventEmitter extends EventEmitter {
+  protected onEvent(event: string, data: any): void {
+    console.log(`Event '${event}' fired`);
+  }
+}
 
 
 /* 問題 15: 抽象クラスと高度なパターン
