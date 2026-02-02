@@ -585,6 +585,55 @@ class JsonConfiguration extends Configuration {
 
 // ここに実装
 
+abstract class Shape3D {
+  abstract getVolume(): number;
+  abstract getSurfaceArea(): number;
+
+  // 抽象メソッドの結果を使った共通計算
+  getDensity(mass: number): number {
+    return mass / this.getVolume();
+  }
+}
+
+class Sphere extends Shape3D {
+  private radius: number;
+
+  constructor(radius: number) {
+    super();
+    this.radius = radius;
+  }
+
+  // 球の体積: (4/3) * π * r³
+  getVolume(): number {
+    return (4 / 3) * Math.PI * Math.pow(this.radius, 3);
+  }
+
+  // 球の表面積: 4 * π * r²
+  getSurfaceArea(): number {
+    return 4 * Math.PI * Math.pow(this.radius, 2);
+  }
+}
+
+class Cube extends Shape3D {
+  private sideLength: number;
+
+  constructor(sideLength: number) {
+    super();
+    this.sideLength = sideLength;
+  }
+
+  // 立方体の体積: side³
+  getVolume(): number {
+    return Math.pow(this.sideLength, 3);
+  }
+
+  // 立方体の表面積: 6 * side²
+  getSurfaceArea(): number {
+    return 6 * Math.pow(this.sideLength, 2);
+  }
+}
+
+
 
 /* 問題 12: 抽象クラスと状態管理
  * 抽象クラス StatefulComponent を作成してください。
@@ -714,9 +763,12 @@ const data = config.initialize();
 console.log(data);
 
 console.log('\n--- 問題 11: Shape3D ---');
-// const sphere = new Sphere(5);
-// console.log(sphere.getVolume());
-// console.log(sphere.getDensity(100));
+const sphere = new Sphere(5);
+console.log(sphere.getVolume());
+console.log(sphere.getDensity(100));
+const cube = new Cube(5);
+console.log(cube.getVolume());
+console.log(cube.getDensity(100));
 
 console.log('\n--- 問題 12: StatefulComponent ---');
 // const counter = new Counter({ count: 0 });
