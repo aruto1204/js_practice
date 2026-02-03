@@ -13,7 +13,17 @@
  */
 
 // ここに実装
+interface Printable {
+  print(): void;
+}
 
+class Document implements Printable {
+  constructor(public content: string) {}
+
+  print(): void {
+    console.log(this.content);
+  }
+}
 
 /* 問題 2: 複数のインターフェース実装
  * インターフェース Readable, Writable を作成してください。
