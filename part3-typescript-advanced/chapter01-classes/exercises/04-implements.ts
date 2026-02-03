@@ -284,9 +284,9 @@ file.write('Hello, World!');
 console.log(file.read());
 
 console.log('\n--- 問題 3: Person ---');
-// const student = new Student('太郎', 20, 'S001');
-// console.log(student.greet());
-// console.log(student.studentId);
+const student = new Student('太郎', 20, 'S001');
+console.log(student.greet());
+console.log(student.studentId);
 
 console.log('\n--- 問題 4: Config ---');
 // const config = new AppConfig('https://api.example.com', 5000);
