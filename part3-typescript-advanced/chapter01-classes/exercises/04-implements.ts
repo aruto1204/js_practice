@@ -38,6 +38,26 @@ class Document implements Printable {
  */
 
 // ここに実装
+interface Readable {
+  read(): string;
+}
+
+interface Writable {
+  write(data: string): void;
+}
+
+class File implements Readable, Writable {
+  private content: string = '';
+
+  read(): string {
+    return this.content;
+  }
+
+  write(data: string): void {
+    this.content = data;
+  }
+}
+
 
 
 /* 問題 3: インターフェースとプロパティ
