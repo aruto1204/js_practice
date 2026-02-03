@@ -237,8 +237,8 @@ class Document implements Printable {
 
 // テストコード
 console.log('--- 問題 1: Printable ---');
-// const doc = new Document('重要な文書');
-// doc.print();
+const doc = new Document('重要な文書');
+doc.print();
 
 console.log('\n--- 問題 2: Readable & Writable ---');
 // const file = new File();
