@@ -105,6 +105,29 @@ class Student implements Person {
 
 // ここに実装
 
+interface Config {
+  apiUrl: string;
+  timeout?: number;
+  validate(): boolean;
+  load?(): void;
+}
+
+class AppConfig implements Config {
+  constructor(
+    public apiUrl: string,
+    public timeout?: number
+  ) {}
+
+  validate(): boolean {
+    return this.apiUrl.startsWith('https://');
+  }
+
+  load(): void {
+    console.log(`Config loaded from ${this.apiUrl}`);
+  }
+}
+
+
 
 /* 問題 5: ジェネリックインターフェースの実装
  * インターフェース Container<T> を作成してください。
@@ -118,6 +141,28 @@ class Student implements Person {
  */
 
 // ここに実装
+interface Container<T> {
+  add(item: T): void;
+  get(): T | undefined;
+  isEmpty(): boolean;
+}
+
+class Stack<T> implements Container<T> {
+  private items: T[] = [];
+
+  add(item: T): void {
+    this.items.push(item);
+  }
+
+  get(): T | undefined {
+    return this.items.pop(); // LIFO (Last In First Out)
+  }
+
+  isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+
 
 
 /* 問題 6: インターフェースの継承と実装
@@ -289,17 +334,19 @@ console.log(student.greet());
 console.log(student.studentId);
 
 console.log('\n--- 問題 4: Config ---');
-// const config = new AppConfig('https://api.example.com', 5000);
-// console.log(config.validate());
-// config.load?.();
+const config = new AppConfig('https://api.example.com', 5000);
+console.log(config.validate());
+config.load?.();
 
 console.log('\n--- 問題 5: Container ---');
-// const stack = new Stack<number>();
-// stack.add(1);
-// stack.add(2);
-// stack.add(3);
-// console.log(stack.get()); // 3
-// console.log(stack.get()); // 2
+const stack = new Stack<number>();
+stack.add(1);
+stack.add(2);
+stack.add(3);
+console.log(stack.get()); // 3
+console.log(stack.get()); // 2
+console.log(stack.get()); // 1
+console.log(stack.isEmpty()); // true
 
 console.log('\n--- 問題 6: Pet ---');
 // const dog = new Dog('ポチ');
