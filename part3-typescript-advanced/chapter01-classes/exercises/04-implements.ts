@@ -261,9 +261,9 @@ const doc = new Document('重要な文書');
 doc.print();
 
 console.log('\n--- 問題 2: Readable & Writable ---');
-// const file = new File();
-// file.write('Hello, World!');
-// console.log(file.read());
+const file = new File();
+file.write('Hello, World!');
+console.log(file.read());
 
 console.log('\n--- 問題 3: Person ---');
 // const student = new Student('太郎', 20, 'S001');
