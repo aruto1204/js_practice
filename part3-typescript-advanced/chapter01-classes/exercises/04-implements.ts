@@ -73,6 +73,24 @@ class File implements Readable, Writable {
 
 // ここに実装
 
+interface Person {
+  name: string;
+  age: number;
+  greet(): string;
+}
+
+class Student implements Person {
+  constructor(
+    public name: string,
+    public age: number,
+    public studentId: string
+  ) {}
+
+  greet(): string {
+    return `こんにちは、${this.name}です。学籍番号は${this.studentId}です。`;
+  }
+}
+
 
 /* 問題 4: インターフェースとオプショナルメンバー
  * インターフェース Config を作成してください。
