@@ -179,7 +179,26 @@ class Stack<T> implements Container<T> {
 
 // ここに実装
 
+interface Animal {
+  makeSound(): string;
+}
 
+interface Pet extends Animal {
+  name: string;
+  play(): void;
+}
+
+class Dog implements Pet {
+  constructor(public name: string) {}
+
+  makeSound(): string {
+    return 'ワンワン！';
+  }
+
+  play(): void {
+    console.log(`${this.name}が遊んでいます！`);
+  }
+}
 /* 問題 7: 関数型プロパティを持つインターフェース
  * インターフェース EventListener を作成してください。
  * - プロパティ: onEvent ((event: string, data: any) => void)
@@ -349,9 +368,9 @@ console.log(stack.get()); // 1
 console.log(stack.isEmpty()); // true
 
 console.log('\n--- 問題 6: Pet ---');
-// const dog = new Dog('ポチ');
-// console.log(dog.makeSound());
-// dog.play();
+const dog = new Dog('ポチ');
+console.log(dog.makeSound());
+dog.play();
 
 console.log('\n--- 問題 7: EventListener ---');
 // const listener = new ButtonListener();
