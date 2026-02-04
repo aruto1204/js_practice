@@ -210,7 +210,18 @@ class Dog implements Pet {
 
 // ここに実装
 
+interface EventListener {
+  onEvent: (event: string, data: any) => void;
+  trigger(event: string, data: any): void;
+}
 
+class ButtonListener implements EventListener {
+  onEvent: (event: string, data: any) => void = () => {};
+
+  trigger(event: string, data: any): void {
+    this.onEvent(event, data);
+  }
+}
 /* 問題 8: インターフェースと抽象クラスの組み合わせ
  * インターフェース Comparable を作成してください。
  * - メソッド: compareTo(other: this): number
@@ -373,11 +384,11 @@ console.log(dog.makeSound());
 dog.play();
 
 console.log('\n--- 問題 7: EventListener ---');
-// const listener = new ButtonListener();
-// listener.onEvent = (event, data) => {
-//   console.log(`Event: ${event}, Data: ${JSON.stringify(data)}`);
-// };
-// listener.trigger('click', { x: 100, y: 200 });
+const listener = new ButtonListener();
+listener.onEvent = (event, data) => {
+  console.log(`Event: ${event}, Data: ${JSON.stringify(data)}`);
+};
+listener.trigger('click', { x: 100, y: 200 });
 
 console.log('\n--- 問題 8: Comparable ---');
 // const item1 = new NumberItem(10);
