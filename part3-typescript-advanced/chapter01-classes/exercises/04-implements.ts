@@ -270,7 +270,36 @@ class NumberItem extends SortableItem {
  */
 
 // ここに実装
+interface Database {
+  connect(): Promise<void>;
+  disconnect(): Promise<void>;
+  query<T>(sql: string): Promise<T[]>;
+}
 
+class MockDatabase implements Database {
+  private connected: boolean = false;
+
+  async connect(): Promise<void> {
+    console.log('データベースに接続しています...');
+    this.connected = true;
+    console.log('接続完了！');
+  }
+
+  async disconnect(): Promise<void> {
+    console.log('データベースから切断しています...');
+    this.connected = false;
+    console.log('切断完了！');
+  }
+
+  async query<T>(sql: string): Promise<T[]> {
+    if (!this.connected) {
+      throw new Error('データベースに接続されていません');
+    }
+    console.log(`クエリ実行: ${sql}`);
+    // モックデータを返す
+    return [] as T[];
+  }
+}
 
 /* 問題 10: インターフェースとクラス型の組み合わせ
  * インターフェース Logger を作成してください。
@@ -417,11 +446,11 @@ console.log(item1.compareTo(item2)); // 負の数
 console.log(item1.display());
 
 console.log('\n--- 問題 9: Database ---');
-// const db = new MockDatabase();
-// await db.connect();
-// const users = await db.query<{ id: number; name: string }>('SELECT * FROM users');
-// console.log(users);
-// await db.disconnect();
+const db = new MockDatabase();
+await db.connect();
+const users = await db.query<{ id: number; name: string }>('SELECT * FROM users');
+console.log(users);
+await db.disconnect();
 
 console.log('\n--- 問題 10: Service ---');
 // const logger = { log: (msg: string) => console.log(msg), error: (msg: string) => console.error(msg) };
