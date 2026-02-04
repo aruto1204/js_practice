@@ -236,6 +236,26 @@ class ButtonListener implements EventListener {
  */
 
 // ここに実装
+interface Comparable {
+  compareTo(other: this): number;
+}
+
+abstract class SortableItem implements Comparable {
+  constructor(protected value: number) {}
+
+  compareTo(other: this): number {
+    return this.value - (other as SortableItem).value;
+  }
+
+  abstract display(): string;
+}
+
+class NumberItem extends SortableItem {
+  display(): string {
+    return `値: ${this.value}`;
+  }
+}
+
 
 
 /* 問題 9: 複雑なインターフェース実装
@@ -391,10 +411,10 @@ listener.onEvent = (event, data) => {
 listener.trigger('click', { x: 100, y: 200 });
 
 console.log('\n--- 問題 8: Comparable ---');
-// const item1 = new NumberItem(10);
-// const item2 = new NumberItem(20);
-// console.log(item1.compareTo(item2)); // 負の数
-// console.log(item1.display());
+const item1 = new NumberItem(10);
+const item2 = new NumberItem(20);
+console.log(item1.compareTo(item2)); // 負の数
+console.log(item1.display());
 
 console.log('\n--- 問題 9: Database ---');
 // const db = new MockDatabase();
