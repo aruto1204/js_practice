@@ -315,6 +315,25 @@ class MockDatabase implements Database {
  */
 
 // ここに実装
+interface Logger {
+  log(message: string): void;
+  error(message: string): void;
+}
+
+interface Service {
+  logger: Logger;
+  execute(): void;
+}
+
+class UserService implements Service {
+  constructor(public logger: Logger) {}
+
+  execute(): void {
+    this.logger.log('UserService を実行しています');
+    // 何か処理...
+    this.logger.log('実行完了！');
+  }
+}
 
 
 /* 問題 11: インターフェースと静的メンバー
