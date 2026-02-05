@@ -472,9 +472,9 @@ console.log(users);
 await db.disconnect();
 
 console.log('\n--- 問題 10: Service ---');
-// const logger = { log: (msg: string) => console.log(msg), error: (msg: string) => console.error(msg) };
-// const service = new UserService(logger);
-// service.execute();
+const logger = { log: (msg: string) => console.log(msg), error: (msg: string) => console.error(msg) };
+const service = new UserService(logger);
+service.execute();
 
 console.log('\n--- 問題 11: Serializable ---');
 // const user = new User('太郎', 'taro@example.com');
