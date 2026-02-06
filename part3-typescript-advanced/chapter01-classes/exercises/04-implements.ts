@@ -348,6 +348,34 @@ class UserService implements Service {
  */
 
 // ここに実装
+interface Serializable {
+  serialize(): string;
+  deserialize(data: string): this;
+}
+
+class User implements Serializable {
+  constructor(
+    public name: string,
+    public email: string
+  ) {}
+
+  serialize(): string {
+    return JSON.stringify({ name: this.name, email: this.email });
+  }
+
+  deserialize(data: string): this {
+    const obj = JSON.parse(data);
+    this.name = obj.name;
+    this.email = obj.email;
+    return this;
+  }
+
+  // 静的メソッドとしても実装
+  static fromJSON(data: string): User {
+    const obj = JSON.parse(data);
+    return new User(obj.name, obj.email);
+  }
+}
 
 
 /* 問題 12: 読み取り専用インターフェース
