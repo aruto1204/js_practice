@@ -529,10 +529,10 @@ const restored = user.deserialize(json);
 console.log(restored);
 
 console.log('\n--- 問題 12: ReadonlyPoint ---');
-// const point = new Point(3, 4);
-// console.log(point.x, point.y);
-// console.log(point.distanceFromOrigin());
-// // point.x = 10; // Error
+const point = new Point(3, 4);
+console.log(point.x, point.y);
+console.log(point.distanceFromOrigin());
+// point.x = 10; // Error
 
 console.log('\n--- 問題 13: StringMap ---');
 // const map = new HashMap();
