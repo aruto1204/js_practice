@@ -390,6 +390,23 @@ class User implements Serializable {
  */
 
 // ここに実装
+interface ReadonlyPoint {
+  readonly x: number;
+  readonly y: number;
+  distanceFromOrigin(): number;
+}
+
+class Point implements ReadonlyPoint {
+  constructor(
+    public readonly x: number,
+    public readonly y: number
+  ) {}
+
+  distanceFromOrigin(): number {
+    return Math.sqrt(this.x ** 2 + this.y ** 2);
+  }
+}
+
 
 
 /* 問題 13: インターフェースとインデックスシグネチャ
