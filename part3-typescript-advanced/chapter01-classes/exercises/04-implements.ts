@@ -505,11 +505,11 @@ const service = new UserService(logger);
 service.execute();
 
 console.log('\n--- 問題 11: Serializable ---');
-// const user = new User('太郎', 'taro@example.com');
-// const json = user.serialize();
-// console.log(json);
-// const restored = user.deserialize(json);
-// console.log(restored);
+const user = new User('太郎', 'taro@example.com');
+const json = user.serialize();
+console.log(json);
+const restored = user.deserialize(json);
+console.log(restored);
 
 console.log('\n--- 問題 12: ReadonlyPoint ---');
 // const point = new Point(3, 4);
