@@ -556,11 +556,11 @@ console.log(point.distanceFromOrigin());
 // point.x = 10; // Error
 
 console.log('\n--- 問題 13: StringMap ---');
-// const map = new HashMap();
-// map.set('name', '太郎');
-// map['age'] = '25';
-// console.log(map.get('name'));
-// console.log(map['age']);
+const map = new HashMap();
+map.set('name', '太郎');
+map['age'] = '25';
+console.log(map.get('name'));
+console.log(map['age']);
 
 console.log('\n--- 問題 14: Disposable ---');
 // const fileResource = new FileResource('config', '/etc/config.json');
