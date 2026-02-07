@@ -560,6 +560,8 @@ const map = new HashMap();
 map.set('name', '太郎');
 map['age'] = '25';
 console.log(map.get('name'));
+console.log(map.get('age'));
+console.log(map['name']);
 console.log(map['age']);
 
 console.log('\n--- 問題 14: Disposable ---');
