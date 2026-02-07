@@ -423,6 +423,27 @@ class Point implements ReadonlyPoint {
 
 // ここに実装
 
+interface StringMap {
+  [key: string]: string | ((key: string) => string | undefined) | ((key: string, value: string) => void);
+  get(key: string): string | undefined;
+  set(key: string, value: string): void;
+}
+
+class HashMap implements StringMap {
+  [key: string]: any;
+  private data: { [key: string]: string } = {};
+
+  get(key: string): string | undefined {
+    return this.data[key];
+  }
+
+  set(key: string, value: string): void {
+    this.data[key] = value;
+    this[key] = value; // インデックスアクセスを可能にする
+  }
+}
+
+
 
 /* 問題 14: インターフェースと継承の組み合わせ
  * インターフェース Disposable を作成してください。
