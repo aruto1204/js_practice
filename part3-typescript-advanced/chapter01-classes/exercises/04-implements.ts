@@ -505,7 +505,44 @@ class FileResource extends Resource {
  */
 
 // ここに実装
+interface Observer {
+  update(data: any): void;
+}
 
+interface Subject {
+  attach(observer: Observer): void;
+  detach(observer: Observer): void;
+  notify(data: any): void;
+}
+
+class NewsPublisher implements Subject {
+  private observers: Set<Observer> = new Set();
+
+  attach(observer: Observer): void {
+    this.observers.add(observer);
+    console.log('オブザーバーを追加しました');
+  }
+
+  detach(observer: Observer): void {
+    this.observers.delete(observer);
+    console.log('オブザーバーを削除しました');
+  }
+
+  notify(data: any): void {
+    console.log('すべてのオブザーバーに通知しています...');
+    for (const observer of this.observers) {
+      observer.update(data);
+    }
+  }
+}
+
+class NewsSubscriber implements Observer {
+  constructor(public name: string) {}
+
+  update(data: any): void {
+    console.log(`${this.name} が通知を受信: ${data}`);
+  }
+}
 
 // テストコード
 console.log('--- 問題 1: Printable ---');
