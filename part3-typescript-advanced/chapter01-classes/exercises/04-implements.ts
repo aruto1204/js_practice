@@ -590,8 +590,8 @@ console.log(map['name']);
 console.log(map['age']);
 
 console.log('\n--- 問題 14: Disposable ---');
-// const fileResource = new FileResource('config', '/etc/config.json');
-// fileResource.dispose();
+const fileResource = new FileResource('config', '/etc/config.json');
+fileResource.dispose();
 
 console.log('\n--- 問題 15: Observer & Subject ---');
 // const publisher = new NewsPublisher();
