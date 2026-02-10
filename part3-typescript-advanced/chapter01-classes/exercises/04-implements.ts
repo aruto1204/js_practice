@@ -460,6 +460,31 @@ class HashMap implements StringMap {
 
 // ここに実装
 
+interface Disposable {
+  dispose(): void;
+}
+
+class Resource implements Disposable {
+  constructor(protected name: string) {}
+
+  dispose(): void {
+    console.log(`Disposing ${this.name}`);
+  }
+}
+
+class FileResource extends Resource {
+  constructor(
+    name: string,
+    private filePath: string
+  ) {
+    super(name);
+  }
+
+  dispose(): void {
+    super.dispose();
+    console.log(`ファイルをクローズしています: ${this.filePath}`);
+  }
+}
 
 /* 問題 15: 高度なインターフェース実装
  * インターフェース Observer を作成してください。
