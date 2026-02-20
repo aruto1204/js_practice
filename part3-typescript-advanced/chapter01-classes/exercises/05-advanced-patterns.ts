@@ -282,11 +282,11 @@ class Document extends LoggableMixin(TimestampMixin(DocumentBase)) {}
 
 // テストコード
 console.log('--- 問題 1: Mixin ---');
-// const doc = new Document('重要な文書');
-// doc.log('作成しました');
-// setTimeout(() => {
-//   console.log(`経過時間: ${doc.getAge()}秒`);
-// }, 1000);
+const doc = new Document('重要な文書');
+doc.log('作成しました');
+setTimeout(() => {
+  console.log(`経過時間: ${doc.getAge()}秒`);
+}, 1000);
 
 console.log('\n--- 問題 2: Decorator ---');
 // const component = new ConcreteComponent();
