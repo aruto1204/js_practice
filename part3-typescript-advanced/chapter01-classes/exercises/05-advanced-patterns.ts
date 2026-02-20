@@ -19,7 +19,42 @@
 // ヒント: type Constructor<T = {}> = new (...args: any[]) => T;
 
 // ここに実装
+// コンストラクタの型定義
+type Constructor<T = {}> = new (...args: any[]) => T;
 
+// TimestampMixin: タイムスタンプ機能を追加するMixin
+function TimestampMixin<TBase extends Constructor>(Base: TBase) {
+  return class extends Base {
+    createdAt: Date;
+
+    constructor(...args: any[]) {
+      super(...args);
+      this.createdAt = new Date();
+    }
+
+    // 作成からの経過秒数を取得
+    getAge(): number {
+      return Math.floor((Date.now() - this.createdAt.getTime()) / 1000);
+    }
+  };
+}
+
+// LoggableMixin: ログ機能を追加するMixin
+function LoggableMixin<TBase extends Constructor>(Base: TBase) {
+  return class extends Base {
+    log(message: string): void {
+      console.log(`[LOG] ${message}`);
+    }
+  };
+}
+
+// 基底クラス
+class DocumentBase {
+  constructor(public content: string) {}
+}
+
+// 両方のMixinを適用したDocumentクラス
+class Document extends LoggableMixin(TimestampMixin(DocumentBase)) {}
 
 /* 問題 2: デコレータパターン（クラスベース）
  * インターフェース Component を作成してください。
@@ -38,7 +73,6 @@
 
 // ここに実装
 
-
 /* 問題 3: ビルダーパターン
  * User クラスを作成してください。
  * - プロパティ: name, email, age, address (すべて readonly)
@@ -54,7 +88,6 @@
 
 // ここに実装
 
-
 /* 問題 4: Chain of Responsibility パターン
  * 抽象クラス Handler を作成してください。
  * - プロパティ: protected next (Handler | null)
@@ -67,7 +100,6 @@
  */
 
 // ここに実装
-
 
 /* 問題 5: Strategy パターン
  * インターフェース SortStrategy を作成してください。
@@ -84,7 +116,6 @@
 
 // ここに実装
 
-
 /* 問題 6: State パターン
  * インターフェース State を作成してください。
  * - メソッド: handle(context: Context): void
@@ -99,7 +130,6 @@
  */
 
 // ここに実装
-
 
 /* 問題 7: Template Method パターン
  * 抽象クラス Game を作成してください。
@@ -117,7 +147,6 @@
 
 // ここに実装
 
-
 /* 問題 8: Prototype パターン
  * インターフェース Cloneable<T> を作成してください。
  * - メソッド: clone(): T
@@ -128,7 +157,6 @@
  */
 
 // ここに実装
-
 
 /* 問題 9: Adapter パターン
  * インターフェース MediaPlayer を作成してください。
@@ -144,7 +172,6 @@
  */
 
 // ここに実装
-
 
 /* 問題 10: Composite パターン
  * 抽象クラス FileSystemItem を作成してください。
@@ -164,7 +191,6 @@
 
 // ここに実装
 
-
 /* 問題 11: Proxy パターン
  * インターフェース Image を作成してください。
  * - メソッド: display(): void
@@ -181,7 +207,6 @@
  */
 
 // ここに実装
-
 
 /* 問題 12: Memento パターン
  * クラス EditorMemento を作成してください。
@@ -203,7 +228,6 @@
 
 // ここに実装
 
-
 /* 問題 13: Visitor パターン
  * インターフェース Visitor を作成してください。
  * - メソッド: visitCircle(circle: Circle): void
@@ -223,7 +247,6 @@
 
 // ここに実装
 
-
 /* 問題 14: Fluent Interface パターン
  * QueryBuilder クラスを作成してください。
  * - プロパティ: private table, fields, conditions, orderBy, limitValue
@@ -236,7 +259,6 @@
  */
 
 // ここに実装
-
 
 /* 問題 15: Dependency Injection パターン
  * インターフェース IDatabase を作成してください。
@@ -257,7 +279,6 @@
  */
 
 // ここに実装
-
 
 // テストコード
 console.log('--- 問題 1: Mixin ---');
