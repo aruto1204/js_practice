@@ -72,6 +72,39 @@ class Document extends LoggableMixin(TimestampMixin(DocumentBase)) {}
  */
 
 // ここに実装
+interface Component {
+  operation(): string;
+}
+
+// ConcreteComponent: 基本となる具体的なコンポーネント
+class ConcreteComponent implements Component {
+  operation(): string {
+    return '基本機能';
+  }
+}
+
+// Decorator: 抽象デコレータクラス
+abstract class Decorator implements Component {
+  constructor(protected component: Component) {}
+
+  operation(): string {
+    return this.component.operation();
+  }
+}
+
+// BoldDecorator: 太字装飾を追加するデコレータ
+class BoldDecorator extends Decorator {
+  operation(): string {
+    return `<b>${this.component.operation()}</b>`;
+  }
+}
+
+// ItalicDecorator: イタリック装飾を追加するデコレータ
+class ItalicDecorator extends Decorator {
+  operation(): string {
+    return `<i>${this.component.operation()}</i>`;
+  }
+}
 
 /* 問題 3: ビルダーパターン
  * User クラスを作成してください。
