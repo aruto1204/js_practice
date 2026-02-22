@@ -322,10 +322,10 @@ setTimeout(() => {
 }, 1000);
 
 console.log('\n--- 問題 2: Decorator ---');
-// const component = new ConcreteComponent();
-// const bold = new BoldDecorator(component);
-// const italic = new ItalicDecorator(bold);
-// console.log(italic.operation());
+const component = new ConcreteComponent();
+const bold = new BoldDecorator(component);
+const italic = new ItalicDecorator(bold);
+console.log(italic.operation());
 
 console.log('\n--- 問題 3: Builder ---');
 // const user = new UserBuilder()
