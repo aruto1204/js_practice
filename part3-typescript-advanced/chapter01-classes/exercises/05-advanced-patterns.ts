@@ -120,6 +120,53 @@ class ItalicDecorator extends Decorator {
  */
 
 // ここに実装
+class User {
+  // プライベートコンストラクタで直接生成を防ぐ
+  private constructor(
+    public readonly name: string,
+    public readonly email: string,
+    public readonly age: number,
+    public readonly address: string
+  ) {}
+
+  // ビルダーを返す静的ファクトリメソッド
+  static get builder(): UserBuilder {
+    return new UserBuilder();
+  }
+}
+
+// UserBuilder: Userオブジェクトを段階的に構築するビルダー
+class UserBuilder {
+  private name: string = '';
+  private email: string = '';
+  private age: number = 0;
+  private address: string = '';
+
+  setName(name: string): this {
+    this.name = name;
+    return this;
+  }
+
+  setEmail(email: string): this {
+    this.email = email;
+    return this;
+  }
+
+  setAge(age: number): this {
+    this.age = age;
+    return this;
+  }
+
+  setAddress(address: string): this {
+    this.address = address;
+    return this;
+  }
+
+  // 最終的なUserオブジェクトを構築
+  build(): User {
+    return new User(this.name, this.email, this.age, this.address);
+  }
+}
 
 /* 問題 4: Chain of Responsibility パターン
  * 抽象クラス Handler を作成してください。
