@@ -375,13 +375,13 @@ const italic = new ItalicDecorator(bold);
 console.log(italic.operation());
 
 console.log('\n--- 問題 3: Builder ---');
-// const user = new UserBuilder()
-//   .setName('太郎')
-//   .setEmail('taro@example.com')
-//   .setAge(25)
-//   .setAddress('東京都')
-//   .build();
-// console.log(user);
+const user = new UserBuilder()
+  .setName('太郎')
+  .setEmail('taro@example.com')
+  .setAge(25)
+  .setAddress('東京都')
+  .build();
+console.log(user);
 
 console.log('\n--- 問題 4: Chain of Responsibility ---');
 // const auth = new AuthHandler();
