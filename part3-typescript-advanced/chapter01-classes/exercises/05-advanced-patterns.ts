@@ -425,11 +425,11 @@ const user = new UserBuilder()
 console.log(user);
 
 console.log('\n--- 問題 4: Chain of Responsibility ---');
-// const auth = new AuthHandler();
-// const validation = new ValidationHandler();
-// const log = new LogHandler();
-// auth.setNext(validation).setNext(log);
-// console.log(auth.handle('リクエスト'));
+const auth = new AuthHandler();
+const validation = new ValidationHandler();
+const log = new LogHandler();
+auth.setNext(validation).setNext(log);
+console.log(auth.handle('リクエスト'));
 
 console.log('\n--- 問題 5: Strategy ---');
 // const sorter = new Sorter(new BubbleSort());
