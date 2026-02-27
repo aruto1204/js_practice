@@ -180,6 +180,47 @@ class UserBuilder {
  */
 
 // ここに実装
+// Handler: 抽象ハンドラクラス
+abstract class Handler {
+  protected next: Handler | null = null;
+
+  // 次のハンドラを設定
+  setNext(handler: Handler): Handler {
+    this.next = handler;
+    return handler; // チェーンを構築しやすいように次のハンドラを返す
+  }
+
+  // リクエストを処理（サブクラスで実装）
+  abstract handle(request: string): string | null;
+}
+
+// AuthHandler: 認証を処理するハンドラ
+class AuthHandler extends Handler {
+  handle(request: string): string | null {
+    if (request.includes('認証')) {
+      return '認証OK';
+    }
+    return this.next?.handle(request) ?? null;
+  }
+}
+
+// ValidationHandler: バリデーションを処理するハンドラ
+class ValidationHandler extends Handler {
+  handle(request: string): string | null {
+    if (request.includes('検証')) {
+      return 'バリデーションOK';
+    }
+    return this.next?.handle(request) ?? null;
+  }
+}
+
+// LogHandler: ログを処理するハンドラ
+class LogHandler extends Handler {
+  handle(request: string): string | null {
+    console.log(`ログ記録: ${request}`);
+    return 'ログ記録完了';
+  }
+}
 
 /* 問題 5: Strategy パターン
  * インターフェース SortStrategy を作成してください。
