@@ -236,6 +236,51 @@ class LogHandler extends Handler {
  */
 
 // ここに実装
+// SortStrategy: ソートアルゴリズムの共通インターフェース
+interface SortStrategy {
+  sort(data: number[]): number[];
+}
+
+// BubbleSort: バブルソートアルゴリズム
+class BubbleSort implements SortStrategy {
+  sort(data: number[]): number[] {
+    const arr = [...data]; // 元の配列を変更しない
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j < arr.length - 1 - i; j++) {
+        if (arr[j] > arr[j + 1]) {
+          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        }
+      }
+    }
+    return arr;
+  }
+}
+
+// QuickSort: クイックソートアルゴリズム
+class QuickSort implements SortStrategy {
+  sort(data: number[]): number[] {
+    if (data.length <= 1) return data;
+
+    const pivot = data[0];
+    const left = data.slice(1).filter((x) => x <= pivot);
+    const right = data.slice(1).filter((x) => x > pivot);
+
+    return [...this.sort(left), pivot, ...this.sort(right)];
+  }
+}
+
+// Sorter: ソート戦略を使用するコンテキスト
+class Sorter {
+  constructor(private strategy: SortStrategy) {}
+
+  setStrategy(strategy: SortStrategy): void {
+    this.strategy = strategy;
+  }
+
+  sort(data: number[]): number[] {
+    return this.strategy.sort(data);
+  }
+}
 
 /* 問題 6: State パターン
  * インターフェース State を作成してください。
