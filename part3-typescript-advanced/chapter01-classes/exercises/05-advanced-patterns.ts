@@ -477,10 +477,10 @@ auth.setNext(validation).setNext(log);
 console.log(auth.handle('リクエスト'));
 
 console.log('\n--- 問題 5: Strategy ---');
-// const sorter = new Sorter(new BubbleSort());
-// console.log(sorter.sort([3, 1, 4, 1, 5, 9]));
-// sorter.setStrategy(new QuickSort());
-// console.log(sorter.sort([3, 1, 4, 1, 5, 9]));
+const sorter = new Sorter(new BubbleSort());
+console.log(sorter.sort([3, 1, 4, 1, 5, 9]));
+sorter.setStrategy(new QuickSort());
+console.log(sorter.sort([3, 1, 4, 1, 5, 9]));
 
 console.log('\n--- 問題 6: State ---');
 // const context = new Context(new ConcreteStateA());
