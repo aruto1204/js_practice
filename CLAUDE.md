@@ -20,7 +20,7 @@ JavaScript の復習から TypeScript の習得までをカバーする段階的
 ## コードの実行方法
 
 - JavaScript ファイルの実行: `node filename.js`
-- TypeScript ファイルの実行: `npx ts-node filename.ts`
+- TypeScript ファイルの実行: `npx tsx filename.ts`
 - TypeScript のコンパイル: `npx tsc filename.ts`
 
 ## ディレクトリ構成
