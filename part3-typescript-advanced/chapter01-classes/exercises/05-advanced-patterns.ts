@@ -296,6 +296,39 @@ class Sorter {
  */
 
 // ここに実装
+// Context: 状態を保持し、リクエストを委譲するクラス
+class Context {
+  constructor(private state: State) {}
+
+  setState(state: State): void {
+    this.state = state;
+  }
+
+  request(): void {
+    this.state.handle(this);
+  }
+}
+
+// State: 状態の共通インターフェース
+interface State {
+  handle(context: Context): void;
+}
+
+// ConcreteStateA: 状態A
+class ConcreteStateA implements State {
+  handle(context: Context): void {
+    console.log('状態A: 状態Bに遷移します');
+    context.setState(new ConcreteStateB());
+  }
+}
+
+// ConcreteStateB: 状態B
+class ConcreteStateB implements State {
+  handle(context: Context): void {
+    console.log('状態B: 状態Aに遷移します');
+    context.setState(new ConcreteStateA());
+  }
+}
 
 /* 問題 7: Template Method パターン
  * 抽象クラス Game を作成してください。
