@@ -516,9 +516,9 @@ sorter.setStrategy(new QuickSort());
 console.log(sorter.sort([3, 1, 4, 1, 5, 9]));
 
 console.log('\n--- 問題 6: State ---');
-// const context = new Context(new ConcreteStateA());
-// context.request(); // StateA -> StateB
-// context.request(); // StateB -> StateA
+const context = new Context(new ConcreteStateA());
+context.request(); // StateA -> StateB
+context.request(); // StateB -> StateA
 
 console.log('\n--- 問題 7: Template Method ---');
 // const chess = new Chess();
