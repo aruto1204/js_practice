@@ -345,6 +345,50 @@ class ConcreteStateB implements State {
  */
 
 // ここに実装
+// Game: ゲームの抽象クラス
+abstract class Game {
+  // テンプレートメソッド: ゲームの流れを定義
+  play(): void {
+    this.initialize();
+    this.startPlay();
+    this.endPlay();
+  }
+
+  // 以下の抽象メソッドはサブクラスで実装
+  abstract initialize(): void;
+  abstract startPlay(): void;
+  abstract endPlay(): void;
+}
+
+// Chess: チェスゲーム
+class Chess extends Game {
+  initialize(): void {
+    console.log('チェス: ゲームを初期化します');
+  }
+
+  startPlay(): void {
+    console.log('チェス: ゲームを開始します');
+  }
+
+  endPlay(): void {
+    console.log('チェス: ゲームを終了します');
+  }
+}
+
+// Football: サッカーゲーム
+class Football extends Game {
+  initialize(): void {
+    console.log('サッカー: ゲームを初期化します');
+  }
+
+  startPlay(): void {
+    console.log('サッカー: ゲームを開始します');
+  }
+
+  endPlay(): void {
+    console.log('サッカー: ゲームを終了します');
+  }
+}
 
 /* 問題 8: Prototype パターン
  * インターフェース Cloneable<T> を作成してください。
