@@ -565,10 +565,10 @@ context.request(); // StateA -> StateB
 context.request(); // StateB -> StateA
 
 console.log('\n--- 問題 7: Template Method ---');
-// const chess = new Chess();
-// chess.play();
-// const football = new Football();
-// football.play();
+const chess = new Chess();
+chess.play();
+const football = new Football();
+football.play();
 
 console.log('\n--- 問題 8: Prototype ---');
 // const person1 = new Person('太郎', 25, { city: '東京', zip: '100-0001' });
