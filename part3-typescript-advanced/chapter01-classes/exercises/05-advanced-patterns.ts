@@ -592,10 +592,10 @@ const football = new Football();
 football.play();
 
 console.log('\n--- 問題 8: Prototype ---');
-// const person1 = new Person('太郎', 25, { city: '東京', zip: '100-0001' });
-// const person2 = person1.clone();
-// console.log(person1 === person2); // false
-// console.log(person1.address === person2.address); // false (deep copy)
+const person1 = new Person('太郎', 25, { city: '東京', zip: '100-0001' });
+const person2 = person1.clone();
+console.log(person1 === person2); // false
+console.log(person1.address === person2.address); // false (deep copy)
 
 console.log('\n--- 問題 9: Adapter ---');
 // const adapter = new MediaAdapter();
