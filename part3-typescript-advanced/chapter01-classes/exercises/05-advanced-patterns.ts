@@ -400,6 +400,27 @@ class Football extends Game {
  */
 
 // ここに実装
+interface Cloneable<T> {
+  clone(): T;
+}
+
+// Person: 複製可能な人物クラス
+class Person implements Cloneable<Person> {
+  constructor(
+    public name: string,
+    public age: number,
+    public address: { city: string; zip: string }
+  ) {}
+
+  // ディープコピーを実装
+  clone(): Person {
+    return new Person(
+      this.name,
+      this.age,
+      { ...this.address } // アドレスオブジェクトもコピー
+    );
+  }
+}
 
 /* 問題 9: Adapter パターン
  * インターフェース MediaPlayer を作成してください。
