@@ -436,6 +436,40 @@ class Person implements Cloneable<Person> {
  */
 
 // ここに実装
+// MediaPlayer: メディアプレイヤーの共通インターフェース
+interface MediaPlayer {
+  play(audioType: string, fileName: string): void;
+}
+
+// AdvancedMediaPlayer: 高度なメディアプレイヤー（既存のクラス）
+class AdvancedMediaPlayer {
+  playVlc(fileName: string): void {
+    console.log(`VLCで再生: ${fileName}`);
+  }
+
+  playMp4(fileName: string): void {
+    console.log(`MP4で再生: ${fileName}`);
+  }
+}
+
+// MediaAdapter: アダプタークラス
+class MediaAdapter implements MediaPlayer {
+  private advancedPlayer: AdvancedMediaPlayer;
+
+  constructor() {
+    this.advancedPlayer = new AdvancedMediaPlayer();
+  }
+
+  play(audioType: string, fileName: string): void {
+    if (audioType === 'vlc') {
+      this.advancedPlayer.playVlc(fileName);
+    } else if (audioType === 'mp4') {
+      this.advancedPlayer.playMp4(fileName);
+    } else {
+      console.log(`サポートされていない形式: ${audioType}`);
+    }
+  }
+}
 
 /* 問題 10: Composite パターン
  * 抽象クラス FileSystemItem を作成してください。
