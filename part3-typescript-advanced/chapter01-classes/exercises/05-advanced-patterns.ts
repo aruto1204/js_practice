@@ -632,9 +632,9 @@ console.log(person1 === person2); // false
 console.log(person1.address === person2.address); // false (deep copy)
 
 console.log('\n--- 問題 9: Adapter ---');
-// const adapter = new MediaAdapter();
-// adapter.play('vlc', 'movie.vlc');
-// adapter.play('mp4', 'video.mp4');
+const adapter = new MediaAdapter();
+adapter.play('vlc', 'movie.vlc');
+adapter.play('mp4', 'video.mp4');
 
 console.log('\n--- 問題 10: Composite ---');
 // const file1 = new File('file1.txt', 100);
