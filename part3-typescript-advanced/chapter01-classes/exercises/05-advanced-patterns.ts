@@ -675,12 +675,12 @@ adapter.play('vlc', 'movie.vlc');
 adapter.play('mp4', 'video.mp4');
 
 console.log('\n--- 問題 10: Composite ---');
-// const file1 = new File('file1.txt', 100);
-// const file2 = new File('file2.txt', 200);
-// const dir = new Directory('documents');
-// dir.add(file1);
-// dir.add(file2);
-// console.log(dir.getSize()); // 300
+const file1 = new File('file1.txt', 100);
+const file2 = new File('file2.txt', 200);
+const dir = new Directory('documents');
+dir.add(file1);
+dir.add(file2);
+console.log(dir.getSize()); // 300
 
 console.log('\n--- 問題 11: Proxy ---');
 // const proxy = new ProxyImage('large_image.jpg');
