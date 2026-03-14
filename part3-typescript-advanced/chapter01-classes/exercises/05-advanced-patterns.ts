@@ -488,6 +488,44 @@ class MediaAdapter implements MediaPlayer {
  */
 
 // ここに実装
+// FileSystemItem: ファイルシステムアイテムの抽象クラス
+abstract class FileSystemItem {
+  constructor(protected name: string) {}
+
+  getName(): string {
+    return this.name;
+  }
+
+  abstract getSize(): number;
+}
+
+// File: ファイル（リーフノード）
+class File extends FileSystemItem {
+  constructor(
+    name: string,
+    private size: number
+  ) {
+    super(name);
+  }
+
+  getSize(): number {
+    return this.size;
+  }
+}
+
+// Directory: ディレクトリ（コンポジットノード）
+class Directory extends FileSystemItem {
+  private children: FileSystemItem[] = [];
+
+  add(item: FileSystemItem): void {
+    this.children.push(item);
+  }
+
+  // 子要素のサイズの合計を返す
+  getSize(): number {
+    return this.children.reduce((total, child) => total + child.getSize(), 0);
+  }
+}
 
 /* 問題 11: Proxy パターン
  * インターフェース Image を作成してください。
