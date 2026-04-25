@@ -543,6 +543,40 @@ class Directory extends FileSystemItem {
  */
 
 // ここに実装
+// Image: 画像の共通インターフェース
+interface Image {
+  display(): void;
+}
+
+// RealImage: 実際の画像クラス
+class RealImage implements Image {
+  constructor(private fileName: string) {
+    this.loadFromDisk();
+  }
+
+  private loadFromDisk(): void {
+    console.log(`ディスクから読み込み: ${this.fileName}`);
+  }
+
+  display(): void {
+    console.log(`表示: ${this.fileName}`);
+  }
+}
+
+// ProxyImage: プロキシ画像クラス（遅延初期化）
+class ProxyImage implements Image {
+  private realImage: RealImage | null = null;
+
+  constructor(private fileName: string) {}
+
+  display(): void {
+    // 初回アクセス時にのみRealImageを生成
+    if (this.realImage === null) {
+      this.realImage = new RealImage(this.fileName);
+    }
+    this.realImage.display();
+  }
+}
 
 /* 問題 12: Memento パターン
  * クラス EditorMemento を作成してください。
