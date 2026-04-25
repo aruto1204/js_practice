@@ -717,9 +717,9 @@ dir.add(file2);
 console.log(dir.getSize()); // 300
 
 console.log('\n--- 問題 11: Proxy ---');
-// const proxy = new ProxyImage('large_image.jpg');
-// proxy.display(); // 初回: ロード + 表示
-// proxy.display(); // 2回目: 表示のみ
+const proxy = new ProxyImage('large_image.jpg');
+proxy.display(); // 初回: ロード + 表示
+proxy.display(); // 2回目: 表示のみ
 
 console.log('\n--- 問題 12: Memento ---');
 // const editor = new Editor();
