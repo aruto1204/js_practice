@@ -766,15 +766,15 @@ proxy.display(); // 初回: ロード + 表示
 proxy.display(); // 2回目: 表示のみ
 
 console.log('\n--- 問題 12: Memento ---');
-// const editor = new Editor();
-// const history = new History();
-// editor.write('Hello');
-// history.push(editor.save());
-// editor.write(' World');
-// console.log(editor.content); // "Hello World"
-// const memento = history.pop();
-// if (memento) editor.restore(memento);
-// console.log(editor.content); // "Hello"
+const editor = new Editor();
+const history = new History();
+editor.write('Hello');
+history.push(editor.save());
+editor.write(' World');
+console.log(editor.content); // "Hello World"
+const memento = history.pop();
+if (memento) editor.restore(memento);
+console.log(editor.content); // "Hello"
 
 console.log('\n--- 問題 13: Visitor ---');
 // const circle = new Circle(5);
