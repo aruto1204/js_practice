@@ -597,6 +597,50 @@ class ProxyImage implements Image {
  */
 
 // ここに実装
+// EditorMemento: エディタの状態を保存するメメント
+class EditorMemento {
+  constructor(private readonly _content: string) {}
+
+  get content(): string {
+    return this._content;
+  }
+}
+
+// Editor: エディタクラス
+class Editor {
+  private _content: string = '';
+
+  write(text: string): void {
+    this._content += text;
+  }
+
+  // 現在の状態を保存
+  save(): EditorMemento {
+    return new EditorMemento(this._content);
+  }
+
+  // メメントから状態を復元
+  restore(memento: EditorMemento): void {
+    this._content = memento.content;
+  }
+
+  get content(): string {
+    return this._content;
+  }
+}
+
+// History: メメントの履歴を管理
+class History {
+  private mementos: EditorMemento[] = [];
+
+  push(memento: EditorMemento): void {
+    this.mementos.push(memento);
+  }
+
+  pop(): EditorMemento | undefined {
+    return this.mementos.pop();
+  }
+}
 
 /* 問題 13: Visitor パターン
  * インターフェース Visitor を作成してください。
