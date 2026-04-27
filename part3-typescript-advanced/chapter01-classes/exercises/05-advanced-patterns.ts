@@ -660,6 +660,52 @@ class History {
  */
 
 // ここに実装
+// Shape: 図形の共通インターフェース
+interface Shape {
+  accept(visitor: Visitor): void;
+}
+
+// Visitor: 訪問者の共通インターフェース
+interface Visitor {
+  visitCircle(circle: Circle): void;
+  visitRectangle(rectangle: Rectangle): void;
+}
+
+// Circle: 円
+class Circle implements Shape {
+  constructor(public radius: number) {}
+
+  accept(visitor: Visitor): void {
+    visitor.visitCircle(this);
+  }
+}
+
+// Rectangle: 長方形
+class Rectangle implements Shape {
+  constructor(
+    public width: number,
+    public height: number
+  ) {}
+
+  accept(visitor: Visitor): void {
+    visitor.visitRectangle(this);
+  }
+}
+
+// AreaCalculator: 面積計算を行うビジター
+class AreaCalculator implements Visitor {
+  public totalArea: number = 0;
+
+  visitCircle(circle: Circle): void {
+    const area = Math.PI * circle.radius * circle.radius;
+    this.totalArea += area;
+  }
+
+  visitRectangle(rectangle: Rectangle): void {
+    const area = rectangle.width * rectangle.height;
+    this.totalArea += area;
+  }
+}
 
 /* 問題 14: Fluent Interface パターン
  * QueryBuilder クラスを作成してください。
