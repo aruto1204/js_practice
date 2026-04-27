@@ -823,12 +823,12 @@ if (memento) editor.restore(memento);
 console.log(editor.content); // "Hello"
 
 console.log('\n--- 問題 13: Visitor ---');
-// const circle = new Circle(5);
-// const rectangle = new Rectangle(4, 6);
-// const calculator = new AreaCalculator();
-// circle.accept(calculator);
-// rectangle.accept(calculator);
-// console.log(calculator.totalArea);
+const circle = new Circle(5);
+const rectangle = new Rectangle(4, 6);
+const calculator = new AreaCalculator();
+circle.accept(calculator);
+rectangle.accept(calculator);
+console.log(calculator.totalArea);
 
 console.log('\n--- 問題 14: Fluent Interface ---');
 // const query = new QueryBuilder()
