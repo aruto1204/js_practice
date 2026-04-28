@@ -16,6 +16,7 @@
 | [learning-guide.md](./learning-guide.md) | 学習ガイド | 学習者 |
 | [javascript-best-practices.md](./javascript-best-practices.md) | JavaScript ベストプラクティス | 学習者 |
 | [typescript-best-practices.md](./typescript-best-practices.md) | TypeScript ベストプラクティス | 学習者 |
+| [design-patterns-in-practice.md](./design-patterns-in-practice.md) | デザインパターン 実践活用ガイド | 学習者 |
 
 ---
 
@@ -68,6 +69,12 @@ TypeScript のコーディングベストプラクティスです。
 - ユニオン型と型ガード
 - ジェネリクス
 - ユーティリティ型の活用
+
+### 📐 [デザインパターン 実践活用ガイド](./design-patterns-in-practice.md)
+演習問題で学んだ15のデザインパターンを実際の開発でどう使うかをまとめています。
+- 各パターンの実際の使用場面とコード例
+- 採用しているライブラリ・フレームワーク
+- パターン選択の指針
 
 ---
 

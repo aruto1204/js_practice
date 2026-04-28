@@ -197,6 +197,11 @@
 
 ### 記録
 
+## 2026-04-28
+- **学習内容**: Part 3 Chapter 1 高度なパターン演習 (05-advanced-patterns.ts) の実践活用ガイドを作成
+- **作成ドキュメント**: docs/design-patterns-in-practice.md
+- **内容**: Mixin/Decorator/Builder/Chain of Responsibility/Strategy/State/Template Method/Prototype/Adapter/Composite/Proxy/Memento/Visitor/Fluent Interface/Dependency Injection の15パターンについて実際の使用場面・コード例・採用ライブラリをまとめた
+
 <!-- ここに日々の学習記録を追加していきます -->
 
 ---
