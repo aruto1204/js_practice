@@ -45,7 +45,6 @@ class DocumentBase {
 // 両方のMixinを適用したDocumentクラス
 class Document extends LoggableMixin(TimestampMixin(DocumentBase)) {}
 
-
 /* 問題 2: デコレータパターン（クラスベース）
  * Decoratorパターン: オブジェクトに動的に新しい機能を追加するパターン
  * 継承の代わりに、ラッパーを使って機能を拡張する
@@ -85,7 +84,6 @@ class ItalicDecorator extends Decorator {
     return `<i>${this.component.operation()}</i>`;
   }
 }
-
 
 /* 問題 3: ビルダーパターン
  * Builderパターン: 複雑なオブジェクトの生成プロセスを段階的に構築するパターン
@@ -141,7 +139,6 @@ class UserBuilder {
   }
 }
 
-
 /* 問題 4: Chain of Responsibility パターン
  * Chain of Responsibilityパターン: 複数のハンドラを連鎖させて処理を委譲するパターン
  * リクエストを処理できるハンドラが見つかるまで順番に試す
@@ -189,7 +186,6 @@ class LogHandler extends Handler {
   }
 }
 
-
 /* 問題 5: Strategy パターン
  * Strategyパターン: アルゴリズムをカプセル化し、実行時に切り替え可能にするパターン
  * 条件分岐の代わりに、異なる戦略クラスを使用する
@@ -221,8 +217,8 @@ class QuickSort implements SortStrategy {
     if (data.length <= 1) return data;
 
     const pivot = data[0];
-    const left = data.slice(1).filter(x => x <= pivot);
-    const right = data.slice(1).filter(x => x > pivot);
+    const left = data.slice(1).filter((x) => x <= pivot);
+    const right = data.slice(1).filter((x) => x > pivot);
 
     return [...this.sort(left), pivot, ...this.sort(right)];
   }
@@ -240,7 +236,6 @@ class Sorter {
     return this.strategy.sort(data);
   }
 }
-
 
 /* 問題 6: State パターン
  * Stateパターン: オブジェクトの状態に応じて振る舞いを変更するパターン
@@ -280,7 +275,6 @@ class ConcreteStateB implements State {
     context.setState(new ConcreteStateA());
   }
 }
-
 
 /* 問題 7: Template Method パターン
  * Template Methodパターン: アルゴリズムの骨組みを定義し、一部をサブクラスで実装するパターン
@@ -332,7 +326,6 @@ class Football extends Game {
   }
 }
 
-
 /* 問題 8: Prototype パターン
  * Prototypeパターン: 既存のオブジェクトを複製して新しいオブジェクトを生成するパターン
  * オブジェクトの生成コストが高い場合や、既存の設定を引き継ぎたい場合に有効
@@ -360,7 +353,6 @@ class Person implements Cloneable<Person> {
     );
   }
 }
-
 
 /* 問題 9: Adapter パターン
  * Adapterパターン: 互換性のないインターフェースを変換して使えるようにするパターン
@@ -402,7 +394,6 @@ class MediaAdapter implements MediaPlayer {
   }
 }
 
-
 /* 問題 10: Composite パターン
  * Compositeパターン: 部分と全体を同じように扱えるようにするパターン
  * ツリー構造を表現する際に、リーフとノードを統一的に扱える
@@ -421,7 +412,10 @@ abstract class FileSystemItem {
 
 // File: ファイル（リーフノード）
 class File extends FileSystemItem {
-  constructor(name: string, private size: number) {
+  constructor(
+    name: string,
+    private size: number
+  ) {
     super(name);
   }
 
@@ -443,7 +437,6 @@ class Directory extends FileSystemItem {
     return this.children.reduce((total, child) => total + child.getSize(), 0);
   }
 }
-
 
 /* 問題 11: Proxy パターン
  * Proxyパターン: オブジェクトへのアクセスを制御するパターン
@@ -484,7 +477,6 @@ class ProxyImage implements Image {
     this.realImage.display();
   }
 }
-
 
 /* 問題 12: Memento パターン
  * Mementoパターン: オブジェクトの状態を保存し、後で復元できるようにするパターン
@@ -536,7 +528,6 @@ class History {
   }
 }
 
-
 /* 問題 13: Visitor パターン
  * Visitorパターン: データ構造と操作を分離するパターン
  * 新しい操作を追加する際に、既存のクラスを変更せずに済む
@@ -564,7 +555,10 @@ class Circle implements Shape {
 
 // Rectangle: 長方形
 class Rectangle implements Shape {
-  constructor(public width: number, public height: number) {}
+  constructor(
+    public width: number,
+    public height: number
+  ) {}
 
   accept(visitor: Visitor): void {
     visitor.visitRectangle(this);
@@ -585,7 +579,6 @@ class AreaCalculator implements Visitor {
     this.totalArea += area;
   }
 }
-
 
 /* 問題 14: Fluent Interface パターン
  * Fluent Interfaceパターン: メソッドチェーンで読みやすいAPIを提供するパターン
@@ -645,7 +638,6 @@ class QueryBuilder {
   }
 }
 
-
 /* 問題 15: Dependency Injection パターン
  * Dependency Injectionパターン: 依存関係を外部から注入するパターン
  * クラス間の結合度を下げ、テストしやすいコードを実現する
@@ -695,7 +687,6 @@ class DIContainer {
     return service;
   }
 }
-
 
 // テストコード
 console.log('--- 問題 1: Mixin ---');
