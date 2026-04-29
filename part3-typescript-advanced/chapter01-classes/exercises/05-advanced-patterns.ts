@@ -883,15 +883,15 @@ rectangle.accept(calculator);
 console.log(calculator.totalArea);
 
 console.log('\n--- 問題 14: Fluent Interface ---');
-// const query = new QueryBuilder()
-//   .from('users')
-//   .select('id', 'name', 'email')
-//   .where('age > 20')
-//   .where('active = true')
-//   .orderBy('name', 'ASC')
-//   .limit(10)
-//   .build();
-// console.log(query);
+const query = new QueryBuilder()
+  .from('users')
+  .select('id', 'name', 'email')
+  .where('age > 20')
+  .where('active = true')
+  .orderBy('name', 'ASC')
+  .limit(10)
+  .build();
+console.log(query);
 
 console.log('\n--- 問題 15: Dependency Injection ---');
 // const db: IDatabase = { query: (sql) => [] };
