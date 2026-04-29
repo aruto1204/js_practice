@@ -719,6 +719,58 @@ class AreaCalculator implements Visitor {
  */
 
 // ここに実装
+// QueryBuilder: SQLクエリを構築するビルダー
+class QueryBuilder {
+  private table: string = '';
+  private fields: string[] = [];
+  private conditions: string[] = [];
+  private _orderBy: string = '';
+  private limitValue: number | null = null;
+
+  from(table: string): this {
+    this.table = table;
+    return this;
+  }
+
+  select(...fields: string[]): this {
+    this.fields = fields;
+    return this;
+  }
+
+  where(condition: string): this {
+    this.conditions.push(condition);
+    return this;
+  }
+
+  orderBy(field: string, direction: 'ASC' | 'DESC'): this {
+    this._orderBy = `${field} ${direction}`;
+    return this;
+  }
+
+  limit(value: number): this {
+    this.limitValue = value;
+    return this;
+  }
+
+  // SQL文字列を生成
+  build(): string {
+    let query = `SELECT ${this.fields.join(', ')} FROM ${this.table}`;
+
+    if (this.conditions.length > 0) {
+      query += ` WHERE ${this.conditions.join(' AND ')}`;
+    }
+
+    if (this._orderBy) {
+      query += ` ORDER BY ${this._orderBy}`;
+    }
+
+    if (this.limitValue !== null) {
+      query += ` LIMIT ${this.limitValue}`;
+    }
+
+    return query;
+  }
+}
 
 /* 問題 15: Dependency Injection パターン
  * インターフェース IDatabase を作成してください。
