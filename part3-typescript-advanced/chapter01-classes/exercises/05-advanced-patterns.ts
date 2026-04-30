@@ -791,6 +791,50 @@ class QueryBuilder {
  */
 
 // ここに実装
+// IDatabase: データベースの共通インターフェース
+interface IDatabase {
+  query(sql: string): any[];
+}
+
+// ILogger: ロガーの共通インターフェース
+interface ILogger {
+  log(message: string): void;
+}
+
+// UserService: ユーザーサービス（依存性を注入）
+class UserService {
+  constructor(
+    private database: IDatabase,
+    private logger: ILogger
+  ) {}
+
+  getUser(id: string): any {
+    this.logger.log(`ユーザーを取得: ${id}`);
+    return this.database.query(`SELECT * FROM users WHERE id = ${id}`);
+  }
+
+  createUser(name: string): void {
+    this.logger.log(`ユーザーを作成: ${name}`);
+    this.database.query(`INSERT INTO users (name) VALUES (${name})`);
+  }
+}
+
+// DIContainer: 依存性注入コンテナ
+class DIContainer {
+  private services: Map<string, any> = new Map();
+
+  register(name: string, instance: any): void {
+    this.services.set(name, instance);
+  }
+
+  get<T>(name: string): T {
+    const service = this.services.get(name);
+    if (!service) {
+      throw new Error(`サービスが見つかりません: ${name}`);
+    }
+    return service;
+  }
+}
 
 // テストコード
 console.log('--- 問題 1: Mixin ---');
