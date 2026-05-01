@@ -938,13 +938,13 @@ const query = new QueryBuilder()
 console.log(query);
 
 console.log('\n--- 問題 15: Dependency Injection ---');
-// const db: IDatabase = { query: (sql) => [] };
-// const logger: ILogger = { log: (msg) => console.log(msg) };
-// const container = new DIContainer();
-// container.register('database', db);
-// container.register('logger', logger);
-// const userService = new UserService(
-//   container.get<IDatabase>('database'),
-//   container.get<ILogger>('logger')
-// );
-// userService.createUser('太郎');
+const db: IDatabase = { query: (sql) => [] };
+const logger: ILogger = { log: (msg) => console.log(msg) };
+const container = new DIContainer();
+container.register('database', db);
+container.register('logger', logger);
+const userService = new UserService(
+  container.get<IDatabase>('database'),
+  container.get<ILogger>('logger')
+);
+userService.createUser('太郎');
